@@ -8,19 +8,23 @@
         @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
 
         :root {
-            --bg-dark: #05050d;
-            --bg-mid: #0d0d20;
-            --gold: #f0c040;
-            --gold-soft: #ffd966;
-            --gold-glow: rgba(240, 192, 64, 0.45);
-            --red: #e63946;
-            --pink: #d6336c;
-            --purple: #6c5ce7;
-            --glass-bg: rgba(255, 255, 255, 0.045);
-            --glass-border: rgba(255, 255, 255, 0.09);
-            --glass-highlight: rgba(255, 255, 255, 0.14);
-            --text-main: #f0f0f5;
-            --text-sub: #8888a0;
+            --bg-1: #eaf2fb;
+            --bg-2: #d6e6f7;
+            --bg-3: #f5faff;
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-bg-strong: rgba(255, 255, 255, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.85);
+            --glass-shadow: rgba(100, 140, 190, 0.22);
+            --glass-highlight: rgba(255, 255, 255, 0.95);
+            --accent: #3b82c4;
+            --accent-deep: #1e5a96;
+            --accent-soft: #7eb3e0;
+            --gold: #e6b422;
+            --gold-soft: #f5d76e;
+            --imdb: #f5c518;
+            --text-main: #1a2c44;
+            --text-sub: #5a7290;
+            --text-light: #7d93ad;
         }
 
         * {
@@ -43,138 +47,251 @@
         body {
             font-family: 'Vazirmatn', sans-serif;
             background:
-                radial-gradient(circle at 50% -10%, #2a1a4a 0%, transparent 60%),
-                radial-gradient(circle at 100% 100%, #1a1a3e 0%, transparent 50%),
-                radial-gradient(circle at 0% 80%, #3e1a2a 0%, transparent 50%),
-                var(--bg-dark);
+                radial-gradient(circle at 20% 0%, #c8e0f5 0%, transparent 55%),
+                radial-gradient(circle at 85% 100%, #e8def5 0%, transparent 55%),
+                radial-gradient(circle at 50% 50%, #f8fcff 0%, transparent 70%),
+                linear-gradient(160deg, var(--bg-1), var(--bg-2) 60%, var(--bg-3));
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
+            position: relative;
         }
 
-        /* --- Instagram Gift Banner --- */
-        .gift-banner {
+        /* Soft floating background orbs */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::before {
+            top: -80px;
+            right: -60px;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, #a5c8e8, transparent 70%);
+            animation: float1 14s ease-in-out infinite;
+        }
+        body::after {
+            bottom: -100px;
+            left: -70px;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, #cfd8f0, transparent 70%);
+            animation: float2 18s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-25px, 30px); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -25px); }
+        }
+
+        /* ===== Glass utility ===== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid var(--glass-border);
+            box-shadow:
+                0 8px 32px var(--glass-shadow),
+                0 2px 8px rgba(100, 140, 190, 0.12),
+                inset 0 1px 0 var(--glass-highlight);
+        }
+
+        /* ===== Header / Instagram ===== */
+        .header-area {
             flex-shrink: 0;
-            margin: 10px 14px 0;
-            padding: 9px 14px;
-            border-radius: 14px;
-            background: linear-gradient(135deg, rgba(214, 51, 108, 0.15), rgba(108, 92, 231, 0.15));
-            border: 1px solid rgba(214, 51, 108, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            padding: 10px 14px 4px;
+            z-index: 5;
+            position: relative;
+        }
+
+        .ig-card {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 16px;
             text-decoration: none;
             color: var(--text-main);
-            transition: transform 0.2s ease;
+            transition: transform 0.25s ease;
             position: relative;
             overflow: hidden;
+            background: var(--glass-bg-strong);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid var(--glass-border);
+            box-shadow:
+                0 6px 24px var(--glass-shadow),
+                inset 0 1px 0 var(--glass-highlight);
         }
 
-        .gift-banner::before {
+        .ig-card::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,0.6) 50%, transparent 70%);
             transform: translateX(-100%);
-            animation: shine 3.5s ease-in-out infinite;
+            animation: shine 4s ease-in-out infinite;
         }
-
         @keyframes shine {
-            0%, 60% { transform: translateX(-100%); }
+            0%, 55% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
         }
 
-        .gift-banner:active {
+        .ig-card:active {
             transform: scale(0.97);
         }
 
-        .gift-banner .ig-icon {
-            width: 20px;
-            height: 20px;
+        .ig-avatar {
             flex-shrink: 0;
-            filter: drop-shadow(0 0 4px rgba(214, 51, 108, 0.6));
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            padding: 2.5px;
+            background: linear-gradient(135deg, #feda75 0%, #fa7e1e 30%, #d62976 60%, #962fbf 100%);
+            position: relative;
         }
 
-        .gift-banner .gift-text {
-            font-size: 0.78rem;
-            font-weight: 700;
+        .ig-avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b8d4ee, #e0d0f5);
             display: flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            overflow: hidden;
+            border: 1.5px solid rgba(255,255,255,0.9);
+            position: relative;
         }
 
-        .gift-banner .gift-label {
-            color: #ffb8d4;
-            font-weight: 400;
-            font-size: 0.72rem;
+        .ig-avatar-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .gift-banner .gift-user {
-            background: linear-gradient(90deg, #ffd966, #ff8fb3);
+        .ig-avatar-inner .ig-fallback {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #d62976, #962fbf);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            inset: 0;
+        }
+
+        .ig-info {
+            flex: 1;
+            text-align: right;
+            min-width: 0;
+        }
+
+        .ig-line1 {
+            font-size: 0.68rem;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .ig-username {
+            font-size: 0.92rem;
+            font-weight: 900;
+            direction: ltr;
+            text-align: right;
+            background: linear-gradient(90deg, #d62976, #962fbf 60%, #3b82c4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-weight: 900;
-            font-size: 0.82rem;
-            direction: ltr;
         }
 
-        /* --- Title --- */
+        .ig-line3 {
+            font-size: 0.66rem;
+            color: var(--text-sub);
+            margin-top: 2px;
+        }
+
+        .ig-arrow {
+            flex-shrink: 0;
+            color: var(--accent);
+            font-size: 1rem;
+            opacity: 0.6;
+        }
+
+        /* ===== Title ===== */
         .app-title {
             flex-shrink: 0;
             text-align: center;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             font-weight: 900;
-            color: var(--gold);
-            text-shadow: 0 0 20px var(--gold-glow);
+            color: var(--accent-deep);
             padding: 10px 16px 6px;
-            letter-spacing: 0.3px;
+            letter-spacing: 0.2px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
         }
 
-        /* --- Tabs --- */
+        /* ===== Tabs ===== */
         .tabs {
             flex-shrink: 0;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             padding: 4px 14px 10px;
+            position: relative;
+            z-index: 5;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 10px;
+            padding: 10px 6px;
             border-radius: 12px;
             border: 1px solid var(--glass-border);
             background: var(--glass-bg);
             color: var(--text-sub);
             font-family: inherit;
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+            backdrop-filter: blur(12px) saturate(150%);
+            -webkit-backdrop-filter: blur(12px) saturate(150%);
+            box-shadow: 0 2px 8px rgba(100,140,190,0.1), inset 0 1px 0 var(--glass-highlight);
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, rgba(240, 192, 64, 0.2), rgba(214, 51, 108, 0.15));
-            color: var(--gold);
-            border-color: rgba(240, 192, 64, 0.45);
-            box-shadow: 0 0 20px rgba(240, 192, 64, 0.18), inset 0 0 12px rgba(240,192,64,0.08);
+            background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(210,230,250,0.7));
+            color: var(--accent-deep);
+            border-color: rgba(255,255,255,1);
+            box-shadow:
+                0 4px 16px rgba(59, 130, 196, 0.22),
+                inset 0 1px 0 rgba(255,255,255,1);
+            transform: translateY(-1px);
         }
 
         .tab-btn:active { transform: scale(0.97); }
 
-        /* --- Tab Content --- */
+        /* ===== Tab content ===== */
         .tab-content {
             flex: 1;
             position: relative;
             overflow: hidden;
             min-height: 0;
+            z-index: 4;
         }
 
         .tab-panel {
@@ -197,7 +314,7 @@
             align-items: center;
         }
 
-        /* ========== WHEEL ========== */
+        /* ===== WHEEL ===== */
         .wheel-stage {
             position: relative;
             width: min(290px, 78vw);
@@ -209,33 +326,31 @@
             justify-content: center;
         }
 
-        /* Rotating outer ring */
         .outer-ring {
             position: absolute;
-            inset: 0;
+            inset: -3px;
             border-radius: 50%;
-            border: 2px dashed rgba(240, 192, 64, 0.25);
-            animation: rotateSlow 30s linear infinite;
+            border: 1.5px dashed rgba(59, 130, 196, 0.3);
+            animation: rotateSlow 40s linear infinite;
         }
 
         @keyframes rotateSlow {
             to { transform: rotate(360deg); }
         }
 
-        /* Glow aura */
         .wheel-stage::before {
             content: '';
             position: absolute;
-            inset: -12px;
+            inset: -14px;
             border-radius: 50%;
             background: conic-gradient(from 0deg,
-                rgba(240,192,64,0.35),
-                rgba(214,51,108,0.35),
-                rgba(108,92,231,0.35),
-                rgba(240,192,64,0.35));
-            filter: blur(22px);
-            opacity: 0.55;
-            animation: hueSpin 8s linear infinite;
+                rgba(126, 179, 224, 0.5),
+                rgba(180, 200, 240, 0.5),
+                rgba(230, 180, 34, 0.4),
+                rgba(126, 179, 224, 0.5));
+            filter: blur(24px);
+            opacity: 0.6;
+            animation: hueSpin 12s linear infinite;
             z-index: 0;
         }
 
@@ -243,19 +358,20 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Inner bezel */
         .wheel-bezel {
             position: relative;
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            padding: 5px;
-            background: radial-gradient(circle at 50% 50%, rgba(20,20,40,0.9), rgba(10,10,20,0.95));
-            border: 1px solid rgba(240, 192, 64, 0.35);
+            padding: 6px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.95), rgba(210,230,250,0.85));
+            border: 1.5px solid rgba(255, 255, 255, 0.95);
             box-shadow:
-                0 0 25px rgba(240, 192, 64, 0.15),
-                inset 0 0 30px rgba(0,0,0,0.9),
-                inset 0 2px 0 rgba(255,255,255,0.08);
+                0 10px 40px rgba(59, 130, 196, 0.25),
+                0 0 0 1px rgba(255,255,255,0.5),
+                inset 0 2px 6px rgba(255,255,255,0.9),
+                inset 0 -2px 6px rgba(100, 140, 190, 0.15);
             z-index: 1;
         }
 
@@ -263,16 +379,15 @@
             width: 100%;
             height: 100%;
             transform-origin: center;
-            transition: transform 3.8s cubic-bezier(0.15, 0.9, 0.2, 1);
+            transition: transform 3.9s cubic-bezier(0.15, 0.9, 0.2, 1);
             border-radius: 50%;
             display: block;
-            filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
+            filter: drop-shadow(0 2px 6px rgba(59, 130, 196, 0.2));
         }
 
-        /* Pointer */
         .wheel-pointer {
             position: absolute;
-            top: -8px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
             width: 0;
@@ -280,7 +395,7 @@
             border-left: 13px solid transparent;
             border-right: 13px solid transparent;
             border-top: 22px solid var(--gold);
-            filter: drop-shadow(0 4px 8px rgba(240, 192, 64, 0.9));
+            filter: drop-shadow(0 3px 8px rgba(230, 180, 34, 0.7));
             z-index: 10;
         }
 
@@ -293,7 +408,7 @@
             height: 16px;
             border-radius: 50%;
             background: radial-gradient(circle, #fff, var(--gold));
-            box-shadow: 0 0 18px var(--gold), 0 0 30px var(--gold-glow);
+            box-shadow: 0 0 18px var(--gold), 0 0 30px rgba(230, 180, 34, 0.5);
             animation: pulse 1.8s ease-in-out infinite;
         }
 
@@ -302,20 +417,19 @@
             50% { transform: scale(1.25); opacity: 0.75; }
         }
 
-        /* Center button */
         .spin-btn {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 74px;
-            height: 74px;
+            width: 76px;
+            height: 76px;
             border-radius: 50%;
-            border: 2px solid rgba(240, 192, 64, 0.6);
+            border: 2px solid rgba(255,255,255,0.95);
             background:
-                radial-gradient(circle at 30% 25%, rgba(255,255,255,0.15), transparent 60%),
-                linear-gradient(135deg, #2a1428, #1a0a18);
-            color: var(--gold);
+                radial-gradient(circle at 30% 25%, rgba(255,255,255,0.7), transparent 60%),
+                linear-gradient(135deg, #3b82c4, #1e5a96);
+            color: #fff;
             font-family: inherit;
             font-size: 0.72rem;
             font-weight: 900;
@@ -328,14 +442,16 @@
             gap: 2px;
             line-height: 1.1;
             box-shadow:
-                0 0 30px rgba(214, 51, 108, 0.4),
-                0 0 60px rgba(240, 192, 64, 0.2),
-                inset 0 0 15px rgba(240, 192, 64, 0.15);
+                0 8px 24px rgba(30, 90, 150, 0.4),
+                0 0 0 4px rgba(255,255,255,0.5),
+                inset 0 2px 6px rgba(255,255,255,0.4),
+                inset 0 -3px 6px rgba(0,0,0,0.15);
             transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.25);
         }
 
         .spin-btn .spin-icon {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             display: block;
             transition: transform 0.4s ease;
         }
@@ -343,12 +459,13 @@
         .spin-btn:active {
             transform: translate(-50%, -50%) scale(0.9);
             box-shadow:
-                0 0 50px rgba(214, 51, 108, 0.7),
-                0 0 90px rgba(240, 192, 64, 0.4);
+                0 6px 18px rgba(30, 90, 150, 0.5),
+                0 0 0 4px rgba(255,255,255,0.6),
+                inset 0 2px 6px rgba(255,255,255,0.5);
         }
 
         .spin-btn:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
         }
 
@@ -360,50 +477,64 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ========== RESULT ========== */
+        /* ===== RESULT / DETAIL CARDS with gentle wave ===== */
         .result {
             display: none;
             width: 100%;
             max-width: 430px;
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 14px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.55), inset 0 1px 0 var(--glass-highlight);
-            animation: slideUp 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             flex-shrink: 0;
             position: relative;
             overflow: hidden;
+            background: var(--glass-bg-strong);
+            backdrop-filter: blur(24px) saturate(170%);
+            -webkit-backdrop-filter: blur(24px) saturate(170%);
+            border: 1px solid var(--glass-border);
+            box-shadow:
+                0 12px 40px var(--glass-shadow),
+                inset 0 1px 0 var(--glass-highlight);
         }
 
-        .result::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 40%;
-            background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent);
-            pointer-events: none;
+        .result.show {
+            display: block;
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), gentleWave 7s ease-in-out 0.6s infinite;
         }
-
-        .result.show { display: block; }
 
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(28px) scale(0.96); }
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Show Detail Components */
+        /* Very gentle wave motion */
+        @keyframes gentleWave {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-3px) rotate(0.25deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(3px) rotate(-0.25deg); }
+        }
+
+        .result::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 45%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.5), transparent);
+            pointer-events: none;
+            border-radius: 22px 22px 0 0;
+        }
+
+        /* ===== Show detail components ===== */
         .poster-box {
             width: 100%;
             height: 300px;
-            border-radius: 14px;
+            border-radius: 16px;
             overflow: hidden;
-            background: #0f0f20;
+            background: linear-gradient(135deg, #d8e6f5, #eef5fb);
             margin-bottom: 12px;
             position: relative;
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: 0 4px 20px rgba(100, 140, 190, 0.2);
         }
 
         .poster-box img {
@@ -420,7 +551,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--text-sub);
+            color: var(--text-light);
             font-size: 2.8rem;
             gap: 8px;
         }
@@ -430,24 +561,47 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: linear-gradient(135deg, var(--gold), #ffb347);
-            color: #000;
+            background: linear-gradient(135deg, #3b82c4, #1e5a96);
+            color: #fff;
             font-weight: 900;
             font-size: 0.78rem;
-            padding: 4px 14px;
+            padding: 5px 14px;
             border-radius: 20px;
-            box-shadow: 0 4px 18px rgba(240, 192, 64, 0.55);
+            box-shadow: 0 4px 16px rgba(30, 90, 150, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
             z-index: 5;
+            border: 1px solid rgba(255,255,255,0.4);
         }
 
-        .show-title {
-            font-size: 1.2rem;
+        .imdb-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: linear-gradient(135deg, #f5c518, #e6b422);
+            color: #1a1a1a;
             font-weight: 900;
-            color: var(--gold);
-            margin-bottom: 3px;
-            text-shadow: 0 0 15px rgba(240, 192, 64, 0.25);
+            font-size: 0.72rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(245, 197, 24, 0.5), inset 0 1px 0 rgba(255,255,255,0.5);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid rgba(255,255,255,0.5);
+            direction: ltr;
+        }
+
+        .imdb-tag .star { font-size: 0.85rem; }
+        .imdb-tag .score { font-size: 0.82rem; }
+
+        .show-title {
+            font-size: 1.22rem;
+            font-weight: 900;
+            color: var(--accent-deep);
+            margin-bottom: 4px;
             position: relative;
             z-index: 2;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.6);
         }
 
         .show-year {
@@ -456,6 +610,7 @@
             margin-bottom: 10px;
             position: relative;
             z-index: 2;
+            font-weight: 700;
         }
 
         .info-grid {
@@ -468,16 +623,17 @@
         }
 
         .info-item {
-            background: rgba(0, 0, 0, 0.28);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 11px;
             padding: 8px 10px;
             text-align: right;
+            box-shadow: 0 2px 8px rgba(100, 140, 190, 0.08), inset 0 1px 0 rgba(255,255,255,1);
         }
 
         .info-item .lbl {
             font-size: 0.63rem;
-            color: var(--text-sub);
+            color: var(--text-light);
             margin-bottom: 2px;
         }
 
@@ -485,41 +641,44 @@
             font-size: 0.78rem;
             font-weight: 700;
             line-height: 1.4;
+            color: var(--text-main);
         }
 
         .desc-box {
-            background: rgba(0, 0, 0, 0.22);
+            background: rgba(255, 255, 255, 0.55);
             border-radius: 12px;
-            padding: 11px 13px;
-            font-size: 0.8rem;
-            line-height: 1.85;
-            color: #ccc;
-            border-right: 3px solid var(--gold);
+            padding: 12px 14px;
+            font-size: 0.82rem;
+            line-height: 1.9;
+            color: var(--text-main);
+            border-right: 3px solid var(--accent);
             text-align: right;
             position: relative;
             z-index: 2;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 2px 8px rgba(100, 140, 190, 0.08);
         }
 
         .special-box {
             display: none;
             align-items: flex-start;
             gap: 8px;
-            background: linear-gradient(135deg, rgba(240,192,64,0.08), rgba(214,51,108,0.06));
-            border: 1px solid rgba(240, 192, 64, 0.18);
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.85), rgba(255, 240, 200, 0.7));
+            border: 1px solid rgba(230, 180, 34, 0.35);
             border-radius: 12px;
-            padding: 9px 11px;
-            font-size: 0.76rem;
-            color: #e8c86a;
-            line-height: 1.7;
+            padding: 10px 12px;
+            font-size: 0.79rem;
+            color: #7a5a10;
+            line-height: 1.75;
             text-align: right;
-            margin-top: 9px;
+            margin-top: 10px;
             position: relative;
             z-index: 2;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(230, 180, 34, 0.1);
         }
         .special-box.show { display: flex; }
         .special-box .ic { font-size: 1.05rem; flex-shrink: 0; }
 
-        /* Loading */
+        /* ===== Loading ===== */
         .loading {
             display: none;
             flex-direction: column;
@@ -532,15 +691,15 @@
         .spinner {
             width: 34px;
             height: 34px;
-            border: 3px solid rgba(255,255,255,0.05);
-            border-top-color: var(--gold);
+            border: 3px solid rgba(59, 130, 196, 0.15);
+            border-top-color: var(--accent);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            box-shadow: 0 0 15px var(--gold-glow);
+            box-shadow: 0 0 15px rgba(59, 130, 196, 0.2);
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ========== LIST ========== */
+        /* ===== LIST ===== */
         #tab-list { padding-top: 0; }
 
         .search-wrap {
@@ -548,27 +707,29 @@
             top: 0;
             z-index: 10;
             padding: 4px 0 10px;
-            background: linear-gradient(180deg, var(--bg-dark) 65%, transparent);
+            background: linear-gradient(180deg, rgba(234, 242, 251, 0.98) 55%, rgba(234, 242, 251, 0));
         }
 
         .search-input {
             width: 100%;
             padding: 11px 16px;
             border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass-bg);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: var(--text-main);
             font-family: inherit;
             font-size: 0.85rem;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
+            box-shadow: 0 2px 10px rgba(100, 140, 190, 0.12), inset 0 1px 0 rgba(255,255,255,1);
         }
-        .search-input::placeholder { color: var(--text-sub); }
+        .search-input::placeholder { color: var(--text-light); }
         .search-input:focus {
-            border-color: rgba(240, 192, 64, 0.5);
-            box-shadow: 0 0 18px rgba(240, 192, 64, 0.18);
+            border-color: var(--accent-soft);
+            box-shadow: 0 4px 20px rgba(59, 130, 196, 0.2), inset 0 1px 0 rgba(255,255,255,1);
+            background: rgba(255, 255, 255, 0.9);
         }
 
         .list-item {
@@ -576,35 +737,47 @@
             align-items: center;
             gap: 10px;
             padding: 11px 12px;
-            border-radius: 12px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            border-radius: 13px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             margin-bottom: 7px;
             cursor: pointer;
-            transition: all 0.15s ease;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            transition: all 0.2s ease;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 2px 10px rgba(100, 140, 190, 0.1), inset 0 1px 0 rgba(255,255,255,1);
+        }
+
+        .list-item:nth-child(odd) {
+            animation: gentleWave 8s ease-in-out infinite;
+        }
+        .list-item:nth-child(even) {
+            animation: gentleWave 8s ease-in-out -4s infinite;
+        }
+        .list-item:nth-child(3n) {
+            animation-delay: -2s;
         }
 
         .list-item:active {
-            background: rgba(240, 192, 64, 0.1);
-            border-color: rgba(240, 192, 64, 0.4);
-            transform: scale(0.99);
+            background: rgba(220, 235, 250, 0.9);
+            border-color: var(--accent-soft);
+            transform: scale(0.985);
         }
 
         .list-rank {
             flex-shrink: 0;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            background: rgba(240, 192, 64, 0.12);
-            color: var(--gold);
+            border-radius: 9px;
+            background: linear-gradient(135deg, #e6f0fa, #d4e5f5);
+            color: var(--accent-deep);
             font-weight: 900;
             font-size: 0.75rem;
-            border: 1px solid rgba(240, 192, 64, 0.22);
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,1);
         }
 
         .list-title {
@@ -618,10 +791,25 @@
             text-overflow: ellipsis;
         }
 
+        .list-imdb {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: linear-gradient(135deg, #f5c518, #e6b422);
+            color: #1a1a1a;
+            font-size: 0.65rem;
+            font-weight: 900;
+            padding: 3px 7px;
+            border-radius: 6px;
+            direction: ltr;
+            box-shadow: 0 2px 6px rgba(245, 197, 24, 0.3);
+        }
+
         .list-year {
             flex-shrink: 0;
-            font-size: 0.68rem;
-            color: var(--text-sub);
+            font-size: 0.66rem;
+            color: var(--text-light);
             direction: ltr;
         }
 
@@ -632,13 +820,148 @@
             font-size: 0.85rem;
         }
 
-        /* ========== MODAL ========== */
+        /* ===== ABOUT / IMDb ===== */
+        .about-section {
+            margin-bottom: 14px;
+        }
+
+        .about-card {
+            border-radius: 18px;
+            padding: 16px 16px;
+            margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            box-shadow: 0 6px 24px rgba(100, 140, 190, 0.14), inset 0 1px 0 rgba(255,255,255,1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card:nth-child(odd) {
+            animation: gentleWave 9s ease-in-out infinite;
+        }
+        .about-card:nth-child(even) {
+            animation: gentleWave 9s ease-in-out -4.5s infinite;
+        }
+
+        .about-card .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #e6f0fa, #d4e5f5);
+            border: 1px solid rgba(255,255,255,0.95);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 2px 8px rgba(100,140,190,0.12);
+        }
+
+        .about-card.imdb-card .card-icon {
+            background: linear-gradient(135deg, #f5c518, #e6b422);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 4px 12px rgba(245,197,24,0.35);
+        }
+
+        .about-card h2 {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--accent-deep);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .about-card p {
+            font-size: 0.82rem;
+            line-height: 1.95;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        .about-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .imdb-logo-big {
+            display: inline-block;
+            background: linear-gradient(135deg, #f5c518, #e6b422);
+            color: #1a1a1a;
+            font-weight: 900;
+            font-size: 0.85rem;
+            padding: 3px 10px;
+            border-radius: 6px;
+            direction: ltr;
+            box-shadow: 0 2px 8px rgba(245,197,24,0.35);
+            letter-spacing: 0.5px;
+        }
+
+        .rating-scale {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 10px 0;
+            direction: ltr;
+            justify-content: center;
+        }
+
+        .scale-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.9);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.15);
+        }
+        .scale-dot.red { background: #e63946; }
+        .scale-dot.orange { background: #f77f00; }
+        .scale-dot.yellow { background: #f5c518; }
+        .scale-dot.green { background: #6ab04c; }
+        .scale-dot.darkgreen { background: #2d6a4f; }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.62rem;
+            color: var(--text-light);
+            direction: ltr;
+            margin-bottom: 4px;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0;
+        }
+
+        .tips-list li {
+            font-size: 0.8rem;
+            line-height: 1.85;
+            color: var(--text-main);
+            padding: 6px 0 6px 0;
+            padding-right: 22px;
+            position: relative;
+            text-align: right;
+        }
+
+        .tips-list li::before {
+            content: '✦';
+            position: absolute;
+            right: 0;
+            top: 6px;
+            color: var(--accent);
+            font-size: 0.75rem;
+        }
+
+        /* ===== MODAL ===== */
         .modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.82);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(30, 60, 100, 0.35);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
             z-index: 1000;
             display: none;
             align-items: center;
@@ -658,15 +981,17 @@
             max-width: 430px;
             max-height: 88dvh;
             overflow-y: auto;
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 14px;
-            background: var(--glass-bg);
+            background: var(--glass-bg-strong);
+            backdrop-filter: blur(24px) saturate(170%);
+            -webkit-backdrop-filter: blur(24px) saturate(170%);
             border: 1px solid var(--glass-border);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.7), inset 0 1px 0 var(--glass-highlight);
+            box-shadow:
+                0 20px 60px rgba(30, 60, 100, 0.3),
+                inset 0 1px 0 var(--glass-highlight);
             position: relative;
-            animation: slideUp 0.32s ease;
+            animation: slideUp 0.35s ease, gentleWave 8s ease-in-out 0.4s infinite;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -679,16 +1004,18 @@
             width: 34px;
             height: 34px;
             border-radius: 50%;
-            border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.55);
-            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.85);
+            color: var(--accent-deep);
             font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: -34px;
+            box-shadow: 0 2px 10px rgba(100,140,190,0.2), inset 0 1px 0 rgba(255,255,255,1);
         }
         .modal-close:active { transform: scale(0.9); }
 
@@ -698,44 +1025,45 @@
             .spin-btn .spin-icon { font-size: 1.15rem; }
             .poster-box { height: 260px; }
             .show-title { font-size: 1.05rem; }
-            .app-title { font-size: 0.85rem; }
-            .tab-btn { font-size: 0.75rem; padding: 9px; }
-            .gift-banner .gift-text { font-size: 0.72rem; }
+            .app-title { font-size: 0.9rem; }
+            .tab-btn { font-size: 0.72rem; padding: 9px 4px; }
+            .ig-avatar { width: 42px; height: 42px; }
+            .ig-username { font-size: 0.85rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Instagram Gift -->
-    <a class="gift-banner" href="https://instagram.com/h.soligoo" target="_blank" rel="noopener noreferrer">
-        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="igGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#feda75"/>
-                    <stop offset="30%" stop-color="#fa7e1e"/>
-                    <stop offset="60%" stop-color="#d62976"/>
-                    <stop offset="100%" stop-color="#962fbf"/>
-                </linearGradient>
-            </defs>
-            <rect x="2" y="2" width="20" height="20" rx="6" stroke="url(#igGrad)" stroke-width="1.8"/>
-            <circle cx="12" cy="12" r="4.5" stroke="url(#igGrad)" stroke-width="1.8"/>
-            <circle cx="17.5" cy="6.5" r="1.2" fill="url(#igGrad)"/>
-        </svg>
-        <span class="gift-text">
-            <span class="gift-label">هدیه از طرف اینستاگرام:</span>
-            <span class="gift-user">h.soligoo</span>
-        </span>
-    </a>
+    <!-- Header: Instagram Card -->
+    <div class="header-area">
+        <a class="ig-card" href="https://instagram.com/h.soligoo" target="_blank" rel="noopener noreferrer">
+            <div class="ig-avatar">
+                <div class="ig-avatar-inner">
+                    <img src="https://unavatar.io/instagram/h.soligoo"
+                         alt="h.soligoo"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                    <div class="ig-fallback" style="display:none">H</div>
+                </div>
+            </div>
+            <div class="ig-info">
+                <div class="ig-line1">🎁 هدیه از طرف اینستاگرام</div>
+                <div class="ig-username">@h.soligoo</div>
+                <div class="ig-line3">برای دیدن پیج، لمس کن</div>
+            </div>
+            <div class="ig-arrow">↗</div>
+        </a>
+    </div>
 
     <div class="app-title">🎬 ۱۰۰ سریال برتر قرن ۲۱</div>
 
     <nav class="tabs">
         <button class="tab-btn active" data-tab="wheel">🎡 گردونه</button>
         <button class="tab-btn" data-tab="list">📋 لیست</button>
+        <button class="tab-btn" data-tab="about">💡 راهنما</button>
     </nav>
 
     <main class="tab-content">
-        <!-- Wheel Tab -->
+        <!-- WHEEL TAB -->
         <section id="tab-wheel" class="tab-panel active">
             <div class="wheel-stage">
                 <div class="outer-ring"></div>
@@ -759,16 +1087,83 @@
             </div>
         </section>
 
-        <!-- List Tab -->
+        <!-- LIST TAB -->
         <section id="tab-list" class="tab-panel">
             <div class="search-wrap">
                 <input type="text" class="search-input" id="searchInput" placeholder="🔍 جستجوی سریال..." autocomplete="off">
             </div>
             <div id="listContainer"></div>
         </section>
+
+        <!-- ABOUT TAB -->
+        <section id="tab-about" class="tab-panel">
+            <div class="about-section">
+                <div class="about-card imdb-card">
+                    <div class="card-icon">⭐</div>
+                    <h2>امتیاز IMDb چیست؟</h2>
+                    <p>
+                        <span class="imdb-logo-big">IMDb</span> بزرگ‌ترین پایگاه داده‌ی فیلم و سریال در جهان است.
+                        هر سریال از <b>۱ تا ۱۰</b> امتیاز می‌گیرد؛ امتیازی که حاصل رأی میلیون‌ها کاربر واقعی از سراسر دنیاست.
+                    </p>
+                    <div class="scale-labels">
+                        <span>1</span><span>5</span><span>10</span>
+                    </div>
+                    <div class="rating-scale">
+                        <span class="scale-dot red"></span>
+                        <span class="scale-dot orange"></span>
+                        <span class="scale-dot yellow"></span>
+                        <span class="scale-dot green"></span>
+                        <span class="scale-dot darkgreen"></span>
+                    </div>
+                    <p style="font-size: 0.78rem; color: var(--text-sub); margin-top: 4px;">
+                        <b style="color:#e63946">زیر ۶</b> = ضعیف &nbsp;•&nbsp;
+                        <b style="color:#f77f00">۶ تا ۷</b> = متوسط &nbsp;•&nbsp;
+                        <b style="color:#b8860b">۷ تا ۸</b> = خوب &nbsp;•&nbsp;
+                        <b style="color:#6ab04c">۸ تا ۹</b> = عالی &nbsp;•&nbsp;
+                        <b style="color:#2d6a4f">۹ به بالا</b> = شاهکار
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">🎯</div>
+                    <h2>امتیاز IMDb چه کمکی می‌کند؟</h2>
+                    <p>
+                        وقتی می‌خواهی یک سریال جدید شروع کنی، IMDb یک راهنمای سریع است:
+                        اگر امتیاز بالای <b>۸.۵</b> باشد، تقریباً مطمئن باش که وقتت هدر نمی‌رود.
+                        اگر بین <b>۷ تا ۸</b> باشد، بستگی به سلیقه‌ات دارد.
+                    </p>
+                    <p>
+                        البته یادت باشد که سلیقه‌ی هر کس متفاوت است؛ اما امتیاز IMDb معمولاً
+                        <b>کیفیت کلی</b> ساخت، بازیگری و فیلمنامه را نشان می‌دهد.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">💎</div>
+                    <h2>چطور از این گردونه استفاده کنم؟</h2>
+                    <ul class="tips-list">
+                        <li>روی دکمه‌ی <b>«بچرخون»</b> بزن تا یک سریال شانسی از بین ۱۰۰ سریال برتر انتخاب شود.</li>
+                        <li>روی تب <b>«لیست»</b> بزن تا همه‌ی ۱۰۰ سریال را ببینی و با جستجو سریع پیدا کنی.</li>
+                        <li>روی هر سریال بزن تا <b>پوستر، امتیاز IMDb، بازیگر، کشور و توضیحات</b> آن را ببینی.</li>
+                        <li>هر بار که می‌چرخانی، سریال‌های تکراری نمایش داده نمی‌شوند تا همه را ببینی!</li>
+                        <li>اگر همه‌ی ۱۰۰ سریال نمایش داده شدند، لیست به‌طور خودکار ریست می‌شود.</li>
+                    </ul>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">✨</div>
+                    <h2>نکته‌ی طلایی</h2>
+                    <p>
+                        سریال‌های <b>بریکینگ بد</b>، <b>چرنوبیل</b>، <b>بند آو برادرز</b> و <b>سیاره زمین</b>
+                        بالاترین امتیاز IMDb تاریخ تلویزیون را دارند (بالای <b>۹.۴</b>).
+                        اگر هیچ‌کدام را ندیدی، از همین‌ها شروع کن!
+                    </p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Detail Modal -->
+    <!-- MODAL -->
     <div class="modal" id="detailModal">
         <div class="modal-content">
             <button class="modal-close" id="modalClose">✕</button>
@@ -778,107 +1173,309 @@
 
 <script>
 // ========== DATA ==========
+// r:rank, t:title, y:year, g:genre, c:country, ba:best actor, v:viewership,
+// sp:special, d:description, imdb: rating
 const shows = [
-    {r:1,t:"Breaking Bad",y:"2008–2013",g:"جنایی، درام",c:"آمریکا",ba:"برایان کرانستون",v:"۱۰.۳ میلیون (فصل آخر)",sp:"برنده ۱۶ جایزه امی؛ اغلب بهترین سریال تاریخ تلویزیون نامیده می‌شود.",d:"والتر وایت، معلم شیمی دبیرستانی مبتلا به سرطان، برای تأمین آینده خانواده‌اش وارد دنیای تولید متامفتامین می‌شود و به تدریج به یک امپراتور بی‌رحم تبدیل می‌شود."},
-    {r:2,t:"The Wire",y:"2002–2008",g:"جنایی، درام اجتماعی",c:"آمریکا",ba:"دامینیک وست",v:"۴.۳ میلیون (اوج)",sp:"واقع‌گرایانه‌ترین سریال جنایی تاریخ؛ هر فصل یک نهاد اجتماعی را نقد می‌کند.",d:"نگاهی بی‌رحمانه به بالتیمور از دیدگاه پلیس، قاچاقچیان، سیستم آموزشی، رسانه‌ها و سیاستمداران."},
-    {r:3,t:"Mad Men",y:"2007–2015",g:"درام تاریخی",c:"آمریکا",ba:"جان هام",v:"۲–۳.۵ میلیون",sp:"برنده ۴ امی بهترین درام؛ اولین سریال کابلی که این جایزه را برد.",d:"داستان دان دراپر، مدیر خلاق آژانس تبلیغاتی در دهه ۱۹۶۰ نیویورک. بررسی هویت، جنسیت و تغییرات اجتماعی از دریچه دنیای تبلیغات."},
-    {r:4,t:"Succession",y:"2018–2023",g:"درام، کمدی سیاه",c:"آمریکا",ba:"جرمی استرانگ",v:"۲.۹ میلیون (فینال)",sp:"برنده امی بهترین درام؛ پیش‌بینی ۸۵۰ میلیون دلار درآمد برای HBO.",d:"خانواده روی، مالکان امپراتوری رسانه‌ای جهانی، بر سر جانشینی پدر سالخورده‌شان به رقابتی خشن و پر از خیانت می‌پردازند."},
-    {r:5,t:"Fleabag",y:"2016–2019",g:"کمدی سیاه",c:"بریتانیا",ba:"فیبی والر-بریج",v:"۲–۳ میلیون (بریتانیا)",sp:"برنده ۶ امی؛ شکستن دیوار چهارم به شکلی نوآورانه.",d:"زنی جوان، خشمگین و آسیب‌دیده در لندن، با شکستن دیوار چهارم مخاطب را به دنیای پر از اشتباه و جستجوی عشق خود دعوت می‌کند."},
-    {r:6,t:"Game of Thrones",y:"2011–2019",g:"فانتزی، درام",c:"آمریکا",ba:"پیتر دینکلیج",v:"۴۴ میلیون (فصل آخر)",sp:"برنده ۵۹ امی؛ پدیده فرهنگی جهانی.",d:"خاندان‌های نجیب وستروس برای تخت آهنین می‌جنگند، در حالی که تهدیدی باستانی از آن سوی دیوار بیدار می‌شود."},
-    {r:7,t:"Veep",y:"2012–2019",g:"کمدی سیاسی",c:"آمریکا",ba:"جولیا لوئیس-دریفوس",v:"۱–۲ میلیون",sp:"برنده ۱۷ امی؛ جولیا لوئیس-دریفوس رکورددار امی برای یک نقش.",d:"سلینا مایر، معاون رئیس‌جمهور آمریکا، در دنیای پر هرج و مرج سیاست واشنگتن تلاش می‌کند قدرت خود را حفظ کند."},
-    {r:8,t:"30 Rock",y:"2006–2013",g:"کمدی موقعیت",c:"آمریکا",ba:"تینا فی",v:"۴–۶ میلیون",sp:"برنده ۱۱ امی؛ کمدی پرسرعت با طنز لایه‌لایه.",d:"لیز لمون، نویسنده اصلی یک برنامه کمدی اسکچ، باید با ستاره‌های عجیب و غریب و رئیس بی‌عرضه‌اش کنار بیاید."},
-    {r:9,t:"Curb Your Enthusiasm",y:"2000–2024",g:"کمدی سیاه",c:"آمریکا",ba:"لری دیوید",v:"۱–۲ میلیون",sp:"بداهه‌پردازی در فیلمنامه؛ لری دیوید هر موقعیت اجتماعی را به فاجعه تبدیل می‌کند.",d:"لری دیوید، خالق سین‌فلد، نسخه داستانی از خودش را بازی می‌کند و با موقعیت‌های اجتماعی آزاردهنده دست و پنجه نرم می‌کند."},
-    {r:10,t:"Atlanta",y:"2016–2022",g:"کمدی-درام، سورئال",c:"آمریکا",ba:"دونالد گلاور",v:"۱–۲ میلیون",sp:"برنده امی و گلدن گلوب؛ روایت سورئال و تجربی از زندگی سیاه‌پوستان آمریکا.",d:"دو پسر عمو در آتلانتا تلاش می‌کنند در صنعت موسیقی رپ پیشرفت کنند و با چالش‌های نژادی و اجتماعی روبرو می‌شوند."},
-    {r:11,t:"The Office (U.S.)",y:"2005–2013",g:"کمدی موقعیت",c:"آمریکا",ba:"استیو کارل",v:"۴–۹ میلیون",sp:"یکی از محبوب‌ترین کمدی‌های تاریخ تلویزیون؛ پخش جهانی موفق.",d:"مستندی طنزآمیز از زندگی روزمره کارمندان یک شرکت توزیع کاغذ در پنسیلوانیا، به مدیریت مایکل اسکات."},
-    {r:12,t:"Arrested Development",y:"2003–2019",g:"کمدی",c:"آمریکا",ba:"جیسون بیتمن",v:"۴–۶ میلیون",sp:"کمدی پر از شوخی‌های پیچیده و ارجاعات داخلی.",d:"مایکل بلوث باید پس از دستگیری پدرش، خانواده به هم ریخته و خودشیفته‌اش را اداره کند."},
-    {r:13,t:"Girls",y:"2012–2017",g:"کمدی-درام",c:"آمریکا",ba:"لینا دانم",v:"۱–۲ میلیون",sp:"سریالی صادقانه درباره نسل هزاره.",d:"زندگی چهار زن جوان در نیویورک و مبارزات آن‌ها با عشق، کار و دوستی در دوران پس از فارغ‌التحصیلی."},
-    {r:14,t:"Friday Night Lights",y:"2006–2011",g:"درام ورزشی",c:"آمریکا",ba:"کایل چندلر",v:"۴–۶ میلیون",sp:"یکی از واقع‌گرایانه‌ترین تصویرهای زندگی آمریکایی.",d:"داستان یک تیم فوتبال دبیرستانی در تگزاس و تأثیر آن بر زندگی بازیکنان، مربیان و خانواده‌هایشان."},
-    {r:15,t:"Six Feet Under",y:"2001–2005",g:"درام",c:"آمریکا",ba:"پیتر کراوزه",v:"۴–۶ میلیون",sp:"سریالی درباره زندگی از دریچه مرگ.",d:"خانواده فیشر که یک سرویس تشییع جنازه را اداره می‌کنند، با مرگ، فقدان و پیچیدگی‌های روابط انسانی روبرو می‌شوند."},
-    {r:16,t:"The Office (U.K.)",y:"2001–2003",g:"کمدی",c:"بریتانیا",ba:"ریکی جرویز",v:"۲–۴ میلیون",sp:"مبدأ کمدی‌های مستندنما.",d:"نسخه اصلی بریتانیایی که زندگی کارمندان یک دفتر کاغذ در اسلاو را با مدیریت دیوید برنت به تصویر می‌کشد."},
-    {r:17,t:"The Americans",y:"2013–2018",g:"جاسوسی، درام",c:"آمریکا",ba:"کری راسل",v:"۱–۳ میلیون",sp:"سریالی درباره هویت، وفاداری و خانواده.",d:"دو جاسوس اتحاد جماهیر شوروی در دهه ۱۹۸۰ به عنوان یک زوج آمریکایی در واشنگتن دی‌سی زندگی می‌کنند."},
-    {r:18,t:"I May Destroy You",y:"2020",g:"درام",c:"بریتانیا",ba:"میکائلا کول",v:"۱–۲ میلیون",sp:"سریالی قدرتمند درباره رضایت و تروما.",d:"نویسنده‌ای جوان پس از یک تجاوز جنسی در یک کلوب، باید حقیقت را کشف کند و زندگی‌اش را بازسازی کند."},
-    {r:19,t:"Chernobyl",y:"2019",g:"درام تاریخی",c:"آمریکا/بریتانیا",ba:"جرد هریس",v:"۷–۸ میلیون",sp:"مینی‌سریالی تکان‌دهنده درباره فاجعه هسته‌ای.",d:"بازسازی دقیق فاجعه هسته‌ای چرنوبیل در سال ۱۹۸۶ و قهرمانانی که جان خود را برای جلوگیری از فاجعه‌ای بزرگ‌تر فدا کردند."},
-    {r:20,t:"The Crown",y:"2016–2023",g:"درام تاریخی",c:"بریتانیا",ba:"کلر فوی / اولیویا کولمن",v:"۳–۵ میلیون",sp:"سریالی پرهزینه و باشکوه درباره سلطنت.",d:"زندگی ملکه الیزابت دوم از دوران جوانی تا دوران مدرن و رویدادهای سیاسی و شخصی که سلطنت او را شکل داد."},
-    {r:21,t:"The White Lotus",y:"2021–present",g:"کمدی سیاه، درام",c:"آمریکا",ba:"جنیفر کولیج",v:"۱–۲ میلیون",sp:"هر فصل در یک لوکیشن جدید.",d:"مهمانان و کارکنان یک هتل لوکس را در طول یک هفته پر از رسوایی، راز و انحطاط دنبال می‌کند."},
-    {r:22,t:"Lost",y:"2004–2010",g:"علمی-تخیلی، درام",c:"آمریکا",ba:"متیو فاکس",v:"۱۰–۲۰ میلیون",sp:"سریالی پر از معما و فلاش‌بک.",d:"بازماندگان یک سقوط هواپیما در یک جزیره مرموز باید برای بقا تلاش کنند و رازهای جزیره را کشف کنند."},
-    {r:23,t:"The Comeback",y:"2005–2026",g:"کمدی",c:"آمریکا",ba:"لیزا کادرو",v:"۰.۵–۱ میلیون",sp:"کمدی درباره خودشیفتگی هالیوود.",d:"والری چریش، ستاره سابق تلویزیون، تلاش می‌کند تا با یک ریلیتی‌شو حرفه‌اش را احیا کند."},
-    {r:24,t:"Deadwood",y:"2004–2006",g:"وسترن",c:"آمریکا",ba:"یان مک‌شین",v:"۲–۳ میلیون",sp:"دیالوگ‌های شکسپیری و خشونت بی‌رحمانه.",d:"داستان شهر مرزی ددوود در داکوتای جنوبی و شخصیت‌های خشن و جاه‌طلبی که در آن زندگی می‌کنند."},
-    {r:25,t:"The Leftovers",y:"2014–2017",g:"درام، ماوراء طبیعی",c:"آمریکا",ba:"جاستین ثرو",v:"۱–۲ میلیون",sp:"سریالی درباره اندوه و ایمان.",d:"پس از ناپدید شدن ناگهانی ۲٪ از جمعیت جهان، بازماندگان در تلاش برای کنار آمدن با این فقدان هستند."},
-    {r:26,t:"Black Mirror",y:"2011–present",g:"علمی-تخیلی، آنتولوژی",c:"بریتانیا",ba:"متغیر",v:"۲–۵ میلیون",sp:"هر قسمت یک داستان مستقل.",d:"مجموعه‌ای آنتولوژیک که به بررسی تأثیرات تاریک فناوری بر جامعه مدرن می‌پردازد."},
-    {r:27,t:"Better Call Saul",y:"2015–2022",g:"جنایی، درام",c:"آمریکا",ba:"باب ادنکیرک",v:"۱–۲ میلیون",sp:"یکی از بهترین پیش‌درآمدهای تاریخ.",d:"پیش‌درآمدی بر Breaking Bad که داستان تبدیل شدن جیمی مک‌گیل به وکیل ساول گودمن را روایت می‌کند."},
-    {r:28,t:"Band of Brothers",y:"2001",g:"جنگی، درام",c:"آمریکا",ba:"دامینیک وست",v:"۵–۱۰ میلیون",sp:"مینی‌سریالی حماسی و تأثیرگذار.",d:"داستان گروهی از سربازان چترباز آمریکایی در جنگ جهانی دوم، از آموزش تا پایان جنگ."},
-    {r:29,t:"Key & Peele",y:"2012–2015",g:"کمدی اسکچ",c:"آمریکا",ba:"کیگان-مایکل کی",v:"۱–۲ میلیون",sp:"کمدی هوشمندانه و جسورانه.",d:"مجموعه‌ای از اسکچ‌های کمدی که اغلب به موضوعات نژادی، فرهنگی و اجتماعی می‌پردازد."},
-    {r:30,t:"Severance",y:"2022–present",g:"علمی-تخیلی، تریلر",c:"آمریکا",ba:"آدام اسکات",v:"۱–۲ میلیون",sp:"سریالی درباره هویت و کنترل شرکتی.",d:"کارمندان یک شرکت مرموز تحت عمل جراحی قرار می‌گیرند که خاطرات کاری و شخصی آن‌ها را جدا می‌کند."},
-    {r:31,t:"Survivor",y:"2000–present",g:"واقع‌نما",c:"آمریکا",ba:"جف پروبست",v:"۱۰–۲۰ میلیون",sp:"پدر همه ریلیتی‌شوها.",d:"مسابقه‌ای واقع‌نما که در آن شرکت‌کنندگان در یک جزیره دورافتاده برای جایزه بزرگ با هم رقابت می‌کنند."},
-    {r:32,t:"Andor",y:"2022–2025",g:"علمی-تخیلی",c:"آمریکا",ba:"دیه‌گو لونا",v:"۱–۳ میلیون",sp:"سریالی بالغ و سیاسی در دنیای جنگ ستارگان.",d:"داستان کاسیان اندور، جاسوس شورشی، در دوران پیش از فیلم Rogue One."},
-    {r:33,t:"Enlightened",y:"2011–2013",g:"کمدی-درام",c:"آمریکا",ba:"لورا درن",v:"۰.۲–۰.۵ میلیون",sp:"سریالی درباره تلاش برای بهتر شدن.",d:"زنی پس از یک فروپاشی روانی، تلاش می‌کند تا زندگی‌اش را تغییر دهد و به روشن‌بینی برسد."},
-    {r:34,t:"Schitt's Creek",y:"2015–2020",g:"کمدی",c:"کانادا",ba:"دنیل لوی",v:"۱–۲ میلیون",sp:"کمدی گرم و دلنشین.",d:"خانواده‌ای ثروتمند پس از ورشکستگی مجبور می‌شود در شهری کوچک زندگی کند."},
-    {r:35,t:"True Detective",y:"2014",g:"جنایی، درام",c:"آمریکا",ba:"متیو مک‌کانهی",v:"۲–۳ میلیون",sp:"سریالی تاریک و فلسفی (فصل اول).",d:"دو کارآگاه در طول ۱۷ سال به دنبال یک قاتل زنجیره‌ای در لوئیزیانا هستند."},
-    {r:36,t:"The Pitt",y:"2025–present",g:"درام پزشکی",c:"آمریکا",ba:"—",v:"—",sp:"سریالی واقع‌گرایانه درباره سیستم سلامت.",d:"درام پزشکی که زندگی پزشکان و پرستاران یک بخش اورژانس شلوغ را دنبال می‌کند."},
-    {r:37,t:"Battlestar Galactica",y:"2005–2009",g:"علمی-تخیلی",c:"آمریکا",ba:"ادوارد جیمز اولموس",v:"۱–۳ میلیون",sp:"سریالی درباره بقا، ایمان و سیاست.",d:"بازماندگان نسل‌کشی رباتیک‌ها در جستجوی خانه‌ای افسانه‌ای به نام زمین در فضا سرگردانند."},
-    {r:38,t:"Homeland",y:"2011–2020",g:"جاسوسی، تریلر",c:"آمریکا",ba:"کلر دینز",v:"۱–۲ میلیون",sp:"تریلهری پر از پیچش.",d:"یک مأمور CIA مشکوک است که یک سرباز آمریکایی که از اسارت بازگشته، به یک تروریست تبدیل شده است."},
-    {r:39,t:"Watchmen",y:"2019",g:"ابرقهرمانی، درام",c:"آمریکا",ba:"رجینا کینگ",v:"۱–۲ میلیون",sp:"سریالی جسورانه درباره نژاد و قدرت.",d:"دنباله‌ای بر رمان گرافیکی، در دنیایی که ابرقهرمانان به عنوان قانون‌شکن شناخته می‌شوند."},
-    {r:40,t:"Adolescence",y:"2025",g:"درام",c:"بریتانیا",ba:"—",v:"—",sp:"سریالی درباره خانواده و عدالت.",d:"داستان یک خانواده را دنبال می‌کند که زندگی‌شان با اتهام قتل به پسر ۱۳ ساله‌شان از هم می‌پاشد."},
-    {r:41,t:"Louie",y:"2010–2015",g:"کمدی-درام",c:"آمریکا",ba:"لویی سی‌کی",v:"۰.۵–۱ میلیون",sp:"کمدی تجربی و شخصی.",d:"لویی سی‌کی، کمدین، نسخه داستانی از خودش را در موقعیت‌های کمدی و دراماتیک بازی می‌کند."},
-    {r:42,t:"Hacks",y:"2021–2026",g:"کمدی-درام",c:"آمریکا",ba:"جین اسمارت",v:"۰.۵–۱ میلیون",sp:"کمدی درباره نسل‌ها و خلاقیت.",d:"یک کمدین افسانه‌ای لاس‌وگاس و یک نویسنده جوان و سرکش با همکاری هم سعی در احیای حرفه‌شان دارند."},
-    {r:43,t:"Peaky Blinders",y:"2013–2022",g:"جنایی، درام تاریخی",c:"بریتانیا",ba:"کیلیان مرفی",v:"۲–۴ میلیون",sp:"سریالی با سبک بصری خیره‌کننده.",d:"داستان خانواده شرور شلبی در بیرمنگام پس از جنگ جهانی اول و تلاش آن‌ها برای قدرت‌گیری."},
-    {r:44,t:"BoJack Horseman",y:"2014–2020",g:"پویانمایی، کمدی سیاه",c:"آمریکا",ba:"ویل آرنت",v:"۰.۵–۱ میلیون",sp:"عمیق‌ترین انیمیشن بزرگسالان.",d:"اسب انسان‌نمای افسرده و ستاره سابق سیتکام، در لس‌آنجلس با شهرت، اعتیاد و گذشته‌اش دست و پنجه نرم می‌کند."},
-    {r:45,t:"Happy Valley",y:"2014–2023",g:"جنایی، درام",c:"بریتانیا",ba:"سارا لانکاشیر",v:"۵–۸ میلیون",sp:"سریالی قدرتمند و بی‌رحمانه.",d:"یک گروهبان پلیس در یورکشایر غربی با پرونده‌های جنایی پیچیده و زندگی شخصی دشوارش روبرو می‌شود."},
-    {r:46,t:"Broad City",y:"2014–2019",g:"کمدی",c:"آمریکا",ba:"ایلانا گلیزر",v:"۰.۵–۱ میلیون",sp:"کمدی درباره دوستی و جوانی.",d:"دو دوست صمیمی در نیویورک ماجراجویی‌های کمدی و پوچ‌گرایانه‌ای را تجربه می‌کنند."},
-    {r:47,t:"Twin Peaks: The Return",y:"2017",g:"ماوراء طبیعی، درام",c:"آمریکا",ba:"کایل مک‌لاکلن",v:"۰.۵–۱ میلیون",sp:"دیوید لینچ در اوج خلاقیت.",d:"بازگشت دیل کوپر به شهر کوچک توین پیکس پس از ۲۵ سال و مواجهه با نیروهای ماوراء طبیعی."},
-    {r:48,t:"House of Cards",y:"2013–2018",g:"درام سیاسی",c:"آمریکا",ba:"کوین اسپیسی",v:"۲–۴ میلیون",sp:"سریالی که نتفلیکس را متحول کرد.",d:"فرانک آندروود، یک سیاستمدار بی‌رحم، برای رسیدن به قدرت مطلق در واشنگتن دی‌سی نقشه می‌کشد."},
-    {r:49,t:"Normal People",y:"2020",g:"عاشقانه، درام",c:"ایرلند",ba:"دیزایری بانسی",v:"۱–۲ میلیون",sp:"سریالی لطیف درباره عشق و کلاس اجتماعی.",d:"داستان پیچیده و صمیمی رابطه بین ماریان و کانل، از دبیرستان تا دانشگاه در ایرلند."},
-    {r:50,t:"Parks and Recreation",y:"2009–2015",g:"کمدی",c:"آمریکا",ba:"ایمی پولر",v:"۲–۴ میلیون",sp:"کمدی گرم و خوش‌بینانه.",d:"لسلی ناپ، کارمند بخش پارک‌ها و تفریحات، برای بهبود شهر پاونی، ایندیانا، تلاش می‌کند."},
-    {r:51,t:"The Good Place",y:"2016–2020",g:"کمدی، فانتزی",c:"آمریکا",ba:"کریستن بل",v:"۲–۴ میلیون",sp:"کمدی فلسفی درباره اخلاق.",d:"زنی پس از مرگ به اشتباه وارد بهشت می‌شود و سعی می‌کند ثابت کند جای او اینجاست."},
-    {r:52,t:"Downton Abbey",y:"2010–2015",g:"درام تاریخی",c:"بریتانیا",ba:"مگی اسمیت",v:"۸–۱۰ میلیون",sp:"سریالی باشکوه درباره طبقه و تغییر.",d:"زندگی خانواده اشرافی کرالی و خدمتکارانشان در عمارت داون‌تون در اوایل قرن بیستم."},
-    {r:53,t:"Stranger Things",y:"2016–2025",g:"علمی-تخیلی، ترسناک",c:"آمریکا",ba:"میلی بابی براون",v:"۱۰–۲۰ میلیون",sp:"پدیده فرهنگی نتفلیکس.",d:"گروهی از بچه‌ها در دهه ۱۹۸۰ با نیروهای فراطبیعی و آزمایش‌های مخفی دولتی روبرو می‌شوند."},
-    {r:54,t:"The Bureau",y:"2015–2020",g:"جاسوسی، درام",c:"فرانسه",ba:"متیو کاسوویتز",v:"۱–۲ میلیون",sp:"واقع‌گرایانه‌ترین سریال جاسوسی.",d:"داستان یک مأمور مخفی فرانسوی که پس از بازگشت از سوریه، با پیچیدگی‌های جاسوسی روبرو می‌شود."},
-    {r:55,t:"Insecure",y:"2016–2021",g:"کمدی-درام",c:"آمریکا",ba:"ایسا ری",v:"۰.۵–۱ میلیون",sp:"سریالی صادقانه درباره هویت.",d:"ایسا دی، زنی سیاه‌پوست در لس‌آنجلس، با چالش‌های شغلی، عاطفی و نژادی دست و پنجه نرم می‌کند."},
-    {r:56,t:"Nathan for You",y:"2013–2017",g:"کمدی، واقع‌نما",c:"آمریکا",ba:"ناتان فیلدر",v:"۰.۲–۰.۵ میلیون",sp:"کمدی آزاردهنده و نابغه.",d:"ناتان فیلدر با ایده‌های خلاقانه و اغلب مضحک به کسب‌وکارهای کوچک کمک می‌کند."},
-    {r:57,t:"I Think You Should Leave",y:"2019–present",g:"کمدی اسکچ",c:"آمریکا",ba:"تیم رابینسون",v:"۰.۵–۱ میلیون",sp:"کمدی برای طرفداران طنز غیرمتعارف.",d:"مجموعه‌ای از اسکچ‌های کمدی سورئال و آزاردهنده که توسط تیم رابینسون نوشته شده است."},
-    {r:58,t:"Chappelle's Show",y:"2003–2006",g:"کمدی اسکچ",c:"آمریکا",ba:"دیو شپل",v:"۲–۳ میلیون",sp:"یکی از تأثیرگذارترین کمدی‌های اسکچ.",d:"دیو شپل با اسکچ‌های طنز تند و بی‌پرده به مسائل نژادی، سیاست و فرهنگ عامه می‌پردازد."},
-    {r:59,t:"PEN15",y:"2019–2021",g:"کمدی",c:"آمریکا",ba:"مایا ارسکین",v:"۰.۲–۰.۵ میلیون",sp:"کمدی دردناک و خنده‌دار.",d:"دو زن ۳۰ ساله نقش نوجوانان ۱۳ ساله را بازی می‌کنند و سختی‌های دوران راهنمایی را به تصویر می‌کشند."},
-    {r:60,t:"Peep Show",y:"2003–2015",g:"کمدی",c:"بریتانیا",ba:"دیوید میچل",v:"۱–۲ میلیون",sp:"کمدی منحصربه‌فرد.",d:"مارک و جز، دو هم‌خانه بسیار متفاوت، از دیدگاه اول‌شخص، زندگی و روابط ناکام خود را روایت می‌کنند."},
-    {r:61,t:"RuPaul's Drag Race",y:"2009–present",g:"واقع‌نما",c:"آمریکا",ba:"روپاول",v:"۰.۵–۱ میلیون",sp:"پدیده فرهنگی دگرباشان.",d:"مسابقه‌ای واقع‌نما که در آن درگ‌کوئین‌ها برای عنوان سوپرمدل درگ بعدی آمریکا رقابت می‌کنند."},
-    {r:62,t:"Slow Horses",y:"2022–present",g:"جاسوسی، تریلر",c:"بریتانیا",ba:"گری اولدمن",v:"۱–۲ میلیون",sp:"گری اولدمن در اوج.",d:"تیمی از مأموران اطلاعاتی بریتانیایی که به دلیل اشتباهاتشان به بخشی حاشیه‌ای تبعید شده‌اند."},
-    {r:63,t:"The Thick of It",y:"2005–2012",g:"کمدی سیاسی",c:"بریتانیا",ba:"پیتر کاپالدی",v:"۱–۲ میلیون",sp:"دیالوگ‌های تند و بی‌رحمانه.",d:"کمدی سیاسی که پشت صحنه دولت بریتانیا و تلاش‌های ارتباطی آن را به تمسخر می‌گیرد."},
-    {r:64,t:"Anthony Bourdain: Parts Unknown",y:"2013–2018",g:"مستند",c:"آمریکا",ba:"آنتونی بوردین",v:"۰.۵–۱ میلیون",sp:"مستندی درباره انسانیت.",d:"آنتونی بوردین به کشورهای مختلف سفر می‌کند تا غذاهای محلی و فرهنگ آن‌ها را کشف کند."},
-    {r:65,t:"Mare of Easttown",y:"2021",g:"جنایی، درام",c:"آمریکا",ba:"کیت وینسلت",v:"۱–۲ میلیون",sp:"کیت وینسلت درخشان.",d:"کارآگاهی در یک شهر کوچک پنسیلوانیا در حالی که با زندگی شخصی‌اش دست و پنجه نرم می‌کند، یک قتل محلی را بررسی می‌کند."},
-    {r:66,t:"The Rehearsal",y:"2022–present",g:"کمدی، مستندنما",c:"آمریکا",ba:"ناتان فیلدر",v:"۰.۲–۰.۵ میلیون",sp:"کمدی فلسفی.",d:"ناتان فیلدر به افراد کمک می‌کند تا برای موقعیت‌های دشوار زندگی خود تمرین کنند."},
-    {r:67,t:"The Handmaid's Tale",y:"2017–2025",g:"دیستوپیایی، درام",c:"آمریکا",ba:"الیزابت ماس",v:"۱–۲ میلیون",sp:"سریالی هشداردهنده درباره قدرت.",d:"در یک جامعه دیستوپیایی، زنان بارور به عنوان خدمتکار برای طبقه حاکم استفاده می‌شوند."},
-    {r:68,t:"Ozark",y:"2017–2022",g:"جنایی، درام",c:"آمریکا",ba:"جیسون بیتمن",v:"۲–۴ میلیون",sp:"تریلهری تاریک.",d:"یک مشاور مالی مجبور می‌شود برای جبران بدهی‌اش، خانواده‌اش را به دریاچه‌های اوزارک منتقل کرده و پول‌شویی کند."},
-    {r:69,t:"Anthony Bourdain: No Reservations",y:"2005–2012",g:"مستند",c:"آمریکا",ba:"آنتونی بوردین",v:"۰.۵–۱ میلیون",sp:"مستندی درباره سفر و انسانیت.",d:"آنتونی بوردین در سفرهای خود به دور دنیا، غذاها و فرهنگ‌های متنوع را کشف می‌کند."},
-    {r:70,t:"The Shield",y:"2002–2008",g:"جنایی، درام",c:"آمریکا",ba:"مایکل چیکلیس",v:"۲–۳ میلیون",sp:"سریالی بی‌رحمانه.",d:"یک گروه ضربت پلیس فاسد در لس‌آنجلس، خط باریک بین قانون و جنایت را زیر پا می‌گذارد."},
-    {r:71,t:"Beef",y:"2023",g:"کمدی سیاه، درام",c:"آمریکا",ba:"استیون ین",v:"۱–۲ میلیون",sp:"سریالی درباره خشم و انتقام.",d:"یک حادثه جاده‌ای ساده بین دو غریبه به یک feud پیچیده و خطرناک تبدیل می‌شود."},
-    {r:72,t:"Squid Game",y:"2021–2025",g:"بقا، تریلر",c:"کره جنوبی",ba:"لی جونگ-جه",v:"۱۰–۲۰ میلیون",sp:"پدیده جهانی کره‌ای.",d:"افرادی با مشکلات مالی در بازی‌های کودکانه مرگبار برای شانس برنده شدن جایزه بزرگ شرکت می‌کنند."},
-    {r:73,t:"Barry",y:"2018–2023",g:"کمدی سیاه، جنایی",c:"آمریکا",ba:"بیل هیدر",v:"۰.۵–۱ میلیون",sp:"کمدی تاریک درباره هویت.",d:"یک قاتل حرفه‌ای افسرده در لس‌آنجلس تصمیم می‌گیرد بازیگر شود و زندگی‌اش را تغییر دهد."},
-    {r:74,t:"The Bear",y:"2022–2026",g:"کمدی-درام",c:"آمریکا",ba:"جرمی آلن وایت",v:"۱–۲ میلیون",sp:"سریالی پرهیجان درباره خانواده.",d:"یک سرآشپز جوان از دنیای آشپزی خوب به شیکاگو بازمی‌گردد تا ساندویچ‌فروشی خانوادگی‌اش را اداره کند."},
-    {r:75,t:"Ted Lasso",y:"2020–present",g:"کمدی-درام",c:"آمریکا",ba:"جیسون سودیکیس",v:"۱–۲ میلیون",sp:"کمدی گرم و امیدوارکننده.",d:"یک مربی فوتبال آمریکایی به لندن می‌رود تا یک تیم فوتبال انگلیسی را با وجود بی‌تجربگی‌اش هدایت کند."},
-    {r:76,t:"Somebody Somewhere",y:"2022–2024",g:"کمدی-درام",c:"آمریکا",ba:"بریجت اورت",v:"۰.۲–۰.۵ میلیون",sp:"سریالی لطیف درباره بهبودی.",d:"زنی در کانزاس پس از مرگ خواهرش، هویت و هدف خود را از طریق دوستی و آواز کشف می‌کند."},
-    {r:77,t:"Modern Family",y:"2009–2020",g:"کمدی",c:"آمریکا",ba:"اد او'نیل",v:"۸–۱۲ میلیون",sp:"یکی از موفق‌ترین سیتکام‌های تاریخ.",d:"مستندنمایی کمدی از زندگی سه خانواده مختلف که به هم مرتبط هستند."},
-    {r:78,t:"It's Always Sunny in Philadelphia",y:"2005–present",g:"کمدی سیاه",c:"آمریکا",ba:"دنی دویتو",v:"۰.۵–۱ میلیون",sp:"کمدی بی‌رحمانه.",d:"گروهی از دوستان خودخواه و ناکارآمد یک بار در فیلادلفیا را اداره می‌کنند و نقشه‌های احمقانه‌ای می‌کشند."},
-    {r:79,t:"The Good Wife",y:"2009–2016",g:"درام حقوقی",c:"آمریکا",ba:"جولینا مارگولیس",v:"۸–۱۲ میلیون",sp:"سریالی درباره قدرت و اخلاق.",d:"آلیشیا فلوریک، همسر یک سیاستمدار رسوا، پس از زندان همسرش به وکالت بازمی‌گردد."},
-    {r:80,t:"How To With John Wilson",y:"2020–2023",g:"مستند، کمدی",c:"آمریکا",ba:"جان ویلسون",v:"۰.۲–۰.۵ میلیون",sp:"مستندی شاعرانه.",d:"جان ویلسون، فیلم‌ساز مضطرب نیویورکی، با فیلم‌های مستند کوتاه و طنزآمیز به سوالات روزمره پاسخ می‌دهد."},
-    {r:81,t:"The Queen's Gambit",y:"2020",g:"درام",c:"آمریکا",ba:"آنیا تیلور-جوی",v:"۲–۳ میلیون",sp:"مینی‌سریالی درباره نبوغ و اعتیاد.",d:"بث هارمون، نابغه شطرنج یتیم، در دهه ۱۹۶۰ به یک استاد بزرگ شطرنج تبدیل می‌شود."},
-    {r:82,t:"Better Things",y:"2016–2022",g:"کمدی-درام",c:"آمریکا",ba:"پاملا آدلون",v:"۰.۲–۰.۵ میلیون",sp:"سریالی صادقانه درباره مادر بودن.",d:"سام فاکس، یک مادر مجرد و بازیگر، زندگی پیچیده‌اش را با سه دخترش مدیریت می‌کند."},
-    {r:83,t:"Justified",y:"2010–2015",g:"جنایی، وسترن",c:"آمریکا",ba:"تیموتی اولیفانت",v:"۲–۳ میلیون",sp:"دیالوگ‌های تند و جذاب.",d:"رایلان گیونز، مارشال آمریکایی، به زادگاهش در کنتاکی بازمی‌گردد و با جنایتکاران محلی روبرو می‌شود."},
-    {r:84,t:"Planet Earth",y:"2006",g:"مستند طبیعت",c:"بریتانیا",ba:"دیوید اتنبرو",v:"۵–۱۰ میلیون",sp:"مستندی بی‌نظیر.",d:"مجموعه‌ای مستند که شگفتی‌های طبیعی سیاره زمین را با تصاویری خیره‌کننده به نمایش می‌گذارد."},
-    {r:85,t:"The Great British Baking Show",y:"2010–present",g:"واقع‌نما",c:"بریتانیا",ba:"—",v:"۲–۴ میلیون",sp:"آرامش‌بخش‌ترین ریلیتی‌شو.",d:"مسابقه‌ای واقع‌نما که در آن نانوایان آماتور بریتانیایی برای عنوان بهترین نانوا با هم رقابت می‌کنند."},
-    {r:86,t:"Shogun",y:"2024–present",g:"درام تاریخی",c:"آمریکا",ba:"هیرویوکی سانادا",v:"۲–۳ میلیون",sp:"حماسی و باشکوه.",d:"داستان یک ملوان انگلیسی که در ژاپن فئودالی گرفتار می‌شود و به یک دایمیو قدرتمند تبدیل می‌شود."},
-    {r:87,t:"Reservation Dogs",y:"2021–2023",g:"کمدی-درام",c:"آمریکا",ba:"د'فارو وون-آ-تای",v:"۰.۲–۰.۵ میلیون",sp:"سریالی گرم و اصیل.",d:"چهار نوجوان بومی آمریکایی در اکلاهما برای رفتن به کالیفرنیا نقشه می‌کشند."},
-    {r:88,t:"Dexter",y:"2006–2013",g:"جنایی، درام",c:"آمریکا",ba:"مایکل سی. هال",v:"۲–۴ میلیون",sp:"سریالی درباره اخلاق.",d:"دکستر مورگان، یک کارشناس خون‌شناسی پلیس میامی، در پنهان یک قاتل زنجیره‌ای است که فقط مجرمان را می‌کشد."},
-    {r:89,t:"Baby Reindeer",y:"2024",g:"درام، تریلر",c:"بریتانیا",ba:"ریچارد گد",v:"۲–۳ میلیون",sp:"سریالی تکان‌دهنده.",d:"یک کمدین در حال شکست، پس از ملاقات با یک زن آسیب‌دیده، وارد رابطه‌ای خطرناک و وسواس‌گونه می‌شود."},
-    {r:90,t:"Eastbound & Down",y:"2009–2013",g:"کمدی",c:"آمریکا",ba:"دنی مک‌براید",v:"۰.۵–۱ میلیون",sp:"کمدی بی‌ادبانه و خنده‌دار.",d:"کنی پاورز، یک بازیکن سابق بیسبال، پس از اخراج از لیگ، تلاش می‌کند تا به شهرت بازگردد."},
-    {r:91,t:"Catastrophe",y:"2015–2019",g:"کمدی",c:"بریتانیا",ba:"شارون هورگان",v:"۰.۵–۱ میلیون",sp:"کمدی واقع‌گرایانه.",d:"یک زن آمریکایی و یک مرد ایرلندی پس از یک رابطه یک‌شبه، مجبور به کنار آمدن با بارداری می‌شوند."},
-    {r:92,t:"The Night Of",y:"2016",g:"جنایی، درام",c:"آمریکا",ba:"ریز احمد",v:"۱–۲ میلیون",sp:"مینی‌سریالی قدرتمند.",d:"یک دانشجو پس از یک شب مهمانی، بیدار می‌شود و جسد زنی را در کنار خود می‌بیند و متهم به قتل می‌شود."},
-    {r:93,t:"Station Eleven",y:"2021–2022",g:"پسا-آخرالزمانی",c:"آمریکا",ba:"مکنزی دیویس",v:"۰.۲–۰.۵ میلیون",sp:"سریالی شاعرانه.",d:"پس از یک بیماری همه‌گیر آنفولانزا، گروهی از بازیگران تئاتر در سراسر آمریکا سفر می‌کنند تا هنر را زنده نگه دارند."},
-    {r:94,t:"The Diplomat",y:"2023–present",g:"درام سیاسی",c:"آمریکا",ba:"کری راسل",v:"۱–۲ میلیون",sp:"تریلهری سیاسی.",d:"کیت وایلر، یک دیپلمات حرفه‌ای، به عنوان سفیر آمریکا در بریتانیا منصوب می‌شود و با بحران‌های بین‌المللی روبرو می‌شود."},
-    {r:95,t:"House",y:"2004–2012",g:"درام پزشکی",c:"آمریکا",ba:"هیو لوری",v:"۸–۱۲ میلیون",sp:"سریالی درباره نبوغ و درد.",d:"دکتر گرگوری هاوس، یک نابغه تشخیصی بداخلاق، تیمش را در حل موارد پزشکی پیچیده هدایت می‌کند."},
-    {r:96,t:"Halt and Catch Fire",y:"2014–2017",g:"درام تاریخی",c:"آمریکا",ba:"لی پیس",v:"۰.۵–۱ میلیون",sp:"سریالی درباره خلاقیت و جاه‌طلبی.",d:"داستان انقلاب کامپیوتر شخصی در دهه ۱۹۸۰ و افرادی که سعی در پیشی گرفتن از IBM دارند."},
-    {r:97,t:"Community",y:"2009–2015",g:"کمدی",c:"آمریکا",ba:"جوئل مک‌هیل",v:"۲–۴ میلیون",sp:"کمدی متا و خلاقانه.",d:"گروهی از دانشجویان یک کالج اجتماعی با پیشینه‌های متفاوت، ماجراجویی‌های عجیبی را تجربه می‌کنند."},
-    {r:98,t:"The OA",y:"2016–2019",g:"علمی-تخیلی، درام",c:"آمریکا",ba:"بریت مارلینگ",v:"۰.۵–۱ میلیون",sp:"سریالی جسورانه درباره ایمان و واقعیت.",d:"زنی پس از هفت سال مفقود بودن بازمی‌گردد و توانایی‌های مرموزی از خود نشان می‌دهد."},
-    {r:99,t:"Gilmore Girls",y:"2000–2007",g:"کمدی-درام",c:"آمریکا",ba:"لورن گرهم",v:"۴–۶ میلیون",sp:"سریالی گرم درباره خانواده و اجتماع.",d:"داستان رابطه نزدیک بین لورلای و دختر نوجوانش، روری، در شهر کوچک استارز هالو."},
-    {r:100,t:"Scandal",y:"2012–2018",g:"درام سیاسی",c:"آمریکا",ba:"کری واشینگتن",v:"۸–۱۰ میلیون",sp:"سریالی پرهیجان.",d:"اولیویا پوپ، یک متخصص بحران، به شخصیت‌های قدرتمند واشینگتن دی‌سی در پنهان کردن رازهایشان کمک می‌کند."}
+    {r:1,t:"Breaking Bad",y:"2008–2013",g:"جنایی، درام",c:"آمریکا",ba:"برایان کرانستون",v:"۱۰.۳ میلیون (فصل آخر)",imdb:9.5,
+     sp:"برنده ۱۶ جایزه امی و رکورددار گینس به‌عنوان «بزرگ‌ترین درام تاریخ». دیالوگ‌ها و شخصیت‌پردازی‌اش مرجع درس‌های فیلمنامه‌نویسی در جهان است.",
+     d:"یک معلم شیمی آرام و درون‌گرا، بعد از تشخیص سرطان ریه، تصمیم می‌گیرد برای تأمین آینده‌ی خانواده‌اش دست به کاری غیرقابل تصور بزند. اما هر قدمی که برمی‌دارد، او را از آن مرد ساده‌ی اولیه دورتر و به یک امپراتور تاریک نزدیک‌تر می‌کند. سفری نفس‌گیر از «انسان» به «افسانه»."},
+    {r:2,t:"The Wire",y:"2002–2008",g:"جنایی، درام اجتماعی",c:"آمریکا",ba:"دامینیک وست",v:"۴.۳ میلیون (اوج)",imdb:9.3,
+     sp:"منتقدان آن را «شکسپیر خیابان» لقب داده‌اند. هر فصل یک نهاد اجتماعی متفاوت (پلیس، مدارس، رسانه، سیاست) را کالبدشکافی می‌کند.",
+     d:"روایتی بی‌رحم و مستندگونه از شهری که در چرخه‌ی فساد، فقر و قدرت گیر افتاده. سریالی که تماشا کردنش شبیه خواندن یک رمان بزرگ قرن نوزدهمی است؛ پر از شخصیت‌های فراموش‌نشدنی و لحظه‌هایی که تا آخر عمر با تو می‌مانند."},
+    {r:3,t:"Mad Men",y:"2007–2015",g:"درام تاریخی",c:"آمریکا",ba:"جان هام",v:"۲–۳.۵ میلیون",imdb:8.7,
+     sp:"برنده ۴ جایزه‌ی امی بهترین درام؛ نخستین سریال کابلی که این جایزه را برد. طراحی لباس و فضاسازی دهه ۶۰ آن بی‌نظیر است.",
+     d:"در دنیای براق و فریبنده‌ی آژانس‌های تبلیغاتی نیویورک دهه‌ی ۱۹۶۰، مردی خوش‌لباس با گذشته‌ای پنهان، تلاش می‌کند هویت واقعی‌اش را از خودش هم مخفی نگه دارد. سریالی درباره‌ی نقاب‌هایی که همه‌ی ما به چهره می‌زنیم."},
+    {r:4,t:"Succession",y:"2018–2023",g:"درام، کمدی سیاه",c:"آمریکا",ba:"جرمی استرانگ",v:"۲.۹ میلیون (فینال)",imdb:8.9,
+     sp:"برنده‌ی امی بهترین درام و تحسین جهانی. موسیقی متن حماسی و بازی‌های درخشان آن، هر قسمت را به یک نمایش تئاتر تبدیل می‌کند.",
+     d:"یک خانواده‌ی ثروتمند و بی‌رحم که بر امپراتوری رسانه‌ای عظیمی حکومت می‌کند، بعد از پیر شدن پدر، وارد جنگ قدرت خونینی می‌شود. هیچ‌کس قابل اعتماد نیست و هیچ‌کس بی‌گناه. یک کمدی سیاه درخشان درباره‌ی حرص، قدرت و تنهایی."},
+    {r:5,t:"Fleabag",y:"2016–2019",g:"کمدی سیاه",c:"بریتانیا",ba:"فیبی والر-بریج",v:"۲–۳ میلیون (بریتانیا)",imdb:8.7,
+     sp:"برنده ۶ جایزه‌ی امی. شکستن دیوار چهارم آن به شیوه‌ای کاملاً نوآورانه، تماشاگر را تبدیل به یک همدست می‌کند.",
+     d:"زنی جوان، باهوش، زخم‌خورده و کمی خرابکار، با نگاه‌های معنادار به دوربین، مخاطب را به دنیای درونی پنهانش دعوت می‌کند. سریالی درباره‌ی شرم، فقدان و بزرگ‌ترین سؤال زندگی: آیا من سزاوار بخشیده شدن هستم؟"},
+    {r:6,t:"Game of Thrones",y:"2011–2019",g:"فانتزی، درام",c:"آمریکا",ba:"پیتر دینکلیج",v:"۴۴ میلیون (فصل آخر)",imdb:9.2,
+     sp:"برنده ۵۹ جایزه‌ی امی و پدیده‌ای فرهنگی در سراسر جهان. صحنه‌های نبرد و جلوه‌های ویژه‌ی آن سینما را به تلویزیون آوردند.",
+     d:"خاندان‌های اصیل سرزمین وستروس برای نشستن روی تخت آهنین به جان هم می‌افتند، غافل از آنکه آن‌سوی دیوار، سردی و تاریکی در حال بیدار شدن است. سریالی که مرز میان خیر و شر را کاملاً محو می‌کند."},
+    {r:7,t:"Veep",y:"2012–2019",g:"کمدی سیاسی",c:"آمریکا",ba:"جولیا لوئیس-دریفوس",v:"۱–۲ میلیون",imdb:8.4,
+     sp:"برنده ۱۷ جایزه‌ی امی؛ جولیا لوئیس-دریفوس رکورددار تاریخ امی برای یک نقش شد. دیالوگ‌های تند و رکیک سیاسی آن افسانه‌ای است.",
+     d:"معاون رئیس‌جمهور آمریکا، زنی جاه‌طلب و پرانرژی، در هزارتوی کثیف سیاست واشنگتن تلاش می‌کند خودش را بالاتر بکشد. اما هر قدمش به یک فاجعه‌ی خنده‌دار و آزاردهنده تبدیل می‌شود. یک کمدی سیاه درباره‌ی پوچی قدرت."},
+    {r:8,t:"30 Rock",y:"2006–2013",g:"کمدی موقعیت",c:"آمریکا",ba:"تینا فی",v:"۴–۶ میلیون",imdb:8.3,
+     sp:"برنده ۱۱ جایزه‌ی امی؛ سریالی که با سرعت طنز چندلایه‌اش، آدم را وادار به دیدن چندباره می‌کند. پر از شوخی‌های فرهنگی هوشمندانه.",
+     d:"نویسنده‌ی اصلی یک برنامه‌ی کمدی تلویزیونی، باید با ستاره‌های عجیب و غریب، رئیس بی‌عرضه و گروهی از نویسندگان دیوانه سر و کله بزند. نگاهی خنده‌دار و بی‌رحمانه به پشت صحنه‌ی صنعت سرگرمی."},
+    {r:9,t:"Curb Your Enthusiasm",y:"2000–2024",g:"کمدی سیاه",c:"آمریکا",ba:"لری دیوید",v:"۱–۲ میلیون",imdb:8.8,
+     sp:"بداهه‌پردازی تقریباً کامل بازیگران؛ لری دیوید در هر قسمت یک موقعیت اجتماعی ساده را به یک بحران آبزرود تبدیل می‌کند. طرفدارانش دیوانه‌وار عاشقش هستند.",
+     d:"لری دیوید (خالق سین‌فلد) نسخه‌ی تخیلی و کمی خودشیفته‌ی خودش را بازی می‌کند و در هر قسمت با سوءتفاهم‌های روزمره، روابط انسانی را به مرز انفجار می‌رساند. کمدی‌ای درباره‌ی آداب معاشرت و همه‌ی چیزهایی که هیچ‌کس نمی‌گوید."},
+    {r:10,t:"Atlanta",y:"2016–2022",g:"کمدی-درام، سورئال",c:"آمریکا",ba:"دونالد گلاور",v:"۱–۲ میلیون",imdb:8.6,
+     sp:"برنده‌ی امی و گلدن گلوب. روایتی کاملاً اورجینال و سورئال از زندگی سیاه‌پوستان آمریکایی؛ هر قسمت می‌تواند یک فیلم مستقل باشد.",
+     d:"دو پسرعمو در آتلانتا سعی می‌کنند در صنعت موسیقی رپ پول و شهرت به دست بیاورند؛ اما مسیرشان پر از اتفاق‌های عجیب، ترسناک و بامزه است. سریالی که واقعیت و توهم را چنان در هم می‌بافد که دیگر مطمئن نیستی کدام کدام است."},
+    {r:11,t:"The Office (U.S.)",y:"2005–2013",g:"کمدی موقعیت",c:"آمریکا",ba:"استیو کارل",v:"۴–۹ میلیون",imdb:9.0,
+     sp:"یکی از پرمخاطب‌ترین کمدی‌های تاریخ تلویزیون. نگاه‌های مایکل اسکات به دوربین به یک نماد فرهنگی تبدیل شده. پایان‌بندی آن اشک همه را درآورد.",
+     d:"مستندی طنزآمیز از زندگی روزمره‌ی کارمندان یک شرکت کاغذ در پنسیلوانیا. یک مدیر خودشیفته اما دوست‌داشتنی، عشق‌های پنهان و شیطنت‌های روزانه، این دفتر کوچک را به یکی از آشناترین جاهای تاریخ تلویزیون تبدیل کرده."},
+    {r:12,t:"Arrested Development",y:"2003–2019",g:"کمدی",c:"آمریکا",ba:"جیسون بیتمن",v:"۴–۶ میلیون",imdb:8.7,
+     sp:"پر از شوخی‌های پنهان و ارجاعات داخلی؛ هر بار که دوباره تماشا کنی، شوخی‌های جدیدی کشف می‌کنی که بار اول از دستشان دادی. کمدی برای باهوش‌ها.",
+     d:"مایکل بلوث بعد از دستگیری پدرش، مجبور می‌شود خانواده‌ی به‌هم‌ریخته، خودشیفته و غیرقابل کنترلش را جمع کند. سریالی که قوانین کمدی را بازنویسی کرد و نگاه‌های سریع به دوربین را به سطح جدیدی برد."},
+    {r:13,t:"Girls",y:"2012–2017",g:"کمدی-درام",c:"آمریکا",ba:"لینا دانم",v:"۱–۲ میلیون",imdb:7.3,
+     sp:"لینا دانم هم نویسنده، هم کارگردان و هم بازیگر اصلی است. سریالی که بحث‌های فراوانی درباره‌ی نسل هزاره و فمینیسم به راه انداخت.",
+     d:"چهار زن جوان در نیویورک، با تمام اشتباهات، خودخواهی‌ها و شکست‌هایشان، تلاش می‌کنند جای خودشان را در دنیای بزرگسالی پیدا کنند. سریالی صادقانه، آزاردهنده و درخشان درباره‌ی نسلی که هم‌زمان هم دوستش داری هم ازش متنفری."},
+    {r:14,t:"Friday Night Lights",y:"2006–2011",g:"درام ورزشی",c:"آمریکا",ba:"کایل چندلر",v:"۴–۶ میلیون",imdb:8.7,
+     sp:"منتقدان آن را «واقع‌گرایانه‌ترین تصویر از زندگی آمریکایی» نامیده‌اند. فیلمبرداری مستندگونه و موسیقی متن احساسی آن، جادویی است.",
+     d:"در یک شهر کوچک تگزاس، فوتبال دبیرستانی همه چیز است. سریالی درباره‌ی فشار، امید، خانواده و رؤیاهایی که گاهی به حقیقت می‌پیوندند و گاهی برای همیشه می‌شکنند. تماشای آن مثل نفس کشیدن در هوای یک شهر واقعی است."},
+    {r:15,t:"Six Feet Under",y:"2001–2005",g:"درام",c:"آمریکا",ba:"پیتر کراوزه",v:"۴–۶ میلیون",imdb:8.7,
+     sp:"پایان‌بندی آن اغلب «بهترین پایان‌بندی تاریخ تلویزیون» نامیده می‌شود. سریالی که درباره‌ی مرگ است اما به طرز عجیبی به زندگی می‌آموزد.",
+     d:"خانواده‌ی فیشر یک سرویس تشییع‌جنازه را اداره می‌کند و هر قسمت با یک مرگ شروع می‌شود. اما این مرگ‌ها فقط بهانه‌ای‌اند برای پرداختن به زندگی، عشق، رازها و زخم‌هایی که همه‌ی ما با خودمان حمل می‌کنیم."},
+    {r:16,t:"The Office (U.K.)",y:"2001–2003",g:"کمدی",c:"بریتانیا",ba:"ریکی جرویز",v:"۲–۴ میلیون",imdb:8.6,
+     sp:"نسخه‌ی اصلی که همه‌ی کمدی‌های «مستندنما» از آن الهام گرفتند. دیوید برنت یکی از غم‌انگیزترین و بامزه‌ترین شخصیت‌های تاریخ تلویزیون است.",
+     d:"زندگی کارمندان یک دفتر کوچک کاغذ در اسلاو، با مدیریت یک رئیس خودشیفته و کاملاً بی‌عرضه. سریالی کوچک و کوتاه، اما عمیقاً تأثیرگذار؛ نگاهی تلخ و بامزه به تنهایی انسان مدرن."},
+    {r:17,t:"The Americans",y:"2013–2018",g:"جاسوسی، درام",c:"آمریکا",ba:"کری راسل",v:"۱–۳ میلیون",imdb:8.4,
+     sp:"داستانی بر اساس واقعیت؛ دو جاسوس روسی که سال‌ها در آمریکا زندگی کردند. سریالی درباره‌ی هویت، وفاداری و خانواده که تا آخرین لحظه نفس‌گیر است.",
+     d:"دهه‌ی ۱۹۸۰، واشنگتن دی‌سی. یک زوج به‌ظاهر معمولی آمریکایی، در واقع دو جاسوس کا‌گ‌ب هستند. اما وقتی فرزندانشان بزرگ می‌شوند و واقعیت را می‌فهمند، مرز میان دشمن و خانواده کاملاً محو می‌شود. تریلری پر از تنش و درام انسانی."},
+    {r:18,t:"I May Destroy You",y:"2020",g:"درام",c:"بریتانیا",ba:"میکائلا کول",v:"۱–۲ میلیون",imdb:7.9,
+     sp:"میکائلا کول هم نوشت، هم کارگردانی کرد و هم نقش اصلی را بازی کرد. سریالی که با صداقت بی‌رحمانه‌اش درباره‌ی تروما، بحث‌های جهانی به راه انداخت.",
+     d:"نویسنده‌ای جوان بعد از یک شب بیرون رفتن، با خاطراتی تکه‌تکه و دردناک از خواب بیدار می‌شود. حالا باید حقیقت را کشف کند، با خودش روبرو شود و زندگی‌اش را از نو بسازد. سریالی تکان‌دهنده، باهوش و ضروری."},
+    {r:19,t:"Chernobyl",y:"2019",g:"درام تاریخی",c:"آمریکا/بریتانیا",ba:"جرد هریس",v:"۷–۸ میلیون",imdb:9.4,
+     sp:"مینی‌سریالی ۵ قسمتی که با دقتی باورنکردنی، فاجعه‌ی چرنوبیل را بازسازی کرد. برنده ۱۰ جایزه‌ی امی و یکی از بالاترین امتیازهای IMDb در تاریخ.",
+     d:"شب ۲۶ آوریل ۱۹۸۶، راکتور شماره ۴ نیروگاه چرنوبیل منفجر می‌شود. سریالی درباره‌ی شجاعت، دروغ و فداکاری انسان‌هایی که جانشان را دادند تا فاجعه‌ای بزرگ‌تر رخ ندهد. تماشای آن مثل خواندن یک گزارش واقعی از دل جهنم است."},
+    {r:20,t:"The Crown",y:"2016–2023",g:"درام تاریخی",c:"بریتانیا",ba:"کلر فوی / اولیویا کولمن",v:"۳–۵ میلیون",imdb:8.6,
+     sp:"پرهزینه‌ترین سریال تاریخ نتفلیکس در زمان خودش. طراحی لباس، دکور و بازی‌ها همه در سطح سینما. برنده‌ی ده‌ها جایزه‌ی امی و گلدن گلوب.",
+     d:"زندگی ملکه الیزابت دوم از دختری جوان که ناگهان ملکه می‌شود، تا زنی سالخورده که نیم قرن سلطنت کرده. سریالی باشکوه درباره‌ی قدرت، خانواده، تنهایی و بهایی که یک زن برای تاج و تختش پرداخت."},
+    {r:21,t:"The White Lotus",y:"2021–present",g:"کمدی سیاه، درام",c:"آمریکا",ba:"جنیفر کولیج",v:"۱–۲ میلیون",imdb:8.0,
+     sp:"هر فصل در یک هتل لوکس جدید و با بازیگران کاملاً متفاوت. کمدی سیاهی که طبقه‌ی ثروتمند و ریاکاری‌هایشان را با تیغ تیز نقد می‌کند.",
+     d:"مهمانان یک هتل لوکس، در طول یک هفته‌ی به‌ظاهر آرام، کم‌کم ماسک‌هایشان را برمی‌دارند و رازهای تاریکشان بیرون می‌زند. سریالی درباره‌ی پول، قدرت و زخم‌هایی که هیچ‌کس نمی‌بیند."},
+    {r:22,t:"Lost",y:"2004–2010",g:"علمی-تخیلی، درام",c:"آمریکا",ba:"متیو فاکس",v:"۱۰–۲۰ میلیون",imdb:8.3,
+     sp:"پدیده‌ی فرهنگی دهه‌ی ۲۰۰۰. معماهای پیچیده و فلاش‌بک‌های غیرخطی آن، تلویزیون را برای همیشه تغییر داد.",
+     d:"بازماندگان یک سقوط هواپیما در جزیره‌ای مرموز گرفتار می‌شوند که قوانینش با هیچ منطقی جور در نمی‌آید. هر قسمت یک راز جدید باز می‌کند و هر پاسخ، ده سؤال تازه به وجود می‌آورد. سریالی که یک نسل را معتاد خودش کرد."},
+    {r:23,t:"The Comeback",y:"2005–2026",g:"کمدی",c:"آمریکا",ba:"لیزا کادرو",v:"۰.۵–۱ میلیون",imdb:7.6,
+     sp:"لیزا کادرو (فیبی از فرندز) در نقشی کاملاً متفاوت. کمدی‌ای آزاردهنده درباره‌ی خودشیفتگی هالیوود و تلاش‌های ناشیانه برای برگشتن به اوج.",
+     d:"والری چریش، ستاره‌ی سابق تلویزیون، اجازه می‌دهد یک گروه فیلمبرداری همه‌ی لحظات زندگی‌اش را ضبط کند تا با یک ریلیتی‌شو به شهرت برگردد. کمدی‌ای که گاهی آنقدر خنده‌دار است که دردناک می‌شود."},
+    {r:24,t:"Deadwood",y:"2004–2006",g:"وسترن",c:"آمریکا",ba:"یان مک‌شین",v:"۲–۳ میلیون",imdb:8.6,
+     sp:"دیالوگ‌های شکسپیری و خشونت بی‌رحمانه. سریالی که تصویر رمانتیک غرب وحشی را کاملاً از بین می‌برد و واقعیت کثیف و بی‌قانون آن را نشان می‌دهد.",
+     d:"شهر مرزی ددوود در داکوتای جنوبی، جایی که قانون هنوز معنا ندارد و هر کس برای خودش شکار می‌کند. شخصیت‌های خشن، فرصت‌طلب و گاهی به‌طرز عجیبی انسانی، در این گل‌آلودترین شهر غرب، برای بقا می‌جنگند."},
+    {r:25,t:"The Leftovers",y:"2014–2017",g:"درام، ماوراء طبیعی",c:"آمریکا",ba:"جاستین ثرو",v:"۱–۲ میلیون",imdb:8.3,
+     sp:"سریالی درباره‌ی اندوه، ایمان و جستجوی معنا. پایان‌بندی آن یکی از بحث‌برانگیزترین و زیباترین پایان‌بندی‌های تاریخ تلویزیون است.",
+     d:"یک روز، ۲٪ از جمعیت جهان بدون هیچ توضیحی ناپدید می‌شوند. سریالی درباره‌ی کسانی که مانده‌اند و نمی‌دانند چطور باید با این فقدان عظیم کنار بیایند. سفری عمیق و شاعرانه به دل تاریکی و نور انسان."},
+    {r:26,t:"Black Mirror",y:"2011–present",g:"علمی-تخیلی، آنتولوژی",c:"بریتانیا",ba:"متغیر",v:"۲–۵ میلیون",imdb:8.7,
+     sp:"هر قسمت یک داستان کاملاً مستقل با بازیگران متفاوت. سریالی که به‌طرز هشداردهنده‌ای آینده‌ی فناوری و تأثیرش بر انسان را پیش‌بینی می‌کند.",
+     d:"آینه‌ای سیاه مقابل چشمان ما؛ هر قسمت یک کابوس مدرن از دنیایی است که شاید خیلی دور نباشد. از شبکه‌های اجتماعی تا هوش مصنوعی، هیچ‌چیز از تیغ نقد این سریال در امان نیست."},
+    {r:27,t:"Better Call Saul",y:"2015–2022",g:"جنایی، درام",c:"آمریکا",ba:"باب ادنکیرک",v:"۱–۲ میلیون",imdb:9.0,
+     sp:"اغلب به‌عنوان «بهترین پیش‌درآمد تاریخ تلویزیون» شناخته می‌شود. شخصیت‌پردازی و فیلمبرداری آن در سطح بریکینگ بد و حتی فراتر است.",
+     d:"داستان جیمی مک‌گیل، وکیلی کوچک و پرانرژی که آرزو دارد کسی جدي‌اش بگیرد؛ اما سرنوشت او را به سمت تبدیل شدن به «ساول گودمن» می‌کشاند. سریالی درباره‌ی انتخاب‌ها و بهایی که برای موفقیت پرداخت می‌کنیم."},
+    {r:28,t:"Band of Brothers",y:"2001",g:"جنگی، درام",c:"آمریکا",ba:"دامینیک وست",v:"۵–۱۰ میلیون",imdb:9.4,
+     sp:"تولید مشترک تام هنکس و استیون اسپیلبرگ. برنده ۶ جایزه‌ی امی. مصاحبه‌های واقعی با کهنه‌سربازان در ابتدای هر قسمت، اشک آدم را درمی‌آورد.",
+     d:"داستان گروهی از سربازان چترباز آمریکایی، از اردوگاه آموزش تا پایان جنگ جهانی دوم. سریالی که نه جنگ را قهرمانانه، بلکه انسانی و دردناک نشان می‌دهد. یکی از تأثیرگذارترین مینی‌سریال‌های تاریخ."},
+    {r:29,t:"Key & Peele",y:"2012–2015",g:"کمدی اسکچ",c:"آمریکا",ba:"کیگان-مایکل کی",v:"۱–۲ میلیون",imdb:8.3,
+     sp:"اسکچ‌های آن وایرال شدند و میلیون‌ها بازدید گرفتند. کمدی‌ای که با هوشمندی، به مسائل نژادی و فرهنگی می‌پردازد بدون آنکه توهین‌آمیز باشد.",
+     d:"دو کمدین نابغه، در هر قسمت شخصیت‌های عجیب و بامزه‌ای خلق می‌کنند و با طنز تیزشان، به سراغ کلیشه‌ها، سیاست و فرهنگ عامه می‌روند. کمدی‌ای که هم می‌خنداند هم به فکر فرو می‌برد."},
+    {r:30,t:"Severance",y:"2022–present",g:"علمی-تخیلی، تریلر",c:"آمریکا",ba:"آدام اسکات",v:"۱–۲ میلیون",imdb:8.7,
+     sp:"یکی از اورجینال‌ترین ایده‌های دهه‌ی اخیر؛ کارمندان یک شرکت مرموز، خاطرات کاری و شخصی‌شان را کاملاً از هم جدا کرده‌اند. طراحی صحنه و فضاسازی آن خیره‌کننده است.",
+     d:"در شرکتی مرموز، کارمندان تحت یک عمل جراحی قرار می‌گیرند که ذهنشان را به دو بخش تقسیم می‌کند: یکی برای کار، یکی برای زندگی شخصی. اما وقتی یکی از آن‌ها شروع به پرسیدن سؤال می‌کند، همه‌چیز به هم می‌ریزد. تریلری درباره‌ی هویت و کنترل."},
+    {r:31,t:"Survivor",y:"2000–present",g:"واقع‌نما",c:"آمریکا",ba:"جف پروبست",v:"۱۰–۲۰ میلیون",imdb:7.4,
+     sp:"پدر همه‌ی ریلیتی‌شوها. فرمت آن در بیش از ۵۰ کشور کپی شده. جف پروبست، میزبان افسانه‌ای، ۲۰ سال است که این کشتی را هدایت می‌کند.",
+     d:"شرکت‌کنندگان در یک جزیره‌ی دورافتاده رها می‌شوند و برای جایزه‌ی بزرگ با هم رقابت می‌کنند. اما این فقط یک بازی بقا نیست؛ یک بازی روانی پیچیده از اتحاد، خیانت و استراتژی است."},
+    {r:32,t:"Andor",y:"2022–2025",g:"علمی-تخیلی",c:"آمریکا",ba:"دیه‌گو لونا",v:"۱–۳ میلیون",imdb:8.4,
+     sp:"سریالی بالغ، سیاسی و تاریک در دنیای جنگ ستارگان. منتقدان آن را «بهترین اثر لایو-اکشن جنگ ستارگان» نامیدند. فیلمبرداری و موسیقی آن فوق‌العاده است.",
+     d:"داستان کاسیان اندور، دزدی کوچک که به‌تدریج به قلب جنبش شورشی علیه امپراتوری تبدیل می‌شود. سریالی درباره‌ی انقلاب، فداکاری و بهایی که برای آزادی پرداخت می‌شود."},
+    {r:33,t:"Enlightened",y:"2011–2013",g:"کمدی-درام",c:"آمریکا",ba:"لورا درن",v:"۰.۲–۰.۵ میلیون",imdb:7.6,
+     sp:"لورا درن برای این نقش برنده‌ی گلدن گلوب شد. سریالی کوچک و کم‌دیده، اما عمیقاً تأثیرگذار درباره‌ی تلاش برای بهتر شدن.",
+     d:"زنی بعد از یک فروپاشی روانی، با الهام از یک کتاب خودیاری، تصمیم می‌گیرد زندگی‌اش را کاملاً تغییر دهد. اما دنیای اطرافش آماده‌ی این تغییر نیست. سریالی درباره‌ی امید، سرخوردگی و تلاش برای روشن‌بینی."},
+    {r:34,t:"Schitt's Creek",y:"2015–2020",g:"کمدی",c:"کانادا",ba:"دنیل لوی",v:"۱–۲ میلیون",imdb:8.5,
+     sp:"برنده‌ی ۹ جایزه‌ی امی در فصل آخر خود. سریالی که در طول پخشش، از یک کمدی ساده به یک پدیده‌ی جهانی تبدیل شد. کمدی گرم و دلنشین.",
+     d:"خانواده‌ای فوق‌ثروتمند بعد از ورشکستگی، مجبور می‌شوند در شهر کوچکی که سال‌ها پیش به شوخی خریداری کرده بودند، زندگی کنند. سریالی درباره‌ی فروپاشی غرور، کشف دوباره‌ی خود و گرمای انسانی."},
+    {r:35,t:"True Detective",y:"2014",g:"جنایی، درام",c:"آمریکا",ba:"متیو مک‌کانهی",v:"۲–۳ میلیون",imdb:9.0,
+     sp:"فصل اول آن به‌تنهایی یک شاهکار است. بازی متیو مک‌کانهی و وودی هارلسون افسانه‌ای است. مونولوگ‌های فلسفی و تاریک آن به یک ژانر تبدیل شد.",
+     d:"دو کارآگاه با شخصیت‌های کاملاً متفاوت، در طول ۱۷ سال به دنبال یک قاتل زنجیره‌ای مرموز در باتلاق‌های لوئیزیانا می‌گردند. سریالی تاریک، فلسفی و پر از فضایی که تا مغز استخوان نفوذ می‌کند."},
+    {r:36,t:"The Pitt",y:"2025–present",g:"درام پزشکی",c:"آمریکا",ba:"—",v:"—",imdb:8.5,
+     sp:"سریالی جدید و واقع‌گرایانه درباره‌ی سیستم سلامت. فیلمبرداری و روایت آن کاملاً متفاوت از درام‌های پزشکی کلاسیک است.",
+     d:"روایتی نفس‌گیر از یک شیفت کاری در بخش اورژانس یک بیمارستان شلوغ. سریالی که پزشکان، پرستاران و بیماران را در خام‌ترین و انسانی‌ترین شکلشان نشان می‌دهد."},
+    {r:37,t:"Battlestar Galactica",y:"2005–2009",g:"علمی-تخیلی",c:"آمریکا",ba:"ادوارد جیمز اولموس",v:"۱–۳ میلیون",imdb:8.7,
+     sp:"بازسازی درخشان یک سریال کلاسیک. منتقدان آن را «بهترین سریال علمی-تخیلی تاریخ» و استعاده‌ای هوشمندانه از مسائل سیاسی روز معرفی کردند.",
+     d:"بازماندگان نسل‌کشی رباتیک‌ها، در فضا سرگردانند و به دنبال خانه‌ای افسانه‌ای به نام زمین می‌گردند. سریالی درباره‌ی بقا، ایمان، سیاست و مرز باریک میان انسان و ماشین."},
+    {r:38,t:"Homeland",y:"2011–2020",g:"جاسوسی، تریلر",c:"آمریکا",ba:"کلر دینز",v:"۱–۲ میلیون",imdb:8.3,
+     sp:"برنده‌ی چند جایزه‌ی امی و گلدن گلوب. کلر دینز در نقش کری ماتیسون یکی از پیچیده‌ترین شخصیت‌های تاریخ تلویزیون را خلق کرد.",
+     d:"یک مأمور CIA با اختلال دوقطبی، مشکوک می‌شود که یک سرباز آمریکایی که از اسارت بازگشته، به یک تروریست تبدیل شده. تریلری پر از پیچش که تا آخرین لحظه نمی‌گذارد نفس بکشی."},
+    {r:39,t:"Watchmen",y:"2019",g:"ابرقهرمانی، درام",c:"آمریکا",ba:"رجینا کینگ",v:"۱–۲ میلیون",imdb:8.2,
+     sp:"ادامه‌ای بر رمان گرافیکی افسانه‌ای آلن مور، اما در دنیایی کاملاً جدید. برنده ۱۱ جایزه‌ی امی. سریالی که بحث‌های مهمی درباره‌ی نژاد و قدرت به راه انداخت.",
+     d:"در دنیایی که ابرقهرمانان به‌عنوان قانون‌شکن شناخته می‌شوند، یک کارآگاه زن به‌دنبال کشف حقیقتی می‌رود که بنیان‌های جامعه را به لرزه می‌اندازد. سریالی جسورانه، پیچیده و کاملاً اورجینال."},
+    {r:40,t:"Adolescence",y:"2025",g:"درام",c:"بریتانیا",ba:"—",v:"—",imdb:8.3,
+     sp:"سریالی جدید و تحسین‌شده که به‌طرز تکان‌دهنده‌ای به موضوع نوجوانان، خانواده و عدالت می‌پردازد. فیلمبرداری آن کاملاً یک‌برد و بدون کات است.",
+     d:"زندگی یک خانواده‌ی معمولی، وقتی پسر ۱۳ ساله‌شان به قتل متهم می‌شود، کاملاً از هم می‌پاشد. سریالی دردناک و صادقانه درباره‌ی گناه، بی‌گناهی و حقیقتی که هیچ‌کس نمی‌خواهد بشنود."},
+    {r:41,t:"Louie",y:"2010–2015",g:"کمدی-درام",c:"آمریکا",ba:"لویی سی‌کی",v:"۰.۵–۱ میلیون",imdb:8.5,
+     sp:"لویی سی‌کی هم نوشت، هم کارگردانی کرد و هم بازی کرد. سریالی تجربی که مرز میان کمدی و درام را برای همیشه محو کرد.",
+     d:"لویی سی‌کی، کمدین و پدری تنها، نسخه‌ی داستانی و کمی تاریک از خودش را بازی می‌کند. سریالی درباره‌ی زندگی روزمره، پدر بودن، عشق و همه‌ی چیزهایی که بین خنده و اشک معلق‌اند."},
+    {r:42,t:"Hacks",y:"2021–2026",g:"کمدی-درام",c:"آمریکا",ba:"جین اسمارت",v:"۰.۵–۱ میلیون",imdb:8.2,
+     sp:"جین اسمارت برای این نقش برنده‌ی امی شد. کمدی‌ای درباره‌ی تفاوت نسل‌ها، خلاقیت و دوستی غیرمنتظره. دیالوگ‌های تند و بامزه.",
+     d:"یک کمدین افسانه‌ای لاس‌وگاس، مجبور می‌شود با یک نویسنده‌ی جوان و سرکش همکاری کند. تضاد نسل‌ها، جنگ‌های خلاقانه و دوستی‌ای که هیچ‌کدام انتظارش را نداشتند. کمدی‌ای گرم، باهوش و پرانرژی."},
+    {r:43,t:"Peaky Blinders",y:"2013–2022",g:"جنایی، درام تاریخی",c:"بریتانیا",ba:"کیلیان مرفی",v:"۲–۴ میلیون",imdb:8.8,
+     sp:"سبک بصری و موسیقی متن آن کاملاً منحصربه‌فرد است. کیلیان مرفی در نقش توماس شلبی به یک نماد فرهنگی تبدیل شد. کلاه‌های پیکی بلایندرز مد شدند!",
+     d:"بعد از جنگ جهانی اول، خانواده‌ی شرور شلبی در بیرمنگام، با زور، هوش و بی‌رحمی، امپراتوری خودشان را می‌سازند. سریالی درباره‌ی قدرت، وفاداری و بهایی که برای بالا رفتن پرداخت می‌کنی."},
+    {r:44,t:"BoJack Horseman",y:"2014–2020",g:"پویانمایی، کمدی سیاه",c:"آمریکا",ba:"ویل آرنت",v:"۰.۵–۱ میلیون",imdb:8.8,
+     sp:"عمیق‌ترین انیمیشن بزرگسالان تاریخ. سریالی که با ظاهر بامزه‌اش، به تاریک‌ترین زوایای افسردگی، اعتیاد و شهرت می‌پردازد. پایان‌بندی آن اشک همه را درآورد.",
+     d:"اسب انسان‌نمایی که زمانی ستاره‌ی یک سیتکام محبوب بود، حالا در لس‌آنجلس تنها، افسرده و معتاد زندگی می‌کند. سریالی درباره‌ی تروما، بخشش و تلاش برای بهتر شدن؛ حتی وقتی که خیلی دیر شده."},
+    {r:45,t:"Happy Valley",y:"2014–2023",g:"جنایی، درام",c:"بریتانیا",ba:"سارا لانکاشیر",v:"۵–۸ میلیون",imdb:8.5,
+     sp:"سارا لانکاشیر یکی از بهترین بازی‌های تاریخ تلویزیون بریتانیا را ارائه داد. سریالی قدرتمند، بی‌رحمانه و کاملاً انسانی.",
+     d:"یک گروهبان پلیس در یورکشایر غربی، هم‌زمان با پرونده‌های جنایی پیچیده و زندگی شخصی دشوارش روبرو می‌شود. سریالی درباره‌ی زخم‌ها، انتقام و عدالتی که همیشه آسان به دست نمی‌آید."},
+    {r:46,t:"Broad City",y:"2014–2019",g:"کمدی",c:"آمریکا",ba:"ایلانا گلیزر",v:"۰.۵–۱ میلیون",imdb:8.2,
+     sp:"بر اساس یک وب‌سریال کم‌هزینه شروع شد و به یک پدیده تبدیل شد. کمدی‌ای درباره‌ی دوستی، جوانی و زندگی در نیویورک با کمترین پول ممکن.",
+     d:"دو دوست صمیمی در نیویورک، با ماجراجویی‌های عجیب و بامزه‌شان، روزمرگی را به یک ماجرای سورئال تبدیل می‌کنند. کمدی‌ای بی‌پرده، خنده‌دار و به‌طرز عجیبی صمیمی."},
+    {r:47,t:"Twin Peaks: The Return",y:"2017",g:"ماوراء طبیعی، درام",c:"آمریکا",ba:"کایل مک‌لاکلن",v:"۰.۵–۱ میلیون",imdb:8.5,
+     sp:"دیوید لینچ بعد از ۲۵ سال به دنیای توین پیکس برگشت و همه را شوکه کرد. سریالی کاملاً تجربی و جسورانه که قوانین تلویزیون را می‌شکند.",
+     d:"بازگشت مأمور دیل کوپر به شهر کوچک توین پیکس، با نیروهای ماوراء طبیعی، رویاها و کابوس‌هایی که مرز میان واقعیت و توهم را محو می‌کنند. لینچ در اوج خلاقیتش."},
+    {r:48,t:"House of Cards",y:"2013–2018",g:"درام سیاسی",c:"آمریکا",ba:"کوین اسپیسی",v:"۲–۴ میلیون",imdb:8.6,
+     sp:"سریالی که نتفلیکس را برای همیشه متحول کرد و عصر «تماشای پشت‌سرهم» را آغاز کرد. کوین اسپیسی و رابین رایت بازی‌های درخشانی دارند.",
+     d:"فرانک آندروود، یک سیاستمدار بی‌رحم و باهوش، برای رسیدن به بالاترین قدرت در واشنگتن، از هیچ کاری دریغ نمی‌کند. سریالی درباره‌ی جاه‌طلبی، خیانت و تاریکی مطلق قدرت."},
+    {r:49,t:"Normal People",y:"2020",g:"عاشقانه، درام",c:"ایرلند",ba:"دیزایری بانسی",v:"۱–۲ میلیون",imdb:8.4,
+     sp:"بر اساس رمانی از سالی رونی. سریالی لطیف و صمیمی که رابطه‌ی عاشقانه‌اش را با صداقت نادری تصویر می‌کند. بازیگران اصلی آن به ستاره تبدیل شدند.",
+     d:"ماریان و کانل، از دبیرستان تا دانشگاه، در یک رابطه‌ی پر از فراز و نشیب، عشق، سوءتفاهم و کلاس اجتماعی را تجربه می‌کنند. سریالی درباره‌ی نزدیکی، فاصله و همه‌ی چیزهایی که گفته نمی‌شوند."},
+    {r:50,t:"Parks and Recreation",y:"2009–2015",g:"کمدی",c:"آمریکا",ba:"ایمی پولر",v:"۲–۴ میلیون",imdb:8.6,
+     sp:"از یک شروع نسبتاً ضعیف، به یکی از محبوب‌ترین کمدی‌های تاریخ تبدیل شد. شخصیت رون سوانسون به یک قهرمان مردمی تبدیل شد.",
+     d:"لسلی ناپ، کارمند خوش‌بین بخش پارک‌ها و تفریحات، تلاش می‌کند شهر کوچکش را بهتر کند. کمدی‌ای گرم، امیدوارکننده و پر از شخصیت‌های دوست‌داشتنی."},
+    {r:51,t:"The Good Place",y:"2016–2020",g:"کمدی، فانتزی",c:"آمریکا",ba:"کریستن بل",v:"۲–۴ میلیون",imdb:8.2,
+     sp:"کمدی‌ای درباره‌ی فلسفه، اخلاق و مرگ! سریالی که با ظاهر ساده‌اش، عمیق‌ترین سؤالات انسانی را مطرح می‌کند. پایان‌بندی آن بسیار تأثیرگذار است.",
+     d:"زنی بعد از مرگ، به اشتباه وارد «بهشت» می‌شود و سعی می‌کند ثابت کند که جای او اینجاست. اما در این مسیر، با سؤالاتی درباره‌ی اخلاق، بخشش و معنای واقعی خوب بودن روبرو می‌شود."},
+    {r:52,t:"Downton Abbey",y:"2010–2015",g:"درام تاریخی",c:"بریتانیا",ba:"مگی اسمیت",v:"۸–۱۰ میلیون",imdb:8.7,
+     sp:"پربیننده‌ترین درام بریتانیایی تاریخ. مگی اسمیت در نقش کنتس ویولت، برخی از بامزه‌ترین و تیزترین دیالوگ‌های تلویزیون را دارد.",
+     d:"زندگی خانواده‌ی اشرافی کرالی و خدمتکارانشان در عمارت داون‌تون، از دوران ادواردین تا پایان جنگ جهانی اول. سریالی باشکوه درباره‌ی طبقه، تغییر و انسان‌هایی که در دو دنیای متفاوت زندگی می‌کنند."},
+    {r:53,t:"Stranger Things",y:"2016–2025",g:"علمی-تخیلی، ترسناک",c:"آمریکا",ba:"میلی بابی براون",v:"۱۰–۲۰ میلیون",imdb:8.7,
+     sp:"پدیده‌ی جهانی نتفلیکس. سریالی که دهه‌ی ۸۰، بازی‌های ویدیویی، موسیقی و نوستالژی را به یک پدیده‌ی مدرن تبدیل کرد. بازیگران کودک آن به ستاره‌های جهانی تبدیل شدند.",
+     d:"گروهی از بچه‌ها در دهه‌ی ۱۹۸۰، با نیروهای فراطبیعی، آزمایش‌های مخفی دولتی و موجوداتی از دنیایی دیگر روبرو می‌شوند. سریالی پر از ماجراجویی، دوستی و لحظه‌هایی که مو به تنت سیخ می‌کند."},
+    {r:54,t:"The Bureau",y:"2015–2020",g:"جاسوسی، درام",c:"فرانسه",ba:"متیو کاسوویتز",v:"۱–۲ میلیون",imdb:8.7,
+     sp:"واقع‌گرایانه‌ترین سریال جاسوسی تاریخ. بدون صحنه‌های هالیوودی، فقط تنش، سکوت و دروغ‌هایی که زندگی‌ها را نابود می‌کنند. تحسین منتقدان جهانی.",
+     d:"یک مأمور مخفی فرانسوی بعد از بازگشت از سوریه، با پیچیدگی‌های دنیای جاسوسی و هویت‌های چندگانه‌اش روبرو می‌شود. سریالی درباره‌ی وفاداری، عشق و بهایی که برای خدمت به کشور پرداخت می‌کنی."},
+    {r:55,t:"Insecure",y:"2016–2021",g:"کمدی-درام",c:"آمریکا",ba:"ایسا ری",v:"۰.۵–۱ میلیون",imdb:8.0,
+     sp:"ایسا ری هم خالق، هم نویسنده و هم بازیگر اصلی است. سریالی صادقانه و بامزه درباره‌ی زندگی یک زن سیاه‌پوست مدرن در لس‌آنجلس.",
+     d:"ایسا دی، زنی جوان و باهوش، با چالش‌های شغلی، عاطفی و هویتی دست و پنجه نرم می‌کند. سریالی درباره‌ی دوستی، عشق و تلاش برای پیدا کردن جای خودت در دنیا."},
+    {r:56,t:"Nathan for You",y:"2013–2017",g:"کمدی، واقع‌نما",c:"آمریکا",ba:"ناتان فیلدر",v:"۰.۲–۰.۵ میلیون",imdb:8.8,
+     sp:"کمدی‌ای کاملاً اورجینال و گاهی آزاردهنده. ناتان فیلدر با کسب‌وکارهای واقعی، موقعیت‌های اجتماعی کاملاً غیرقابل پیش‌بینی می‌سازد.",
+     d:"ناتان فیلدر، کمدین کانادایی، با ایده‌های خلاقانه و اغلب مضحکش، به کسب‌وکارهای کوچک کمک می‌کند. اما نتیجه همیشه از آنچه فکر می‌کنی عجیب‌تر و بامزه‌تر است."},
+    {r:57,t:"I Think You Should Leave",y:"2019–present",g:"کمدی اسکچ",c:"آمریکا",ba:"تیم رابینسون",v:"۰.۵–۱ میلیون",imdb:8.6,
+     sp:"اسکچ‌های کوتاه، سورئال و گاهی کاملاً دیوانه. کمدی‌ای برای طرفداران طنز غیرمتعارف و کسانی که از خنده‌های معمولی خسته شده‌اند.",
+     d:"مجموعه‌ای از اسکچ‌های کمدی که در هر قسمت، موقعیت‌های عجیب و بامزه‌ای را به تصویر می‌کشند. کمدی‌ای که گاهی آنقدر احمقانه است که نابغه می‌شود."},
+    {r:58,t:"Chappelle's Show",y:"2003–2006",g:"کمدی اسکچ",c:"آمریکا",ba:"دیو شپل",v:"۲–۳ میلیون",imdb:8.8,
+     sp:"یکی از تأثیرگذارترین کمدی‌های تاریخ. اسکچ‌های آن به بخشی از فرهنگ عامه تبدیل شدند. دیو شپل با جسارت تمام، به مسائل نژادی و سیاسی می‌پردازد.",
+     d:"دیو شپل با اسکچ‌های تند، بی‌پرده و بامزه‌اش، به سراغ موضوعات نژادی، سیاست و فرهنگ عامه می‌رود. کمدی‌ای که هم می‌خنداند هم به فکر فرو می‌برد."},
+    {r:59,t:"PEN15",y:"2019–2021",g:"کمدی",c:"آمریکا",ba:"مایا ارسکین",v:"۰.۲–۰.۵ میلیون",imdb:8.0,
+     sp:"دو زن ۳۰ ساله نقش نوجوانان ۱۳ ساله را بازی می‌کنند! ایده‌ای عجیب که به طرز غیرمنتظره‌ای کار می‌کند. کمدی‌ای دردناک و بامزه درباره‌ی دوران راهنمایی.",
+     d:"دو دوست صمیمی، با بازیگران زن ۳۰ ساله، سختی‌ها، شرم‌ها و لحظه‌های خنده‌دار دوران راهنمایی را به تصویر می‌کشند. سریالی که هر کس با دیدنش، خاطرات بد و خنده‌دار نوجوانی‌اش زنده می‌شود."},
+    {r:60,t:"Peep Show",y:"2003–2015",g:"کمدی",c:"بریتانیا",ba:"دیوید میچل",v:"۱–۲ میلیون",imdb:8.6,
+     sp:"کل سریال از دیدگاه اول‌شخص (POV) فیلمبرداری شده و صدای ذهن شخصیت‌ها را می‌شنویم. کمدی‌ای کاملاً منحصربه‌فرد و آزاردهنده.",
+     d:"مارک و جز، دو هم‌خانه‌ی بسیار متفاوت و کمی ناکارآمد، از دیدگاه اول‌شخص، زندگی، عشق و شکست‌هایشان را روایت می‌کنند. کمدی‌ای که گاهی آنقدر خنده‌دار است که دردناک می‌شود."},
+    {r:61,t:"RuPaul's Drag Race",y:"2009–present",g:"واقع‌نما",c:"آمریکا",ba:"روپاول",v:"۰.۵–۱ میلیون",imdb:8.6,
+     sp:"پدیده‌ی فرهنگی دگرباشان و فراتر از آن. برنده‌ی چندین جایزه‌ی امی. روپاول به یک نماد جهانی تبدیل شد. فرمت آن به ده‌ها کشور صادر شد.",
+     d:"درگ‌کوئین‌ها در یک مسابقه‌ی هیجان‌انگیز، برای عنوان سوپرمدل درگ بعدی آمریکا با هم رقابت می‌کنند. سریالی پر از خلاقیت، استعداد، اشک و لبخند."},
+    {r:62,t:"Slow Horses",y:"2022–present",g:"جاسوسی، تریلر",c:"بریتانیا",ba:"گری اولدمن",v:"۱–۲ میلیون",imdb:8.2,
+     sp:"گری اولدمن در نقش جکسون لمب، یکی از بامزه‌ترین و بدبوترین شخصیت‌های تاریخ تلویزیون. سریالی پر از تنش، طنز سیاه و دیالوگ‌های درخشان.",
+     d:"تیمی از مأموران اطلاعاتی بریتانیایی که به دلیل اشتباهاتشان، به بخشی حاشیه‌ای تبعید شده‌اند. اما وقتی یک بحران واقعی پیش می‌آید، این «بازندگان» باید خودشان را ثابت کنند. تریلری بامزه و نفس‌گیر."},
+    {r:63,t:"The Thick of It",y:"2005–2012",g:"کمدی سیاسی",c:"بریتانیا",ba:"پیتر کاپالدی",v:"۱–۲ میلیون",imdb:8.7,
+     sp:"الهام‌بخش سریال «Veep» بود. پیتر کاپالدی در نقش مالکوم تاکر، با فحش‌های خلاقانه‌اش، به یک افسانه تبدیل شد. دیالوگ‌های تند و بی‌رحمانه.",
+     d:"پشت صحنه‌ی دولت بریتانیا، جایی که سیاستمداران ناکارآمد تلاش می‌کنند خودشان را از رسوایی‌ها نجات دهند. کمدی‌ای بی‌رحمانه، بامزه و گاهی ترسناک درباره‌ی واقعیت قدرت."},
+    {r:64,t:"Anthony Bourdain: Parts Unknown",y:"2013–2018",g:"مستند",c:"آمریکا",ba:"آنتونی بوردین",v:"۰.۵–۱ میلیون",imdb:8.7,
+     sp:"برنده‌ی چندین جایزه‌ی امی. آنتونی بوردین فقط درباره‌ی غذا حرف نمی‌زد؛ درباره‌ی انسانیت، سیاست و فرهنگ. سریالی که نگاهت به دنیا را تغییر می‌دهد.",
+     d:"آنتونی بوردین به دورافتاده‌ترین و عجیب‌ترین نقاط جهان سفر می‌کند تا غذاهای محلی و فرهنگ مردم را کشف کند. مستندی درباره‌ی سفر، غذا و انسان‌هایی که هیچ‌وقت فراموششان نمی‌کنی."},
+    {r:65,t:"Mare of Easttown",y:"2021",g:"جنایی، درام",c:"آمریکا",ba:"کیت وینسلت",v:"۱–۲ میلیون",imdb:8.3,
+     sp:"کیت وینسلت برای این نقش برنده‌ی امی شد. لهجه‌ی پنسیلوانیایی او افسانه‌ای است. مینی‌سریالی پر از پیچش و لحظه‌های تکان‌دهنده.",
+     d:"کارآگاهی در یک شهر کوچک پنسیلوانیا، هم‌زمان با پرونده‌ی قتل یک دختر جوان و زندگی شخصی فروپاشیده‌اش روبرو می‌شود. سریالی درباره‌ی زخم‌ها، فقدان و حقیقتی که همیشه دردناک است."},
+    {r:66,t:"The Rehearsal",y:"2022–present",g:"کمدی، مستندنما",c:"آمریکا",ba:"ناتان فیلدر",v:"۰.۲–۰.۵ میلیون",imdb:8.0,
+     sp:"ناتان فیلدر برای کمک به مردم، موقعیت‌های زندگی واقعی‌شان را با دکور و بازیگر بازسازی می‌کند. ایده‌ای نابغه و کاملاً دیوانه.",
+     d:"ناتان فیلدر با وسواس و دقتی عجیب، به افراد کمک می‌کند برای موقعیت‌های دشوار زندگی خود تمرین کنند. اما مرز میان واقعیت و نمایش کم‌کم محو می‌شود. کمدی‌ای فلسفی و سورئال."},
+    {r:67,t:"The Handmaid's Tale",y:"2017–2025",g:"دیستوپیایی، درام",c:"آمریکا",ba:"الیزابت ماس",v:"۱–۲ میلیون",imdb:8.4,
+     sp:"بر اساس رمانی از مارگارت اتوود. برنده‌ی چندین جایزه‌ی امی. سریالی که به‌طرز هشداردهنده‌ای به مسائل قدرت، جنسیت و آزادی می‌پردازد.",
+     d:"در یک جامعه‌ی دیستوپیایی، زنان بارور به‌عنوان خدمتکار برای طبقه‌ی حاکم استفاده می‌شوند. سریالی تکان‌دهنده درباره‌ی مقاومت، امید و تلاش برای حفظ انسانیت در تاریک‌ترین شرایط."},
+    {r:68,t:"Ozark",y:"2017–2022",g:"جنایی، درام",c:"آمریکا",ba:"جیسون بیتمن",v:"۲–۴ میلیون",imdb:8.5,
+     sp:"جیسون بیتمن و لورا لینی بازی‌های درخشانی دارند. تریلهری تاریک و پر از تنش که تا آخرین لحظه نگهت می‌دارد. برنده‌ی چندین جایزه‌ی امی.",
+     d:"یک مشاور مالی مجبور می‌شود برای جبران بدهی‌اش، خانواده‌اش را به دریاچه‌های اوزارک منتقل کند و پول‌شویی کند. اما این دنیای تاریک، کم‌کم همه‌ی خانواده را می‌بلعد. تریلری درباره‌ی بقا و بهای آن."},
+    {r:69,t:"Anthony Bourdain: No Reservations",y:"2005–2012",g:"مستند",c:"آمریکا",ba:"آنتونی بوردین",v:"۰.۵–۱ میلیون",imdb:8.4,
+     sp:"سریالی که آنتونی بوردین را به یک ستاره‌ی جهانی تبدیل کرد. نگاهی صمیمی و صادقانه به غذا، فرهنگ و انسان‌ها.",
+     d:"آنتونی بوردین در سفرهایش به دور دنیا، با غذاهای محلی و مردم عادی آشنا می‌شود. مستندی درباره‌ی کنجکاوی، سفر و لذت کشف ناشناخته‌ها."},
+    {r:70,t:"The Shield",y:"2002–2008",g:"جنایی، درام",c:"آمریکا",ba:"مایکل چیکلیس",v:"۲–۳ میلیون",imdb:8.7,
+     sp:"سریالی که راه را برای ضدقهرمانان تلویزیون باز کرد. ویک مکی، یکی از پیچیده‌ترین و خطرناک‌ترین شخصیت‌های تاریخ تلویزیون است.",
+     d:"یک گروه ضربت پلیس فاسد در لس‌آنجلس، به رهبری ویک مکی، خط باریک میان قانون و جنایت را زیر پا می‌گذارد. سریالی بی‌رحمانه، پر از تنش و کاملاً اعتیادآور."},
+    {r:71,t:"Beef",y:"2023",g:"کمدی سیاه، درام",c:"آمریکا",ba:"استیون ین",v:"۱–۲ میلیون",imdb:8.1,
+     sp:"برنده‌ی چندین جایزه‌ی امی و گلدن گلوب. سریالی که از یک حادثه‌ی ساده‌ی رانندگی، یک درام عمیق و تکان‌دهنده می‌سازد.",
+     d:"یک درگیری ساده در ترافیک، بین دو غریبه، به یک انتقام‌گیری پیچیده و خطرناک تبدیل می‌شود. سریالی درباره‌ی خشم، طبقه و انسان‌هایی که در سکوت رنج می‌کشند."},
+    {r:72,t:"Squid Game",y:"2021–2025",g:"بقا، تریلر",c:"کره جنوبی",ba:"لی جونگ-جه",v:"۱۰–۲۰ میلیون",imdb:8.0,
+     sp:"پدیده‌ی جهانی کره‌ای که نتفلیکس را تکان داد. بازی‌های کودکانه‌ی مرگبار آن به یک نماد فرهنگی تبدیل شد. برنده‌ی جوایز متعدد جهانی.",
+     d:"افرادی با مشکلات مالی، در یک مسابقه‌ی مرگبار با بازی‌های کودکانه شرکت می‌کنند تا شانس برنده شدن جایزه‌ای بزرگ را داشته باشند. سریالی درباره‌ی نابرابری، طمع و مرز باریک انسانیت."},
+    {r:73,t:"Barry",y:"2018–2023",g:"کمدی سیاه، جنایی",c:"آمریکا",ba:"بیل هیدر",v:"۰.۵–۱ میلیون",imdb:8.4,
+     sp:"بیل هیدر، کمدین سابق SNL، در نقشی کاملاً متفاوت. سریالی که از کمدی سیاه به یک تراژدی عمیق تبدیل می‌شود. صحنه‌های اکشن آن بی‌نظیرند.",
+     d:"یک قاتل حرفه‌ای افسرده و تنها، در لس‌آنجلس، تصمیم می‌گیرد بازیگر شود و زندگی‌اش را تغییر دهد. اما گذشته‌اش دست از سرش برنمی‌دارد. کمدی‌ای تاریک درباره‌ی هویت و رستگاری."},
+    {r:74,t:"The Bear",y:"2022–2026",g:"کمدی-درام",c:"آمریکا",ba:"جرمی آلن وایت",v:"۱–۲ میلیون",imdb:8.6,
+     sp:"سریالی پرهیجان و پر از تنش که آشپزخانه را به یک میدان جنگ تبدیل می‌کند. قسمت‌های تک‌برد آن افسانه‌ای است. برنده‌ی جوایز متعدد امی.",
+     d:"یک سرآشپز جوان از دنیای آشپزی حرفه‌ای به شیکاگو برمی‌گردد تا ساندویچ‌فروشی خانوادگی‌اش را اداره کند. سریالی درباره‌ی خانواده، اندوه و تلاش برای ساختن دوباره."},
+    {r:75,t:"Ted Lasso",y:"2020–present",g:"کمدی-درام",c:"آمریکا",ba:"جیسون سودیکیس",v:"۱–۲ میلیون",imdb:8.8,
+     sp:"برنده‌ی چندین جایزه‌ی امی. سریالی که در دوران کرونا، به یک داروی ضدافسردگی جهانی تبدیل شد. پیام مهربانی و امید آن مسری است.",
+     d:"یک مربی فوتبال آمریکایی، با خوش‌بینی و مهربانی بی‌پایانش، به لندن می‌رود تا یک تیم فوتبال انگلیسی را هدایت کند. سریالی گرم درباره‌ی امید، مهربانی و قدرت باور."},
+    {r:76,t:"Somebody Somewhere",y:"2022–2024",g:"کمدی-درام",c:"آمریکا",ba:"بریجت اورت",v:"۰.۲–۰.۵ میلیون",imdb:8.1,
+     sp:"سریالی کوچک و کم‌دیده اما عمیقاً تأثیرگذار. بریجت اورت بازی درخشانی دارد. درباره‌ی بهبودی، دوستی و پیدا کردن خودت.",
+     d:"زنی در کانزاس، بعد از مرگ خواهرش، هویت و هدف خود را از طریق دوستی، آواز و کشف دوباره‌ی زندگی پیدا می‌کند. سریالی لطیف درباره‌ی بهبودی و امید."},
+    {r:77,t:"Modern Family",y:"2009–2020",g:"کمدی",c:"آمریکا",ba:"اد او'نیل",v:"۸–۱۲ میلیون",imdb:8.5,
+     sp:"برنده ۲۲ جایزه‌ی امی؛ یکی از موفق‌ترین سیتکام‌های تاریخ. فرمت مستندنمای آن به یک استاندارد تبدیل شد. پایان‌بندی آن بسیار احساسی بود.",
+     d:"مستندنمایی کمدی از زندگی سه خانواده‌ی مختلف که به هم مرتبط هستند. سریالی گرم، بامزه و صمیمی درباره‌ی خانواده، عشق و همه‌ی چیزهایی که ما را به هم پیوند می‌دهد."},
+    {r:78,t:"It's Always Sunny in Philadelphia",y:"2005–present",g:"کمدی سیاه",c:"آمریکا",ba:"دنی دویتو",v:"۰.۵–۱ میلیون",imdb:8.8,
+     sp:"طولانی‌ترین سیتکام لایو-اکشن تاریخ تلویزیون آمریکا. شخصیت‌های خودخواه و غیرقابل تحمل آن به یک پدیده تبدیل شدند. کمدی‌ای بی‌رحمانه و بی‌پرده.",
+     d:"گروهی از دوستان خودخواه و ناکارآمد، یک بار در فیلادلفیا را اداره می‌کنند و در هر قسمت، نقشه‌های احمقانه و غیراخلاقی می‌کشند. کمدی‌ای بی‌رحمانه درباره‌ی بدترین انسان‌های ممکن."},
+    {r:79,t:"The Good Wife",y:"2009–2016",g:"درام حقوقی",c:"آمریکا",ba:"جولینا مارگولیس",v:"۸–۱۲ میلیون",imdb:8.4,
+     sp:"جولینا مارگولیس بازی درخشانی دارد. سریالی که هم‌زمان یک درام حقوقی، یک درام سیاسی و یک درام خانوادگی است. دیالوگ‌های هوشمندانه.",
+     d:"آلیشیا فلوریک، همسر یک سیاستمدار رسوا، بعد از زندان همسرش، به وکالت بازمی‌گردد و زندگی جدیدی برای خودش می‌سازد. سریالی درباره‌ی قدرت، اخلاق و رستگاری."},
+    {r:80,t:"How To With John Wilson",y:"2020–2023",g:"مستند، کمدی",c:"آمریکا",ba:"جان ویلسون",v:"۰.۲–۰.۵ میلیون",imdb:8.2,
+     sp:"جان ویلسون با دوربینش در نیویورک قدم می‌زند و با دقت و طنزی عجیب، به سؤالات روزمره پاسخ می‌دهد. مستندی شاعرانه و کاملاً اورجینال.",
+     d:"جان ویلسون، فیلم‌ساز مضطرب نیویورکی، با فیلم‌های مستند کوتاه و طنزآمیزش، به سؤالات ساده‌ای مثل «چطور چارچوب بخریم» پاسخ می‌دهد؛ اما در این مسیر، به اعماق جامعه‌ی مدرن نفوذ می‌کند."},
+    {r:81,t:"The Queen's Gambit",y:"2020",g:"درام",c:"آمریکا",ba:"آنیا تیلور-جوی",v:"۲–۳ میلیون",imdb:8.5,
+     sp:"مینی‌سریالی که شطرنج را به یک ورزش هیجان‌انگیز تبدیل کرد. آنیا تیلور-جوی بازی درخشانی دارد. برنده‌ی چندین جایزه‌ی امی و گلدن گلوب.",
+     d:"بث هارمون، نابغه‌ی شطرنج یتیم، از یک پرورشگاه به بالاترین سطح شطرنج جهان می‌رسد. سریالی درباره‌ی نبوغ، اعتیاد و بهایی که برای موفقیت پرداخت می‌کنی."},
+    {r:82,t:"Better Things",y:"2016–2022",g:"کمدی-درام",c:"آمریکا",ba:"پاملا آدلون",v:"۰.۲–۰.۵ میلیون",imdb:7.9,
+     sp:"پاملا آدلون هم خالق، هم نویسنده و هم بازیگر اصلی است. سریالی صادقانه و شخصی درباره‌ی مادر بودن، عشق و زندگی روزمره.",
+     d:"سام فاکس، یک مادر مجرد و بازیگر، زندگی پیچیده‌اش را با سه دخترش مدیریت می‌کند. سریالی درباره‌ی مادر بودن، عشق و همه‌ی چیزهایی که بین خنده و گریه معلق‌اند."},
+    {r:83,t:"Justified",y:"2010–2015",g:"جنایی، وسترن",c:"آمریکا",ba:"تیموتی اولیفانت",v:"۲–۳ میلیون",imdb:8.6,
+     sp:"بر اساس داستانی از الیمور لئونارد. تیموتی اولیفانت در نقش رایلان گیونز یکی از بامزه‌ترین و جذاب‌ترین شخصیت‌های تاریخ تلویزیون را خلق کرد.",
+     d:"رایلان گیونز، مارشال آمریکایی، به زادگاهش در کنتاکی برمی‌گردد و با جنایتکارانی روبرو می‌شود که هم‌زمان هم خطرناک‌اند هم بامزه. سریالی پر از دیالوگ‌های تند و صحنه‌های اکشن."},
+    {r:84,t:"Planet Earth",y:"2006",g:"مستند طبیعت",c:"بریتانیا",ba:"دیوید اتنبرو",v:"۵–۱۰ میلیون",imdb:9.4,
+     sp:"یکی از پربیننده‌ترین مستندهای تاریخ. تصاویر آن با کیفیت بی‌نظیر گرفته شده‌اند. صدای دیوید اتنبرو آرامش‌بخش‌ترین صدای جهان است.",
+     d:"مجموعه‌ای مستند که شگفتی‌های طبیعی سیاره‌ی زمین را با تصاویری خیره‌کننده به نمایش می‌گذارد. از قطب‌های یخی تا جنگل‌های استوایی، سفری فراموش‌نشدنی به دل طبیعت."},
+    {r:85,t:"The Great British Baking Show",y:"2010–present",g:"واقع‌نما",c:"بریتانیا",ba:"—",v:"۲–۴ میلیون",imdb:8.6,
+     sp:"آرامش‌بخش‌ترین ریلیتی‌شوی جهان. هیچ درام و دعوایی نیست؛ فقط نانواهای آماتور مهربان و کیک‌های خوشمزه. داروی ضدافسردگی طبیعی.",
+     d:"نانواهای آماتور بریتانیایی، در چادری زیبا، برای عنوان بهترین نانوا با هم رقابت می‌کنند. مسابقه‌ای گرم، بامزه و کاملاً بدون تنش که حال آدم را خوب می‌کند."},
+    {r:86,t:"Shogun",y:"2024–present",g:"درام تاریخی",c:"آمریکا",ba:"هیرویوکی سانادا",v:"۲–۳ میلیون",imdb:8.6,
+     sp:"برنده‌ی رکورد ۱۸ جایزه‌ی امی در یک سال. بازسازی باشکوه رمان کلاسیک جیمز کلاول. طراحی لباس، صحنه و موسیقی آن خیره‌کننده است.",
+     d:"یک ملوان انگلیسی در ژاپن فئودالی گرفتار می‌شود و وارد بازی قدرت بین دایمیوهای رقیب می‌شود. سریالی حماسی درباره‌ی افتخار، عشق و سیاست در سرزمین آفتاب."},
+    {r:87,t:"Reservation Dogs",y:"2021–2023",g:"کمدی-درام",c:"آمریکا",ba:"د'فارو وون-آ-تای",v:"۰.۲–۰.۵ میلیون",imdb:8.3,
+     sp:"نخستین سریالی که تمام کارگردانان و نویسندگانش بومیان آمریکایی بودند. سریالی گرم، بامزه و اصیل درباره‌ی نوجوانی و هویت.",
+     d:"چهار نوجوان بومی آمریکایی در اکلاهما، برای رفتن به کالیفرنیا نقشه می‌کشند. سریالی درباره‌ی دوستی، خانواده و تلاش برای پیدا کردن جای خودت در دنیا."},
+    {r:88,t:"Dexter",y:"2006–2013",g:"جنایی، درام",c:"آمریکا",ba:"مایکل سی. هال",v:"۲–۴ میلیون",imdb:8.6,
+     sp:"مایکل سی. هال بازی درخشانی دارد. سریالی درباره‌ی اخلاق، عدالت و مرز باریک میان قاتل و قهرمان. مونولوگ‌های درونی دکستر افسانه‌ای است.",
+     d:"دکستر مورگان، یک کارشناس خون‌شناسی پلیس میامی، در پنهان یک قاتل زنجیره‌ای است که فقط مجرمان را می‌کشد. سریالی درباره‌ی تاریکی، اخلاق و تلاش برای کنترل هیولا درون."},
+    {r:89,t:"Baby Reindeer",y:"2024",g:"درام، تریلر",c:"بریتانیا",ba:"ریچارد گد",v:"۲–۳ میلیون",imdb:8.0,
+     sp:"بر اساس داستان واقعی زندگی خود ریچارد گد. سریالی تکان‌دهنده درباره‌ی وسواس، تروما و پیچیدگی‌های روان انسان. بحث‌های جهانی به راه انداخت.",
+     d:"یک کمدین در حال شکست، بعد از ملاقات با یک زن آسیب‌دیده، وارد رابطه‌ای خطرناک و وسواس‌گونه می‌شود. سریالی دردناک و صادقانه درباره‌ی تروما و پیچیدگی‌های ذهن انسان."},
+    {r:90,t:"Eastbound & Down",y:"2009–2013",g:"کمدی",c:"آمریکا",ba:"دنی مک‌براید",v:"۰.۵–۱ میلیون",imdb:8.0,
+     sp:"دنی مک‌براید در نقش کنی پاورز، یکی از بامزه‌ترین و بی‌ادب‌ترین شخصیت‌های تاریخ تلویزیون. کمدی‌ای بی‌رحمانه و کاملاً غیرقابل پیش‌بینی.",
+     d:"کنی پاورز، بازیکن سابق بیسبال، بعد از اخراج از لیگ، تلاش می‌کند به شهرت برگردد. کمدی‌ای بی‌ادبانه و خنده‌دار درباره‌ی غرور، شکست و تلاش برای بازگشت."},
+    {r:91,t:"Catastrophe",y:"2015–2019",g:"کمدی",c:"بریتانیا",ba:"شارون هورگان",v:"۰.۵–۱ میلیون",imdb:8.1,
+     sp:"شارون هورگان و راب دلینی هم نویسندگان و هم بازیگران اصلی هستند. کمدی‌ای واقع‌گرایانه و بامزه درباره‌ی رابطه، بارداری و زندگی مشترک.",
+     d:"یک زن آمریکایی و یک مرد ایرلندی، بعد از یک رابطه‌ی یک‌شبه، مجبور به کنار آمدن با بارداری و زندگی مشترک می‌شوند. کمدی‌ای صادقانه و بامزه درباره‌ی عشق و مسئولیت."},
+    {r:92,t:"The Night Of",y:"2016",g:"جنایی، درام",c:"آمریکا",ba:"ریز احمد",v:"۱–۲ میلیون",imdb:8.4,
+     sp:"مینی‌سریالی ۸ قسمتی و کاملاً نفس‌گیر. ریز احمد و جان تورتورو بازی‌های درخشانی دارند. نگاهی بی‌رحمانه به سیستم قضایی آمریکا.",
+     d:"یک دانشجوی جوان، بعد از یک شب مهمانی، بیدار می‌شود و جسد زنی را در کنار خود می‌بیند. حالا باید در سیستم قضایی آمریکا، برای بی‌گناهی‌اش بجنگد. سریالی تکان‌دهنده و پر از تنش."},
+    {r:93,t:"Station Eleven",y:"2021–2022",g:"پسا-آخرالزمانی",c:"آمریکا",ba:"مکنزی دیویس",v:"۰.۲–۰.۵ میلیون",imdb:8.0,
+     sp:"سریالی شاعرانه و زیبا درباره‌ی هنر، امید و انسانیت. بر اساس رمانی از امیلی سنت جان ماندل. پایان‌بندی آن بسیار تأثیرگذار است.",
+     d:"بعد از یک بیماری همه‌گیر آنفولانزا، گروهی از بازیگران تئاتر در سراسر آمریکا سفر می‌کنند تا هنر را زنده نگه دارند. سریالی درباره‌ی بقا، عشق و زیبایی در میان ویرانی."},
+    {r:94,t:"The Diplomat",y:"2023–present",g:"درام سیاسی",c:"آمریکا",ba:"کری راسل",v:"۱–۲ میلیون",imdb:7.8,
+     sp:"کری راسل بازی درخشانی دارد. تریلهری سیاسی پر از پیچش و دیالوگ‌های هوشمندانه. نگاهی جذاب به دنیای دیپلماسی بین‌المللی.",
+     d:"کیت وایلر، یک دیپلمات حرفه‌ای، به‌عنوان سفیر آمریکا در بریتانیا منصوب می‌شود و با بحران‌های بین‌المللی و پیچیدگی‌های سیاسی روبرو می‌شود. تریلهری پر از تنش و هوشمندی."},
+    {r:95,t:"House",y:"2004–2012",g:"درام پزشکی",c:"آمریکا",ba:"هیو لوری",v:"۸–۱۲ میلیون",imdb:8.7,
+     sp:"هیو لوری در نقش دکتر هاوس، یکی از پیچیده‌ترین و بامزه‌ترین شخصیت‌های تاریخ تلویزیون را خلق کرد. فرمول هر قسمت متفاوت و جذاب است.",
+     d:"دکتر گرگوری هاوس، یک نابغه‌ی تشخیصی بداخلاق و معتاد به دارو، تیمش را در حل پیچیده‌ترین موارد پزشکی هدایت می‌کند. سریالی درباره‌ی نبوغ، درد و انسانیت."},
+    {r:96,t:"Halt and Catch Fire",y:"2014–2017",g:"درام تاریخی",c:"آمریکا",ba:"لی پیس",v:"۰.۵–۱ میلیون",imdb:8.3,
+     sp:"سریالی درباره‌ی انقلاب کامپیوتر شخصی در دهه‌ی ۱۹۸۰. لی پیس بازی درخشانی دارد. موسیقی متن آن فوق‌العاده است.",
+     d:"داستان انقلاب کامپیوتر شخصی در دهه‌ی ۱۹۸۰ و افرادی که سعی در پیشی گرفتن از IBM دارند. سریالی درباره‌ی خلاقیت، جاه‌طلبی و بهایی که برای موفقیت پرداخت می‌کنی."},
+    {r:97,t:"Community",y:"2009–2015",g:"کمدی",c:"آمریکا",ba:"جوئل مک‌هیل",v:"۲–۴ میلیون",imdb:8.5,
+     sp:"کمدی‌ای متا، خلاقانه و پر از ارجاعات فرهنگی. قسمت‌های تماتیک آن (مثل قسمت نقاشی‌های متحرک) افسانه‌ای هستند. طرفدارانش دیوانه‌وار عاشقش هستند.",
+     d:"گروهی از دانشجویان یک کالج اجتماعی، با پیشینه‌های کاملاً متفاوت، در کنار هم ماجراجویی‌های عجیب و بامزه‌ای را تجربه می‌کنند. کمدی‌ای خلاقانه درباره‌ی دوستی و جامعه."},
+    {r:98,t:"The OA",y:"2016–2019",g:"علمی-تخیلی، درام",c:"آمریکا",ba:"بریت مارلینگ",v:"۰.۵–۱ میلیون",imdb:7.9,
+     sp:"بریت مارلینگ هم خالق و هم بازیگر اصلی است. سریالی جسورانه، عجیب و کاملاً اورجینال درباره‌ی ایمان، واقعیت و مرگ. طرفدارانش تا امروز برای فصل سوم می‌جنگند.",
+     d:"زنی بعد از هفت سال مفقود بودن، بازمی‌گردد و توانایی‌های مرموزی از خود نشان می‌دهد. سریالی جسورانه درباره‌ی ایمان، واقعیت و مرزهای میان مرگ و زندگی."},
+    {r:99,t:"Gilmore Girls",y:"2000–2007",g:"کمدی-درام",c:"آمریکا",ba:"لورن گرهم",v:"۴–۶ میلیون",imdb:8.2,
+     sp:"دیالوگ‌های سریع و پر از ارجاعات فرهنگی آن افسانه‌ای است. شهر کوچک استارز هالو به یک شخصیت اصلی تبدیل می‌شود. سریالی گرم و دلنشین.",
+     d:"داستان رابطه‌ی نزدیک بین لورلای و دختر نوجوانش، روری، در شهر کوچک استارز هالو. سریالی گرم درباره‌ی خانواده، عشق و همه‌ی چیزهایی که زندگی را قشنگ می‌کنند."},
+    {r:100,t:"Scandal",y:"2012–2018",g:"درام سیاسی",c:"آمریکا",ba:"کری واشینگتن",v:"۸–۱۰ میلیون",imdb:7.7,
+     sp:"کری واشینگتن اولین زن سیاه‌پوستی بود که در ۴۰ سال اخیر، نقش اصلی یک درام شبکه‌ای را بازی کرد. سریالی پرهیجان و پر از پیچش.",
+     d:"اولیویا پوپ، یک متخصص بحران، به شخصیت‌های قدرتمند واشنگتن دی‌سی در پنهان کردن رازهایشان کمک می‌کند. سریالی پرهیجان درباره‌ی قدرت، عشق و بهایی که برای وفاداری پرداخت می‌کنی."}
 ];
 
 // ========== DOM ==========
@@ -903,13 +1500,12 @@ let spinning = false;
 let used = new Set();
 const ns = 'http://www.w3.org/2000/svg';
 
-// Rich color palette for slices - alternating warm/cool for visual rhythm
+// Soft blue-white palette for slices
 const slicePalette = [
-    '#1a0f2e', '#2a1a3e', '#3a1a3e', '#2a0f2e',
-    '#1a1a3e', '#20204a', '#1e1e3a', '#2a2045'
+    '#dceaf7', '#e8f1fa', '#d0e3f4', '#f0f7fd',
+    '#e2eefa', '#c8dff2', '#daeaf7', '#eaf4fc'
 ];
 
-// Build pie slices
 for (let i = 0; i < N; i++) {
     const a1 = (i / N) * 2 * Math.PI - Math.PI / 2;
     const a2 = ((i + 1) / N) * 2 * Math.PI - Math.PI / 2;
@@ -920,57 +1516,57 @@ for (let i = 0; i < N; i++) {
     const path = document.createElementNS(ns, 'path');
     path.setAttribute('d', `M${CX},${CY} L${x1},${y1} A${R},${R} 0 ${large} 1 ${x2},${y2} Z`);
     path.setAttribute('fill', slicePalette[i % slicePalette.length]);
-    path.setAttribute('stroke', 'rgba(240, 192, 64, 0.12)');
-    path.setAttribute('stroke-width', '0.4');
+    path.setAttribute('stroke', 'rgba(59, 130, 196, 0.22)');
+    path.setAttribute('stroke-width', '0.5');
     svg.appendChild(path);
 }
 
-// Gold tick marks every 5th slice
+// Tick marks
 for (let i = 0; i < N; i++) {
     const a = (i / N) * 2 * Math.PI - Math.PI / 2;
     const isMajor = i % 5 === 0;
-    const r1 = isMajor ? R - 12 : R - 6;
+    const r1 = isMajor ? R - 14 : R - 7;
     const r2 = R;
     const line = document.createElementNS(ns, 'line');
     line.setAttribute('x1', CX + r1 * Math.cos(a));
     line.setAttribute('y1', CY + r1 * Math.sin(a));
     line.setAttribute('x2', CX + r2 * Math.cos(a));
     line.setAttribute('y2', CY + r2 * Math.sin(a));
-    line.setAttribute('stroke', isMajor ? 'rgba(240, 192, 64, 0.55)' : 'rgba(240, 192, 64, 0.2)');
-    line.setAttribute('stroke-width', isMajor ? '1.2' : '0.8');
+    line.setAttribute('stroke', isMajor ? 'rgba(30, 90, 150, 0.7)' : 'rgba(30, 90, 150, 0.3)');
+    line.setAttribute('stroke-width', isMajor ? '1.4' : '0.9');
     svg.appendChild(line);
 }
 
-// Decorative gold dots at major ticks
+// Gold dots at major ticks
 for (let i = 0; i < N; i += 10) {
     const a = (i / N) * 2 * Math.PI - Math.PI / 2;
     const dot = document.createElementNS(ns, 'circle');
-    dot.setAttribute('cx', CX + (R - 18) * Math.cos(a));
-    dot.setAttribute('cy', CY + (R - 18) * Math.sin(a));
-    dot.setAttribute('r', '1.6');
-    dot.setAttribute('fill', 'rgba(240, 192, 64, 0.7)');
+    dot.setAttribute('cx', CX + (R - 20) * Math.cos(a));
+    dot.setAttribute('cy', CY + (R - 20) * Math.sin(a));
+    dot.setAttribute('r', '2');
+    dot.setAttribute('fill', 'rgba(230, 180, 34, 0.85)');
     svg.appendChild(dot);
 }
 
-// Inner decorative ring
+// Inner decorative dashed ring
 const innerRing = document.createElementNS(ns, 'circle');
 innerRing.setAttribute('cx', CX);
 innerRing.setAttribute('cy', CY);
-innerRing.setAttribute('r', '42');
+innerRing.setAttribute('r', '44');
 innerRing.setAttribute('fill', 'none');
-innerRing.setAttribute('stroke', 'rgba(240, 192, 64, 0.15)');
+innerRing.setAttribute('stroke', 'rgba(30, 90, 150, 0.25)');
 innerRing.setAttribute('stroke-width', '0.8');
-innerRing.setAttribute('stroke-dasharray', '2,3');
+innerRing.setAttribute('stroke-dasharray', '3,4');
 svg.appendChild(innerRing);
 
-// Center circle (behind button)
+// Center circle
 const centerCircle = document.createElementNS(ns, 'circle');
 centerCircle.setAttribute('cx', CX);
 centerCircle.setAttribute('cy', CY);
-centerCircle.setAttribute('r', '38');
-centerCircle.setAttribute('fill', 'rgba(8, 8, 16, 0.95)');
-centerCircle.setAttribute('stroke', 'rgba(240, 192, 64, 0.4)');
-centerCircle.setAttribute('stroke-width', '1.2');
+centerCircle.setAttribute('r', '40');
+centerCircle.setAttribute('fill', 'rgba(255, 255, 255, 0.95)');
+centerCircle.setAttribute('stroke', 'rgba(30, 90, 150, 0.5)');
+centerCircle.setAttribute('stroke-width', '1.5');
 svg.appendChild(centerCircle);
 
 // ========== POSTER FETCH ==========
@@ -989,9 +1585,9 @@ async function getPosterUrl(title) {
             }
         }
     } catch (e) { /* ignore */ }
-    const colors = ['1a1a2e','16213e','0f3460','1a1a3e','2d2d44'];
+    const colors = ['dceaf7','c8dff2','e2eefa','d0e3f4','eaf4fc'];
     const bg = colors[title.length % colors.length];
-    const url = `https://placehold.co/500x750/${bg}/f0c040?text=${encodeURIComponent(title)}&font=roboto`;
+    const url = `https://placehold.co/500x750/${bg}/1e5a96?text=${encodeURIComponent(title)}&font=roboto`;
     posterCache.set(title, url);
     return url;
 }
@@ -1023,9 +1619,17 @@ function showDetailsHTML(show, posterUrl) {
         </div>
     ` : '';
 
+    const imdbHTML = show.imdb ? `
+        <div class="imdb-tag">
+            <span class="star">★</span>
+            <span class="score">${show.imdb}</span>
+        </div>
+    ` : '';
+
     return `
         <div class="poster-box">
             <span class="rank-tag">#${show.r}</span>
+            ${imdbHTML}
             <img src="${posterUrl}" alt="${show.t}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="no-img" style="display:none">
                 <span>📺</span>
@@ -1050,7 +1654,7 @@ function randIndex() {
 }
 
 async function displayWheelResult(show) {
-    resultBody.innerHTML = '<div style="text-align:center;padding:40px;color:#888;font-size:0.85rem">در حال دریافت پوستر...</div>';
+    resultBody.innerHTML = '<div style="text-align:center;padding:40px;color:#5a7290;font-size:0.85rem">در حال دریافت پوستر...</div>';
     result.classList.add('show');
     const posterUrl = await getPosterUrl(show.t);
     resultBody.innerHTML = showDetailsHTML(show, posterUrl);
@@ -1082,7 +1686,7 @@ spinBtn.addEventListener('click', async () => {
             spinBtn.disabled = false;
             loading.classList.remove('show');
         }
-    }, 3900);
+    }, 3950);
 });
 
 // ========== TABS ==========
@@ -1108,6 +1712,7 @@ function renderList(filter = '') {
         <div class="list-item" data-rank="${s.r}">
             <span class="list-rank">${s.r}</span>
             <span class="list-title">${s.t}</span>
+            <span class="list-imdb">★ ${s.imdb}</span>
             <span class="list-year">${s.y}</span>
         </div>
     `).join('');
@@ -1129,7 +1734,7 @@ listContainer.addEventListener('click', async (e) => {
     const show = shows.find(s => s.r === rank);
     if (!show) return;
 
-    modalBody.innerHTML = '<div style="text-align:center;padding:40px;color:#888;font-size:0.85rem">در حال دریافت پوستر...</div>';
+    modalBody.innerHTML = '<div style="text-align:center;padding:40px;color:#5a7290;font-size:0.85rem">در حال دریافت پوستر...</div>';
     detailModal.classList.add('show');
 
     const posterUrl = await getPosterUrl(show.t);
