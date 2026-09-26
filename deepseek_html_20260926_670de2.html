@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>گردونه سریال‌ها | هدیه از h.soligoo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap');
+
+        :root {
+            --bg-dark: #05050d;
+            --bg-mid: #0d0d20;
+            --gold: #f0c040;
+            --gold-soft: #ffd966;
+            --gold-glow: rgba(240, 192, 64, 0.45);
+            --red: #e63946;
+            --pink: #d6336c;
+            --purple: #6c5ce7;
+            --glass-bg: rgba(255, 255, 255, 0.045);
+            --glass-border: rgba(255, 255, 255, 0.09);
+            --glass-highlight: rgba(255, 255, 255, 0.14);
+            --text-main: #f0f0f5;
+            --text-sub: #8888a0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100vh;
+            height: 100dvh;
+            width: 100%;
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            overscroll-behavior: none;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background:
+                radial-gradient(circle at 50% -10%, #2a1a4a 0%, transparent 60%),
+                radial-gradient(circle at 100% 100%, #1a1a3e 0%, transparent 50%),
+                radial-gradient(circle at 0% 80%, #3e1a2a 0%, transparent 50%),
+                var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* --- Instagram Gift Banner --- */
+        .gift-banner {
+            flex-shrink: 0;
+            margin: 10px 14px 0;
+            padding: 9px 14px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(214, 51, 108, 0.15), rgba(108, 92, 231, 0.15));
+            border: 1px solid rgba(214, 51, 108, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: transform 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gift-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            transform: translateX(-100%);
+            animation: shine 3.5s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0%, 60% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .gift-banner:active {
+            transform: scale(0.97);
+        }
+
+        .gift-banner .ig-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 4px rgba(214, 51, 108, 0.6));
+        }
+
+        .gift-banner .gift-text {
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .gift-banner .gift-label {
+            color: #ffb8d4;
+            font-weight: 400;
+            font-size: 0.72rem;
+        }
+
+        .gift-banner .gift-user {
+            background: linear-gradient(90deg, #ffd966, #ff8fb3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            font-size: 0.82rem;
+            direction: ltr;
+        }
+
+        /* --- Title --- */
+        .app-title {
+            flex-shrink: 0;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-shadow: 0 0 20px var(--gold-glow);
+            padding: 10px 16px 6px;
+            letter-spacing: 0.3px;
+        }
+
+        /* --- Tabs --- */
+        .tabs {
+            flex-shrink: 0;
+            display: flex;
+            gap: 8px;
+            padding: 4px 14px 10px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: var(--text-sub);
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(240, 192, 64, 0.2), rgba(214, 51, 108, 0.15));
+            color: var(--gold);
+            border-color: rgba(240, 192, 64, 0.45);
+            box-shadow: 0 0 20px rgba(240, 192, 64, 0.18), inset 0 0 12px rgba(240,192,64,0.08);
+        }
+
+        .tab-btn:active { transform: scale(0.97); }
+
+        /* --- Tab Content --- */
+        .tab-content {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .tab-panel {
+            position: absolute;
+            inset: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 8px 14px 20px;
+            display: none;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .tab-panel::-webkit-scrollbar { display: none; }
+        .tab-panel.active { display: block; }
+
+        #tab-wheel.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ========== WHEEL ========== */
+        .wheel-stage {
+            position: relative;
+            width: min(290px, 78vw);
+            height: min(290px, 78vw);
+            flex-shrink: 0;
+            margin: 6px auto 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Rotating outer ring */
+        .outer-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px dashed rgba(240, 192, 64, 0.25);
+            animation: rotateSlow 30s linear infinite;
+        }
+
+        @keyframes rotateSlow {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Glow aura */
+        .wheel-stage::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                rgba(240,192,64,0.35),
+                rgba(214,51,108,0.35),
+                rgba(108,92,231,0.35),
+                rgba(240,192,64,0.35));
+            filter: blur(22px);
+            opacity: 0.55;
+            animation: hueSpin 8s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes hueSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Inner bezel */
+        .wheel-bezel {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            padding: 5px;
+            background: radial-gradient(circle at 50% 50%, rgba(20,20,40,0.9), rgba(10,10,20,0.95));
+            border: 1px solid rgba(240, 192, 64, 0.35);
+            box-shadow:
+                0 0 25px rgba(240, 192, 64, 0.15),
+                inset 0 0 30px rgba(0,0,0,0.9),
+                inset 0 2px 0 rgba(255,255,255,0.08);
+            z-index: 1;
+        }
+
+        .wheel-svg {
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            transition: transform 3.8s cubic-bezier(0.15, 0.9, 0.2, 1);
+            border-radius: 50%;
+            display: block;
+            filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
+        }
+
+        /* Pointer */
+        .wheel-pointer {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 13px solid transparent;
+            border-right: 13px solid transparent;
+            border-top: 22px solid var(--gold);
+            filter: drop-shadow(0 4px 8px rgba(240, 192, 64, 0.9));
+            z-index: 10;
+        }
+
+        .wheel-pointer::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff, var(--gold));
+            box-shadow: 0 0 18px var(--gold), 0 0 30px var(--gold-glow);
+            animation: pulse 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.25); opacity: 0.75; }
+        }
+
+        /* Center button */
+        .spin-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 74px;
+            height: 74px;
+            border-radius: 50%;
+            border: 2px solid rgba(240, 192, 64, 0.6);
+            background:
+                radial-gradient(circle at 30% 25%, rgba(255,255,255,0.15), transparent 60%),
+                linear-gradient(135deg, #2a1428, #1a0a18);
+            color: var(--gold);
+            font-family: inherit;
+            font-size: 0.72rem;
+            font-weight: 900;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            line-height: 1.1;
+            box-shadow:
+                0 0 30px rgba(214, 51, 108, 0.4),
+                0 0 60px rgba(240, 192, 64, 0.2),
+                inset 0 0 15px rgba(240, 192, 64, 0.15);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .spin-btn .spin-icon {
+            font-size: 1.35rem;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .spin-btn:active {
+            transform: translate(-50%, -50%) scale(0.9);
+            box-shadow:
+                0 0 50px rgba(214, 51, 108, 0.7),
+                0 0 90px rgba(240, 192, 64, 0.4);
+        }
+
+        .spin-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .spin-btn:disabled .spin-icon {
+            animation: spinFast 0.7s linear infinite;
+        }
+
+        @keyframes spinFast {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ========== RESULT ========== */
+        .result {
+            display: none;
+            width: 100%;
+            max-width: 430px;
+            border-radius: 20px;
+            padding: 14px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.55), inset 0 1px 0 var(--glass-highlight);
+            animation: slideUp 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 40%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), transparent);
+            pointer-events: none;
+        }
+
+        .result.show { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(28px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Show Detail Components */
+        .poster-box {
+            width: 100%;
+            height: 300px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #0f0f20;
+            margin-bottom: 12px;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .poster-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .poster-box .no-img {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-sub);
+            font-size: 2.8rem;
+            gap: 8px;
+        }
+        .poster-box .no-img span:last-child { font-size: 0.85rem; }
+
+        .rank-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, var(--gold), #ffb347);
+            color: #000;
+            font-weight: 900;
+            font-size: 0.78rem;
+            padding: 4px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 18px rgba(240, 192, 64, 0.55);
+            z-index: 5;
+        }
+
+        .show-title {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 3px;
+            text-shadow: 0 0 15px rgba(240, 192, 64, 0.25);
+            position: relative;
+            z-index: 2;
+        }
+
+        .show-year {
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-item {
+            background: rgba(0, 0, 0, 0.28);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 8px 10px;
+            text-align: right;
+        }
+
+        .info-item .lbl {
+            font-size: 0.63rem;
+            color: var(--text-sub);
+            margin-bottom: 2px;
+        }
+
+        .info-item .val {
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .desc-box {
+            background: rgba(0, 0, 0, 0.22);
+            border-radius: 12px;
+            padding: 11px 13px;
+            font-size: 0.8rem;
+            line-height: 1.85;
+            color: #ccc;
+            border-right: 3px solid var(--gold);
+            text-align: right;
+            position: relative;
+            z-index: 2;
+        }
+
+        .special-box {
+            display: none;
+            align-items: flex-start;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(240,192,64,0.08), rgba(214,51,108,0.06));
+            border: 1px solid rgba(240, 192, 64, 0.18);
+            border-radius: 12px;
+            padding: 9px 11px;
+            font-size: 0.76rem;
+            color: #e8c86a;
+            line-height: 1.7;
+            text-align: right;
+            margin-top: 9px;
+            position: relative;
+            z-index: 2;
+        }
+        .special-box.show { display: flex; }
+        .special-box .ic { font-size: 1.05rem; flex-shrink: 0; }
+
+        /* Loading */
+        .loading {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 18px;
+        }
+        .loading.show { display: flex; }
+
+        .spinner {
+            width: 34px;
+            height: 34px;
+            border: 3px solid rgba(255,255,255,0.05);
+            border-top-color: var(--gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ========== LIST ========== */
+        #tab-list { padding-top: 0; }
+
+        .search-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 4px 0 10px;
+            background: linear-gradient(180deg, var(--bg-dark) 65%, transparent);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 11px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .search-input::placeholder { color: var(--text-sub); }
+        .search-input:focus {
+            border-color: rgba(240, 192, 64, 0.5);
+            box-shadow: 0 0 18px rgba(240, 192, 64, 0.18);
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            margin-bottom: 7px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .list-item:active {
+            background: rgba(240, 192, 64, 0.1);
+            border-color: rgba(240, 192, 64, 0.4);
+            transform: scale(0.99);
+        }
+
+        .list-rank {
+            flex-shrink: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: rgba(240, 192, 64, 0.12);
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 0.75rem;
+            border: 1px solid rgba(240, 192, 64, 0.22);
+        }
+
+        .list-title {
+            flex: 1;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-align: right;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .list-year {
+            flex-shrink: 0;
+            font-size: 0.68rem;
+            color: var(--text-sub);
+            direction: ltr;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-sub);
+            font-size: 0.85rem;
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            animation: fadeIn 0.22s ease;
+        }
+        .modal.show { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 430px;
+            max-height: 88dvh;
+            overflow-y: auto;
+            border-radius: 20px;
+            padding: 14px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.7), inset 0 1px 0 var(--glass-highlight);
+            position: relative;
+            animation: slideUp 0.32s ease;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .modal-content::-webkit-scrollbar { display: none; }
+
+        .modal-close {
+            position: sticky;
+            top: 0;
+            float: left;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.55);
+            color: var(--text-main);
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: -34px;
+        }
+        .modal-close:active { transform: scale(0.9); }
+
+        @media (max-width: 360px) {
+            .wheel-stage { width: min(250px, 76vw); height: min(250px, 76vw); }
+            .spin-btn { width: 62px; height: 62px; font-size: 0.65rem; }
+            .spin-btn .spin-icon { font-size: 1.15rem; }
+            .poster-box { height: 260px; }
+            .show-title { font-size: 1.05rem; }
+            .app-title { font-size: 0.85rem; }
+            .tab-btn { font-size: 0.75rem; padding: 9px; }
+            .gift-banner .gift-text { font-size: 0.72rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Instagram Gift -->
+    <a class="gift-banner" href="https://instagram.com/h.soligoo" target="_blank" rel="noopener noreferrer">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="igGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#feda75"/>
+                    <stop offset="30%" stop-color="#fa7e1e"/>
+                    <stop offset="60%" stop-color="#d62976"/>
+                    <stop offset="100%" stop-color="#962fbf"/>
+                </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="20" height="20" rx="6" stroke="url(#igGrad)" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="4.5" stroke="url(#igGrad)" stroke-width="1.8"/>
+            <circle cx="17.5" cy="6.5" r="1.2" fill="url(#igGrad)"/>
+        </svg>
+        <span class="gift-text">
+            <span class="gift-label">هدیه از طرف اینستاگرام:</span>
+            <span class="gift-user">h.soligoo</span>
+        </span>
+    </a>
+
+    <div class="app-title">🎬 ۱۰۰ سریال برتر قرن ۲۱</div>
+
+    <nav class="tabs">
+        <button class="tab-btn active" data-tab="wheel">🎡 گردونه</button>
+        <button class="tab-btn" data-tab="list">📋 لیست</button>
+    </nav>
+
+    <main class="tab-content">
+        <!-- Wheel Tab -->
+        <section id="tab-wheel" class="tab-panel active">
+            <div class="wheel-stage">
+                <div class="outer-ring"></div>
+                <div class="wheel-pointer"></div>
+                <div class="wheel-bezel">
+                    <svg class="wheel-svg" id="wheelSvg" viewBox="0 0 300 300"></svg>
+                </div>
+                <button class="spin-btn" id="spinBtn">
+                    <span class="spin-icon">🎲</span>
+                    <span>بچرخون</span>
+                </button>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <span style="color: var(--text-sub); font-size: 0.75rem;">در حال دریافت اطلاعات...</span>
+            </div>
+
+            <div class="result" id="result">
+                <div id="resultBody"></div>
+            </div>
+        </section>
+
+        <!-- List Tab -->
+        <section id="tab-list" class="tab-panel">
+            <div class="search-wrap">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 جستجوی سریال..." autocomplete="off">
+            </div>
+            <div id="listContainer"></div>
+        </section>
+    </main>
+
+    <!-- Detail Modal -->
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">✕</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+<script>
+// ========== DATA ==========
+const shows = [
+    {r:1,t:"Breaking Bad",y:"2008–2013",g:"جنایی، درام",c:"آمریکا",ba:"برایان کرانستون",v:"۱۰.۳ میلیون (فصل آخر)",sp:"برنده ۱۶ جایزه امی؛ اغلب بهترین سریال تاریخ تلویزیون نامیده می‌شود.",d:"والتر وایت، معلم شیمی دبیرستانی مبتلا به سرطان، برای تأمین آینده خانواده‌اش وارد دنیای تولید متامفتامین می‌شود و به تدریج به یک امپراتور بی‌رحم تبدیل می‌شود."},
+    {r:2,t:"The Wire",y:"2002–2008",g:"جنایی، درام اجتماعی",c:"آمریکا",ba:"دامینیک وست",v:"۴.۳ میلیون (اوج)",sp:"واقع‌گرایانه‌ترین سریال جنایی تاریخ؛ هر فصل یک نهاد اجتماعی را نقد می‌کند.",d:"نگاهی بی‌رحمانه به بالتیمور از دیدگاه پلیس، قاچاقچیان، سیستم آموزشی، رسانه‌ها و سیاستمداران."},
+    {r:3,t:"Mad Men",y:"2007–2015",g:"درام تاریخی",c:"آمریکا",ba:"جان هام",v:"۲–۳.۵ میلیون",sp:"برنده ۴ امی بهترین درام؛ اولین سریال کابلی که این جایزه را برد.",d:"داستان دان دراپر، مدیر خلاق آژانس تبلیغاتی در دهه ۱۹۶۰ نیویورک. بررسی هویت، جنسیت و تغییرات اجتماعی از دریچه دنیای تبلیغات."},
+    {r:4,t:"Succession",y:"2018–2023",g:"درام، کمدی سیاه",c:"آمریکا",ba:"جرمی استرانگ",v:"۲.۹ میلیون (فینال)",sp:"برنده امی بهترین درام؛ پیش‌بینی ۸۵۰ میلیون دلار درآمد برای HBO.",d:"خانواده روی، مالکان امپراتوری رسانه‌ای جهانی، بر سر جانشینی پدر سالخورده‌شان به رقابتی خشن و پر از خیانت می‌پردازند."},
+    {r:5,t:"Fleabag",y:"2016–2019",g:"کمدی سیاه",c:"بریتانیا",ba:"فیبی والر-بریج",v:"۲–۳ میلیون (بریتانیا)",sp:"برنده ۶ امی؛ شکستن دیوار چهارم به شکلی نوآورانه.",d:"زنی جوان، خشمگین و آسیب‌دیده در لندن، با شکستن دیوار چهارم مخاطب را به دنیای پر از اشتباه و جستجوی عشق خود دعوت می‌کند."},
+    {r:6,t:"Game of Thrones",y:"2011–2019",g:"فانتزی، درام",c:"آمریکا",ba:"پیتر دینکلیج",v:"۴۴ میلیون (فصل آخر)",sp:"برنده ۵۹ امی؛ پدیده فرهنگی جهانی.",d:"خاندان‌های نجیب وستروس برای تخت آهنین می‌جنگند، در حالی که تهدیدی باستانی از آن سوی دیوار بیدار می‌شود."},
+    {r:7,t:"Veep",y:"2012–2019",g:"کمدی سیاسی",c:"آمریکا",ba:"جولیا لوئیس-دریفوس",v:"۱–۲ میلیون",sp:"برنده ۱۷ امی؛ جولیا لوئیس-دریفوس رکورددار امی برای یک نقش.",d:"سلینا مایر، معاون رئیس‌جمهور آمریکا، در دنیای پر هرج و مرج سیاست واشنگتن تلاش می‌کند قدرت خود را حفظ کند."},
+    {r:8,t:"30 Rock",y:"2006–2013",g:"کمدی موقعیت",c:"آمریکا",ba:"تینا فی",v:"۴–۶ میلیون",sp:"برنده ۱۱ امی؛ کمدی پرسرعت با طنز لایه‌لایه.",d:"لیز لمون، نویسنده اصلی یک برنامه کمدی اسکچ، باید با ستاره‌های عجیب و غریب و رئیس بی‌عرضه‌اش کنار بیاید."},
+    {r:9,t:"Curb Your Enthusiasm",y:"2000–2024",g:"کمدی سیاه",c:"آمریکا",ba:"لری دیوید",v:"۱–۲ میلیون",sp:"بداهه‌پردازی در فیلمنامه؛ لری دیوید هر موقعیت اجتماعی را به فاجعه تبدیل می‌کند.",d:"لری دیوید، خالق سین‌فلد، نسخه داستانی از خودش را بازی می‌کند و با موقعیت‌های اجتماعی آزاردهنده دست و پنجه نرم می‌کند."},
+    {r:10,t:"Atlanta",y:"2016–2022",g:"کمدی-درام، سورئال",c:"آمریکا",ba:"دونالد گلاور",v:"۱–۲ میلیون",sp:"برنده امی و گلدن گلوب؛ روایت سورئال و تجربی از زندگی سیاه‌پوستان آمریکا.",d:"دو پسر عمو در آتلانتا تلاش می‌کنند در صنعت موسیقی رپ پیشرفت کنند و با چالش‌های نژادی و اجتماعی روبرو می‌شوند."},
+    {r:11,t:"The Office (U.S.)",y:"2005–2013",g:"کمدی موقعیت",c:"آمریکا",ba:"استیو کارل",v:"۴–۹ میلیون",sp:"یکی از محبوب‌ترین کمدی‌های تاریخ تلویزیون؛ پخش جهانی موفق.",d:"مستندی طنزآمیز از زندگی روزمره کارمندان یک شرکت توزیع کاغذ در پنسیلوانیا، به مدیریت مایکل اسکات."},
+    {r:12,t:"Arrested Development",y:"2003–2019",g:"کمدی",c:"آمریکا",ba:"جیسون بیتمن",v:"۴–۶ میلیون",sp:"کمدی پر از شوخی‌های پیچیده و ارجاعات داخلی.",d:"مایکل بلوث باید پس از دستگیری پدرش، خانواده به هم ریخته و خودشیفته‌اش را اداره کند."},
+    {r:13,t:"Girls",y:"2012–2017",g:"کمدی-درام",c:"آمریکا",ba:"لینا دانم",v:"۱–۲ میلیون",sp:"سریالی صادقانه درباره نسل هزاره.",d:"زندگی چهار زن جوان در نیویورک و مبارزات آن‌ها با عشق، کار و دوستی در دوران پس از فارغ‌التحصیلی."},
+    {r:14,t:"Friday Night Lights",y:"2006–2011",g:"درام ورزشی",c:"آمریکا",ba:"کایل چندلر",v:"۴–۶ میلیون",sp:"یکی از واقع‌گرایانه‌ترین تصویرهای زندگی آمریکایی.",d:"داستان یک تیم فوتبال دبیرستانی در تگزاس و تأثیر آن بر زندگی بازیکنان، مربیان و خانواده‌هایشان."},
+    {r:15,t:"Six Feet Under",y:"2001–2005",g:"درام",c:"آمریکا",ba:"پیتر کراوزه",v:"۴–۶ میلیون",sp:"سریالی درباره زندگی از دریچه مرگ.",d:"خانواده فیشر که یک سرویس تشییع جنازه را اداره می‌کنند، با مرگ، فقدان و پیچیدگی‌های روابط انسانی روبرو می‌شوند."},
+    {r:16,t:"The Office (U.K.)",y:"2001–2003",g:"کمدی",c:"بریتانیا",ba:"ریکی جرویز",v:"۲–۴ میلیون",sp:"مبدأ کمدی‌های مستندنما.",d:"نسخه اصلی بریتانیایی که زندگی کارمندان یک دفتر کاغذ در اسلاو را با مدیریت دیوید برنت به تصویر می‌کشد."},
+    {r:17,t:"The Americans",y:"2013–2018",g:"جاسوسی، درام",c:"آمریکا",ba:"کری راسل",v:"۱–۳ میلیون",sp:"سریالی درباره هویت، وفاداری و خانواده.",d:"دو جاسوس اتحاد جماهیر شوروی در دهه ۱۹۸۰ به عنوان یک زوج آمریکایی در واشنگتن دی‌سی زندگی می‌کنند."},
+    {r:18,t:"I May Destroy You",y:"2020",g:"درام",c:"بریتانیا",ba:"میکائلا کول",v:"۱–۲ میلیون",sp:"سریالی قدرتمند درباره رضایت و تروما.",d:"نویسنده‌ای جوان پس از یک تجاوز جنسی در یک کلوب، باید حقیقت را کشف کند و زندگی‌اش را بازسازی کند."},
+    {r:19,t:"Chernobyl",y:"2019",g:"درام تاریخی",c:"آمریکا/بریتانیا",ba:"جرد هریس",v:"۷–۸ میلیون",sp:"مینی‌سریالی تکان‌دهنده درباره فاجعه هسته‌ای.",d:"بازسازی دقیق فاجعه هسته‌ای چرنوبیل در سال ۱۹۸۶ و قهرمانانی که جان خود را برای جلوگیری از فاجعه‌ای بزرگ‌تر فدا کردند."},
+    {r:20,t:"The Crown",y:"2016–2023",g:"درام تاریخی",c:"بریتانیا",ba:"کلر فوی / اولیویا کولمن",v:"۳–۵ میلیون",sp:"سریالی پرهزینه و باشکوه درباره سلطنت.",d:"زندگی ملکه الیزابت دوم از دوران جوانی تا دوران مدرن و رویدادهای سیاسی و شخصی که سلطنت او را شکل داد."},
+    {r:21,t:"The White Lotus",y:"2021–present",g:"کمدی سیاه، درام",c:"آمریکا",ba:"جنیفر کولیج",v:"۱–۲ میلیون",sp:"هر فصل در یک لوکیشن جدید.",d:"مهمانان و کارکنان یک هتل لوکس را در طول یک هفته پر از رسوایی، راز و انحطاط دنبال می‌کند."},
+    {r:22,t:"Lost",y:"2004–2010",g:"علمی-تخیلی، درام",c:"آمریکا",ba:"متیو فاکس",v:"۱۰–۲۰ میلیون",sp:"سریالی پر از معما و فلاش‌بک.",d:"بازماندگان یک سقوط هواپیما در یک جزیره مرموز باید برای بقا تلاش کنند و رازهای جزیره را کشف کنند."},
+    {r:23,t:"The Comeback",y:"2005–2026",g:"کمدی",c:"آمریکا",ba:"لیزا کادرو",v:"۰.۵–۱ میلیون",sp:"کمدی درباره خودشیفتگی هالیوود.",d:"والری چریش، ستاره سابق تلویزیون، تلاش می‌کند تا با یک ریلیتی‌شو حرفه‌اش را احیا کند."},
+    {r:24,t:"Deadwood",y:"2004–2006",g:"وسترن",c:"آمریکا",ba:"یان مک‌شین",v:"۲–۳ میلیون",sp:"دیالوگ‌های شکسپیری و خشونت بی‌رحمانه.",d:"داستان شهر مرزی ددوود در داکوتای جنوبی و شخصیت‌های خشن و جاه‌طلبی که در آن زندگی می‌کنند."},
+    {r:25,t:"The Leftovers",y:"2014–2017",g:"درام، ماوراء طبیعی",c:"آمریکا",ba:"جاستین ثرو",v:"۱–۲ میلیون",sp:"سریالی درباره اندوه و ایمان.",d:"پس از ناپدید شدن ناگهانی ۲٪ از جمعیت جهان، بازماندگان در تلاش برای کنار آمدن با این فقدان هستند."},
+    {r:26,t:"Black Mirror",y:"2011–present",g:"علمی-تخیلی، آنتولوژی",c:"بریتانیا",ba:"متغیر",v:"۲–۵ میلیون",sp:"هر قسمت یک داستان مستقل.",d:"مجموعه‌ای آنتولوژیک که به بررسی تأثیرات تاریک فناوری بر جامعه مدرن می‌پردازد."},
+    {r:27,t:"Better Call Saul",y:"2015–2022",g:"جنایی، درام",c:"آمریکا",ba:"باب ادنکیرک",v:"۱–۲ میلیون",sp:"یکی از بهترین پیش‌درآمدهای تاریخ.",d:"پیش‌درآمدی بر Breaking Bad که داستان تبدیل شدن جیمی مک‌گیل به وکیل ساول گودمن را روایت می‌کند."},
+    {r:28,t:"Band of Brothers",y:"2001",g:"جنگی، درام",c:"آمریکا",ba:"دامینیک وست",v:"۵–۱۰ میلیون",sp:"مینی‌سریالی حماسی و تأثیرگذار.",d:"داستان گروهی از سربازان چترباز آمریکایی در جنگ جهانی دوم، از آموزش تا پایان جنگ."},
+    {r:29,t:"Key & Peele",y:"2012–2015",g:"کمدی اسکچ",c:"آمریکا",ba:"کیگان-مایکل کی",v:"۱–۲ میلیون",sp:"کمدی هوشمندانه و جسورانه.",d:"مجموعه‌ای از اسکچ‌های کمدی که اغلب به موضوعات نژادی، فرهنگی و اجتماعی می‌پردازد."},
+    {r:30,t:"Severance",y:"2022–present",g:"علمی-تخیلی، تریلر",c:"آمریکا",ba:"آدام اسکات",v:"۱–۲ میلیون",sp:"سریالی درباره هویت و کنترل شرکتی.",d:"کارمندان یک شرکت مرموز تحت عمل جراحی قرار می‌گیرند که خاطرات کاری و شخصی آن‌ها را جدا می‌کند."},
+    {r:31,t:"Survivor",y:"2000–present",g:"واقع‌نما",c:"آمریکا",ba:"جف پروبست",v:"۱۰–۲۰ میلیون",sp:"پدر همه ریلیتی‌شوها.",d:"مسابقه‌ای واقع‌نما که در آن شرکت‌کنندگان در یک جزیره دورافتاده برای جایزه بزرگ با هم رقابت می‌کنند."},
+    {r:32,t:"Andor",y:"2022–2025",g:"علمی-تخیلی",c:"آمریکا",ba:"دیه‌گو لونا",v:"۱–۳ میلیون",sp:"سریالی بالغ و سیاسی در دنیای جنگ ستارگان.",d:"داستان کاسیان اندور، جاسوس شورشی، در دوران پیش از فیلم Rogue One."},
+    {r:33,t:"Enlightened",y:"2011–2013",g:"کمدی-درام",c:"آمریکا",ba:"لورا درن",v:"۰.۲–۰.۵ میلیون",sp:"سریالی درباره تلاش برای بهتر شدن.",d:"زنی پس از یک فروپاشی روانی، تلاش می‌کند تا زندگی‌اش را تغییر دهد و به روشن‌بینی برسد."},
+    {r:34,t:"Schitt's Creek",y:"2015–2020",g:"کمدی",c:"کانادا",ba:"دنیل لوی",v:"۱–۲ میلیون",sp:"کمدی گرم و دلنشین.",d:"خانواده‌ای ثروتمند پس از ورشکستگی مجبور می‌شود در شهری کوچک زندگی کند."},
+    {r:35,t:"True Detective",y:"2014",g:"جنایی، درام",c:"آمریکا",ba:"متیو مک‌کانهی",v:"۲–۳ میلیون",sp:"سریالی تاریک و فلسفی (فصل اول).",d:"دو کارآگاه در طول ۱۷ سال به دنبال یک قاتل زنجیره‌ای در لوئیزیانا هستند."},
+    {r:36,t:"The Pitt",y:"2025–present",g:"درام پزشکی",c:"آمریکا",ba:"—",v:"—",sp:"سریالی واقع‌گرایانه درباره سیستم سلامت.",d:"درام پزشکی که زندگی پزشکان و پرستاران یک بخش اورژانس شلوغ را دنبال می‌کند."},
+    {r:37,t:"Battlestar Galactica",y:"2005–2009",g:"علمی-تخیلی",c:"آمریکا",ba:"ادوارد جیمز اولموس",v:"۱–۳ میلیون",sp:"سریالی درباره بقا، ایمان و سیاست.",d:"بازماندگان نسل‌کشی رباتیک‌ها در جستجوی خانه‌ای افسانه‌ای به نام زمین در فضا سرگردانند."},
+    {r:38,t:"Homeland",y:"2011–2020",g:"جاسوسی، تریلر",c:"آمریکا",ba:"کلر دینز",v:"۱–۲ میلیون",sp:"تریلهری پر از پیچش.",d:"یک مأمور CIA مشکوک است که یک سرباز آمریکایی که از اسارت بازگشته، به یک تروریست تبدیل شده است."},
+    {r:39,t:"Watchmen",y:"2019",g:"ابرقهرمانی، درام",c:"آمریکا",ba:"رجینا کینگ",v:"۱–۲ میلیون",sp:"سریالی جسورانه درباره نژاد و قدرت.",d:"دنباله‌ای بر رمان گرافیکی، در دنیایی که ابرقهرمانان به عنوان قانون‌شکن شناخته می‌شوند."},
+    {r:40,t:"Adolescence",y:"2025",g:"درام",c:"بریتانیا",ba:"—",v:"—",sp:"سریالی درباره خانواده و عدالت.",d:"داستان یک خانواده را دنبال می‌کند که زندگی‌شان با اتهام قتل به پسر ۱۳ ساله‌شان از هم می‌پاشد."},
+    {r:41,t:"Louie",y:"2010–2015",g:"کمدی-درام",c:"آمریکا",ba:"لویی سی‌کی",v:"۰.۵–۱ میلیون",sp:"کمدی تجربی و شخصی.",d:"لویی سی‌کی، کمدین، نسخه داستانی از خودش را در موقعیت‌های کمدی و دراماتیک بازی می‌کند."},
+    {r:42,t:"Hacks",y:"2021–2026",g:"کمدی-درام",c:"آمریکا",ba:"جین اسمارت",v:"۰.۵–۱ میلیون",sp:"کمدی درباره نسل‌ها و خلاقیت.",d:"یک کمدین افسانه‌ای لاس‌وگاس و یک نویسنده جوان و سرکش با همکاری هم سعی در احیای حرفه‌شان دارند."},
+    {r:43,t:"Peaky Blinders",y:"2013–2022",g:"جنایی، درام تاریخی",c:"بریتانیا",ba:"کیلیان مرفی",v:"۲–۴ میلیون",sp:"سریالی با سبک بصری خیره‌کننده.",d:"داستان خانواده شرور شلبی در بیرمنگام پس از جنگ جهانی اول و تلاش آن‌ها برای قدرت‌گیری."},
+    {r:44,t:"BoJack Horseman",y:"2014–2020",g:"پویانمایی، کمدی سیاه",c:"آمریکا",ba:"ویل آرنت",v:"۰.۵–۱ میلیون",sp:"عمیق‌ترین انیمیشن بزرگسالان.",d:"اسب انسان‌نمای افسرده و ستاره سابق سیتکام، در لس‌آنجلس با شهرت، اعتیاد و گذشته‌اش دست و پنجه نرم می‌کند."},
+    {r:45,t:"Happy Valley",y:"2014–2023",g:"جنایی، درام",c:"بریتانیا",ba:"سارا لانکاشیر",v:"۵–۸ میلیون",sp:"سریالی قدرتمند و بی‌رحمانه.",d:"یک گروهبان پلیس در یورکشایر غربی با پرونده‌های جنایی پیچیده و زندگی شخصی دشوارش روبرو می‌شود."},
+    {r:46,t:"Broad City",y:"2014–2019",g:"کمدی",c:"آمریکا",ba:"ایلانا گلیزر",v:"۰.۵–۱ میلیون",sp:"کمدی درباره دوستی و جوانی.",d:"دو دوست صمیمی در نیویورک ماجراجویی‌های کمدی و پوچ‌گرایانه‌ای را تجربه می‌کنند."},
+    {r:47,t:"Twin Peaks: The Return",y:"2017",g:"ماوراء طبیعی، درام",c:"آمریکا",ba:"کایل مک‌لاکلن",v:"۰.۵–۱ میلیون",sp:"دیوید لینچ در اوج خلاقیت.",d:"بازگشت دیل کوپر به شهر کوچک توین پیکس پس از ۲۵ سال و مواجهه با نیروهای ماوراء طبیعی."},
+    {r:48,t:"House of Cards",y:"2013–2018",g:"درام سیاسی",c:"آمریکا",ba:"کوین اسپیسی",v:"۲–۴ میلیون",sp:"سریالی که نتفلیکس را متحول کرد.",d:"فرانک آندروود، یک سیاستمدار بی‌رحم، برای رسیدن به قدرت مطلق در واشنگتن دی‌سی نقشه می‌کشد."},
+    {r:49,t:"Normal People",y:"2020",g:"عاشقانه، درام",c:"ایرلند",ba:"دیزایری بانسی",v:"۱–۲ میلیون",sp:"سریالی لطیف درباره عشق و کلاس اجتماعی.",d:"داستان پیچیده و صمیمی رابطه بین ماریان و کانل، از دبیرستان تا دانشگاه در ایرلند."},
+    {r:50,t:"Parks and Recreation",y:"2009–2015",g:"کمدی",c:"آمریکا",ba:"ایمی پولر",v:"۲–۴ میلیون",sp:"کمدی گرم و خوش‌بینانه.",d:"لسلی ناپ، کارمند بخش پارک‌ها و تفریحات، برای بهبود شهر پاونی، ایندیانا، تلاش می‌کند."},
+    {r:51,t:"The Good Place",y:"2016–2020",g:"کمدی، فانتزی",c:"آمریکا",ba:"کریستن بل",v:"۲–۴ میلیون",sp:"کمدی فلسفی درباره اخلاق.",d:"زنی پس از مرگ به اشتباه وارد بهشت می‌شود و سعی می‌کند ثابت کند جای او اینجاست."},
+    {r:52,t:"Downton Abbey",y:"2010–2015",g:"درام تاریخی",c:"بریتانیا",ba:"مگی اسمیت",v:"۸–۱۰ میلیون",sp:"سریالی باشکوه درباره طبقه و تغییر.",d:"زندگی خانواده اشرافی کرالی و خدمتکارانشان در عمارت داون‌تون در اوایل قرن بیستم."},
+    {r:53,t:"Stranger Things",y:"2016–2025",g:"علمی-تخیلی، ترسناک",c:"آمریکا",ba:"میلی بابی براون",v:"۱۰–۲۰ میلیون",sp:"پدیده فرهنگی نتفلیکس.",d:"گروهی از بچه‌ها در دهه ۱۹۸۰ با نیروهای فراطبیعی و آزمایش‌های مخفی دولتی روبرو می‌شوند."},
+    {r:54,t:"The Bureau",y:"2015–2020",g:"جاسوسی، درام",c:"فرانسه",ba:"متیو کاسوویتز",v:"۱–۲ میلیون",sp:"واقع‌گرایانه‌ترین سریال جاسوسی.",d:"داستان یک مأمور مخفی فرانسوی که پس از بازگشت از سوریه، با پیچیدگی‌های جاسوسی روبرو می‌شود."},
+    {r:55,t:"Insecure",y:"2016–2021",g:"کمدی-درام",c:"آمریکا",ba:"ایسا ری",v:"۰.۵–۱ میلیون",sp:"سریالی صادقانه درباره هویت.",d:"ایسا دی، زنی سیاه‌پوست در لس‌آنجلس، با چالش‌های شغلی، عاطفی و نژادی دست و پنجه نرم می‌کند."},
+    {r:56,t:"Nathan for You",y:"2013–2017",g:"کمدی، واقع‌نما",c:"آمریکا",ba:"ناتان فیلدر",v:"۰.۲–۰.۵ میلیون",sp:"کمدی آزاردهنده و نابغه.",d:"ناتان فیلدر با ایده‌های خلاقانه و اغلب مضحک به کسب‌وکارهای کوچک کمک می‌کند."},
+    {r:57,t:"I Think You Should Leave",y:"2019–present",g:"کمدی اسکچ",c:"آمریکا",ba:"تیم رابینسون",v:"۰.۵–۱ میلیون",sp:"کمدی برای طرفداران طنز غیرمتعارف.",d:"مجموعه‌ای از اسکچ‌های کمدی سورئال و آزاردهنده که توسط تیم رابینسون نوشته شده است."},
+    {r:58,t:"Chappelle's Show",y:"2003–2006",g:"کمدی اسکچ",c:"آمریکا",ba:"دیو شپل",v:"۲–۳ میلیون",sp:"یکی از تأثیرگذارترین کمدی‌های اسکچ.",d:"دیو شپل با اسکچ‌های طنز تند و بی‌پرده به مسائل نژادی، سیاست و فرهنگ عامه می‌پردازد."},
+    {r:59,t:"PEN15",y:"2019–2021",g:"کمدی",c:"آمریکا",ba:"مایا ارسکین",v:"۰.۲–۰.۵ میلیون",sp:"کمدی دردناک و خنده‌دار.",d:"دو زن ۳۰ ساله نقش نوجوانان ۱۳ ساله را بازی می‌کنند و سختی‌های دوران راهنمایی را به تصویر می‌کشند."},
+    {r:60,t:"Peep Show",y:"2003–2015",g:"کمدی",c:"بریتانیا",ba:"دیوید میچل",v:"۱–۲ میلیون",sp:"کمدی منحصربه‌فرد.",d:"مارک و جز، دو هم‌خانه بسیار متفاوت، از دیدگاه اول‌شخص، زندگی و روابط ناکام خود را روایت می‌کنند."},
+    {r:61,t:"RuPaul's Drag Race",y:"2009–present",g:"واقع‌نما",c:"آمریکا",ba:"روپاول",v:"۰.۵–۱ میلیون",sp:"پدیده فرهنگی دگرباشان.",d:"مسابقه‌ای واقع‌نما که در آن درگ‌کوئین‌ها برای عنوان سوپرمدل درگ بعدی آمریکا رقابت می‌کنند."},
+    {r:62,t:"Slow Horses",y:"2022–present",g:"جاسوسی، تریلر",c:"بریتانیا",ba:"گری اولدمن",v:"۱–۲ میلیون",sp:"گری اولدمن در اوج.",d:"تیمی از مأموران اطلاعاتی بریتانیایی که به دلیل اشتباهاتشان به بخشی حاشیه‌ای تبعید شده‌اند."},
+    {r:63,t:"The Thick of It",y:"2005–2012",g:"کمدی سیاسی",c:"بریتانیا",ba:"پیتر کاپالدی",v:"۱–۲ میلیون",sp:"دیالوگ‌های تند و بی‌رحمانه.",d:"کمدی سیاسی که پشت صحنه دولت بریتانیا و تلاش‌های ارتباطی آن را به تمسخر می‌گیرد."},
+    {r:64,t:"Anthony Bourdain: Parts Unknown",y:"2013–2018",g:"مستند",c:"آمریکا",ba:"آنتونی بوردین",v:"۰.۵–۱ میلیون",sp:"مستندی درباره انسانیت.",d:"آنتونی بوردین به کشورهای مختلف سفر می‌کند تا غذاهای محلی و فرهنگ آن‌ها را کشف کند."},
+    {r:65,t:"Mare of Easttown",y:"2021",g:"جنایی، درام",c:"آمریکا",ba:"کیت وینسلت",v:"۱–۲ میلیون",sp:"کیت وینسلت درخشان.",d:"کارآگاهی در یک شهر کوچک پنسیلوانیا در حالی که با زندگی شخصی‌اش دست و پنجه نرم می‌کند، یک قتل محلی را بررسی می‌کند."},
+    {r:66,t:"The Rehearsal",y:"2022–present",g:"کمدی، مستندنما",c:"آمریکا",ba:"ناتان فیلدر",v:"۰.۲–۰.۵ میلیون",sp:"کمدی فلسفی.",d:"ناتان فیلدر به افراد کمک می‌کند تا برای موقعیت‌های دشوار زندگی خود تمرین کنند."},
+    {r:67,t:"The Handmaid's Tale",y:"2017–2025",g:"دیستوپیایی، درام",c:"آمریکا",ba:"الیزابت ماس",v:"۱–۲ میلیون",sp:"سریالی هشداردهنده درباره قدرت.",d:"در یک جامعه دیستوپیایی، زنان بارور به عنوان خدمتکار برای طبقه حاکم استفاده می‌شوند."},
+    {r:68,t:"Ozark",y:"2017–2022",g:"جنایی، درام",c:"آمریکا",ba:"جیسون بیتمن",v:"۲–۴ میلیون",sp:"تریلهری تاریک.",d:"یک مشاور مالی مجبور می‌شود برای جبران بدهی‌اش، خانواده‌اش را به دریاچه‌های اوزارک منتقل کرده و پول‌شویی کند."},
+    {r:69,t:"Anthony Bourdain: No Reservations",y:"2005–2012",g:"مستند",c:"آمریکا",ba:"آنتونی بوردین",v:"۰.۵–۱ میلیون",sp:"مستندی درباره سفر و انسانیت.",d:"آنتونی بوردین در سفرهای خود به دور دنیا، غذاها و فرهنگ‌های متنوع را کشف می‌کند."},
+    {r:70,t:"The Shield",y:"2002–2008",g:"جنایی، درام",c:"آمریکا",ba:"مایکل چیکلیس",v:"۲–۳ میلیون",sp:"سریالی بی‌رحمانه.",d:"یک گروه ضربت پلیس فاسد در لس‌آنجلس، خط باریک بین قانون و جنایت را زیر پا می‌گذارد."},
+    {r:71,t:"Beef",y:"2023",g:"کمدی سیاه، درام",c:"آمریکا",ba:"استیون ین",v:"۱–۲ میلیون",sp:"سریالی درباره خشم و انتقام.",d:"یک حادثه جاده‌ای ساده بین دو غریبه به یک feud پیچیده و خطرناک تبدیل می‌شود."},
+    {r:72,t:"Squid Game",y:"2021–2025",g:"بقا، تریلر",c:"کره جنوبی",ba:"لی جونگ-جه",v:"۱۰–۲۰ میلیون",sp:"پدیده جهانی کره‌ای.",d:"افرادی با مشکلات مالی در بازی‌های کودکانه مرگبار برای شانس برنده شدن جایزه بزرگ شرکت می‌کنند."},
+    {r:73,t:"Barry",y:"2018–2023",g:"کمدی سیاه، جنایی",c:"آمریکا",ba:"بیل هیدر",v:"۰.۵–۱ میلیون",sp:"کمدی تاریک درباره هویت.",d:"یک قاتل حرفه‌ای افسرده در لس‌آنجلس تصمیم می‌گیرد بازیگر شود و زندگی‌اش را تغییر دهد."},
+    {r:74,t:"The Bear",y:"2022–2026",g:"کمدی-درام",c:"آمریکا",ba:"جرمی آلن وایت",v:"۱–۲ میلیون",sp:"سریالی پرهیجان درباره خانواده.",d:"یک سرآشپز جوان از دنیای آشپزی خوب به شیکاگو بازمی‌گردد تا ساندویچ‌فروشی خانوادگی‌اش را اداره کند."},
+    {r:75,t:"Ted Lasso",y:"2020–present",g:"کمدی-درام",c:"آمریکا",ba:"جیسون سودیکیس",v:"۱–۲ میلیون",sp:"کمدی گرم و امیدوارکننده.",d:"یک مربی فوتبال آمریکایی به لندن می‌رود تا یک تیم فوتبال انگلیسی را با وجود بی‌تجربگی‌اش هدایت کند."},
+    {r:76,t:"Somebody Somewhere",y:"2022–2024",g:"کمدی-درام",c:"آمریکا",ba:"بریجت اورت",v:"۰.۲–۰.۵ میلیون",sp:"سریالی لطیف درباره بهبودی.",d:"زنی در کانزاس پس از مرگ خواهرش، هویت و هدف خود را از طریق دوستی و آواز کشف می‌کند."},
+    {r:77,t:"Modern Family",y:"2009–2020",g:"کمدی",c:"آمریکا",ba:"اد او'نیل",v:"۸–۱۲ میلیون",sp:"یکی از موفق‌ترین سیتکام‌های تاریخ.",d:"مستندنمایی کمدی از زندگی سه خانواده مختلف که به هم مرتبط هستند."},
+    {r:78,t:"It's Always Sunny in Philadelphia",y:"2005–present",g:"کمدی سیاه",c:"آمریکا",ba:"دنی دویتو",v:"۰.۵–۱ میلیون",sp:"کمدی بی‌رحمانه.",d:"گروهی از دوستان خودخواه و ناکارآمد یک بار در فیلادلفیا را اداره می‌کنند و نقشه‌های احمقانه‌ای می‌کشند."},
+    {r:79,t:"The Good Wife",y:"2009–2016",g:"درام حقوقی",c:"آمریکا",ba:"جولینا مارگولیس",v:"۸–۱۲ میلیون",sp:"سریالی درباره قدرت و اخلاق.",d:"آلیشیا فلوریک، همسر یک سیاستمدار رسوا، پس از زندان همسرش به وکالت بازمی‌گردد."},
+    {r:80,t:"How To With John Wilson",y:"2020–2023",g:"مستند، کمدی",c:"آمریکا",ba:"جان ویلسون",v:"۰.۲–۰.۵ میلیون",sp:"مستندی شاعرانه.",d:"جان ویلسون، فیلم‌ساز مضطرب نیویورکی، با فیلم‌های مستند کوتاه و طنزآمیز به سوالات روزمره پاسخ می‌دهد."},
+    {r:81,t:"The Queen's Gambit",y:"2020",g:"درام",c:"آمریکا",ba:"آنیا تیلور-جوی",v:"۲–۳ میلیون",sp:"مینی‌سریالی درباره نبوغ و اعتیاد.",d:"بث هارمون، نابغه شطرنج یتیم، در دهه ۱۹۶۰ به یک استاد بزرگ شطرنج تبدیل می‌شود."},
+    {r:82,t:"Better Things",y:"2016–2022",g:"کمدی-درام",c:"آمریکا",ba:"پاملا آدلون",v:"۰.۲–۰.۵ میلیون",sp:"سریالی صادقانه درباره مادر بودن.",d:"سام فاکس، یک مادر مجرد و بازیگر، زندگی پیچیده‌اش را با سه دخترش مدیریت می‌کند."},
+    {r:83,t:"Justified",y:"2010–2015",g:"جنایی، وسترن",c:"آمریکا",ba:"تیموتی اولیفانت",v:"۲–۳ میلیون",sp:"دیالوگ‌های تند و جذاب.",d:"رایلان گیونز، مارشال آمریکایی، به زادگاهش در کنتاکی بازمی‌گردد و با جنایتکاران محلی روبرو می‌شود."},
+    {r:84,t:"Planet Earth",y:"2006",g:"مستند طبیعت",c:"بریتانیا",ba:"دیوید اتنبرو",v:"۵–۱۰ میلیون",sp:"مستندی بی‌نظیر.",d:"مجموعه‌ای مستند که شگفتی‌های طبیعی سیاره زمین را با تصاویری خیره‌کننده به نمایش می‌گذارد."},
+    {r:85,t:"The Great British Baking Show",y:"2010–present",g:"واقع‌نما",c:"بریتانیا",ba:"—",v:"۲–۴ میلیون",sp:"آرامش‌بخش‌ترین ریلیتی‌شو.",d:"مسابقه‌ای واقع‌نما که در آن نانوایان آماتور بریتانیایی برای عنوان بهترین نانوا با هم رقابت می‌کنند."},
+    {r:86,t:"Shogun",y:"2024–present",g:"درام تاریخی",c:"آمریکا",ba:"هیرویوکی سانادا",v:"۲–۳ میلیون",sp:"حماسی و باشکوه.",d:"داستان یک ملوان انگلیسی که در ژاپن فئودالی گرفتار می‌شود و به یک دایمیو قدرتمند تبدیل می‌شود."},
+    {r:87,t:"Reservation Dogs",y:"2021–2023",g:"کمدی-درام",c:"آمریکا",ba:"د'فارو وون-آ-تای",v:"۰.۲–۰.۵ میلیون",sp:"سریالی گرم و اصیل.",d:"چهار نوجوان بومی آمریکایی در اکلاهما برای رفتن به کالیفرنیا نقشه می‌کشند."},
+    {r:88,t:"Dexter",y:"2006–2013",g:"جنایی، درام",c:"آمریکا",ba:"مایکل سی. هال",v:"۲–۴ میلیون",sp:"سریالی درباره اخلاق.",d:"دکستر مورگان، یک کارشناس خون‌شناسی پلیس میامی، در پنهان یک قاتل زنجیره‌ای است که فقط مجرمان را می‌کشد."},
+    {r:89,t:"Baby Reindeer",y:"2024",g:"درام، تریلر",c:"بریتانیا",ba:"ریچارد گد",v:"۲–۳ میلیون",sp:"سریالی تکان‌دهنده.",d:"یک کمدین در حال شکست، پس از ملاقات با یک زن آسیب‌دیده، وارد رابطه‌ای خطرناک و وسواس‌گونه می‌شود."},
+    {r:90,t:"Eastbound & Down",y:"2009–2013",g:"کمدی",c:"آمریکا",ba:"دنی مک‌براید",v:"۰.۵–۱ میلیون",sp:"کمدی بی‌ادبانه و خنده‌دار.",d:"کنی پاورز، یک بازیکن سابق بیسبال، پس از اخراج از لیگ، تلاش می‌کند تا به شهرت بازگردد."},
+    {r:91,t:"Catastrophe",y:"2015–2019",g:"کمدی",c:"بریتانیا",ba:"شارون هورگان",v:"۰.۵–۱ میلیون",sp:"کمدی واقع‌گرایانه.",d:"یک زن آمریکایی و یک مرد ایرلندی پس از یک رابطه یک‌شبه، مجبور به کنار آمدن با بارداری می‌شوند."},
+    {r:92,t:"The Night Of",y:"2016",g:"جنایی، درام",c:"آمریکا",ba:"ریز احمد",v:"۱–۲ میلیون",sp:"مینی‌سریالی قدرتمند.",d:"یک دانشجو پس از یک شب مهمانی، بیدار می‌شود و جسد زنی را در کنار خود می‌بیند و متهم به قتل می‌شود."},
+    {r:93,t:"Station Eleven",y:"2021–2022",g:"پسا-آخرالزمانی",c:"آمریکا",ba:"مکنزی دیویس",v:"۰.۲–۰.۵ میلیون",sp:"سریالی شاعرانه.",d:"پس از یک بیماری همه‌گیر آنفولانزا، گروهی از بازیگران تئاتر در سراسر آمریکا سفر می‌کنند تا هنر را زنده نگه دارند."},
+    {r:94,t:"The Diplomat",y:"2023–present",g:"درام سیاسی",c:"آمریکا",ba:"کری راسل",v:"۱–۲ میلیون",sp:"تریلهری سیاسی.",d:"کیت وایلر، یک دیپلمات حرفه‌ای، به عنوان سفیر آمریکا در بریتانیا منصوب می‌شود و با بحران‌های بین‌المللی روبرو می‌شود."},
+    {r:95,t:"House",y:"2004–2012",g:"درام پزشکی",c:"آمریکا",ba:"هیو لوری",v:"۸–۱۲ میلیون",sp:"سریالی درباره نبوغ و درد.",d:"دکتر گرگوری هاوس، یک نابغه تشخیصی بداخلاق، تیمش را در حل موارد پزشکی پیچیده هدایت می‌کند."},
+    {r:96,t:"Halt and Catch Fire",y:"2014–2017",g:"درام تاریخی",c:"آمریکا",ba:"لی پیس",v:"۰.۵–۱ میلیون",sp:"سریالی درباره خلاقیت و جاه‌طلبی.",d:"داستان انقلاب کامپیوتر شخصی در دهه ۱۹۸۰ و افرادی که سعی در پیشی گرفتن از IBM دارند."},
+    {r:97,t:"Community",y:"2009–2015",g:"کمدی",c:"آمریکا",ba:"جوئل مک‌هیل",v:"۲–۴ میلیون",sp:"کمدی متا و خلاقانه.",d:"گروهی از دانشجویان یک کالج اجتماعی با پیشینه‌های متفاوت، ماجراجویی‌های عجیبی را تجربه می‌کنند."},
+    {r:98,t:"The OA",y:"2016–2019",g:"علمی-تخیلی، درام",c:"آمریکا",ba:"بریت مارلینگ",v:"۰.۵–۱ میلیون",sp:"سریالی جسورانه درباره ایمان و واقعیت.",d:"زنی پس از هفت سال مفقود بودن بازمی‌گردد و توانایی‌های مرموزی از خود نشان می‌دهد."},
+    {r:99,t:"Gilmore Girls",y:"2000–2007",g:"کمدی-درام",c:"آمریکا",ba:"لورن گرهم",v:"۴–۶ میلیون",sp:"سریالی گرم درباره خانواده و اجتماع.",d:"داستان رابطه نزدیک بین لورلای و دختر نوجوانش، روری، در شهر کوچک استارز هالو."},
+    {r:100,t:"Scandal",y:"2012–2018",g:"درام سیاسی",c:"آمریکا",ba:"کری واشینگتن",v:"۸–۱۰ میلیون",sp:"سریالی پرهیجان.",d:"اولیویا پوپ، یک متخصص بحران، به شخصیت‌های قدرتمند واشینگتن دی‌سی در پنهان کردن رازهایشان کمک می‌کند."}
+];
+
+// ========== DOM ==========
+const svg = document.getElementById('wheelSvg');
+const spinBtn = document.getElementById('spinBtn');
+const result = document.getElementById('result');
+const resultBody = document.getElementById('resultBody');
+const loading = document.getElementById('loading');
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+const searchInput = document.getElementById('searchInput');
+const listContainer = document.getElementById('listContainer');
+const detailModal = document.getElementById('detailModal');
+const modalBody = document.getElementById('modalBody');
+const modalClose = document.getElementById('modalClose');
+
+// ========== WHEEL BUILD ==========
+const N = 100;
+const CX = 150, CY = 150, R = 138;
+let rotation = 0;
+let spinning = false;
+let used = new Set();
+const ns = 'http://www.w3.org/2000/svg';
+
+// Rich color palette for slices - alternating warm/cool for visual rhythm
+const slicePalette = [
+    '#1a0f2e', '#2a1a3e', '#3a1a3e', '#2a0f2e',
+    '#1a1a3e', '#20204a', '#1e1e3a', '#2a2045'
+];
+
+// Build pie slices
+for (let i = 0; i < N; i++) {
+    const a1 = (i / N) * 2 * Math.PI - Math.PI / 2;
+    const a2 = ((i + 1) / N) * 2 * Math.PI - Math.PI / 2;
+    const x1 = CX + R * Math.cos(a1), y1 = CY + R * Math.sin(a1);
+    const x2 = CX + R * Math.cos(a2), y2 = CY + R * Math.sin(a2);
+    const large = (a2 - a1) > Math.PI ? 1 : 0;
+
+    const path = document.createElementNS(ns, 'path');
+    path.setAttribute('d', `M${CX},${CY} L${x1},${y1} A${R},${R} 0 ${large} 1 ${x2},${y2} Z`);
+    path.setAttribute('fill', slicePalette[i % slicePalette.length]);
+    path.setAttribute('stroke', 'rgba(240, 192, 64, 0.12)');
+    path.setAttribute('stroke-width', '0.4');
+    svg.appendChild(path);
+}
+
+// Gold tick marks every 5th slice
+for (let i = 0; i < N; i++) {
+    const a = (i / N) * 2 * Math.PI - Math.PI / 2;
+    const isMajor = i % 5 === 0;
+    const r1 = isMajor ? R - 12 : R - 6;
+    const r2 = R;
+    const line = document.createElementNS(ns, 'line');
+    line.setAttribute('x1', CX + r1 * Math.cos(a));
+    line.setAttribute('y1', CY + r1 * Math.sin(a));
+    line.setAttribute('x2', CX + r2 * Math.cos(a));
+    line.setAttribute('y2', CY + r2 * Math.sin(a));
+    line.setAttribute('stroke', isMajor ? 'rgba(240, 192, 64, 0.55)' : 'rgba(240, 192, 64, 0.2)');
+    line.setAttribute('stroke-width', isMajor ? '1.2' : '0.8');
+    svg.appendChild(line);
+}
+
+// Decorative gold dots at major ticks
+for (let i = 0; i < N; i += 10) {
+    const a = (i / N) * 2 * Math.PI - Math.PI / 2;
+    const dot = document.createElementNS(ns, 'circle');
+    dot.setAttribute('cx', CX + (R - 18) * Math.cos(a));
+    dot.setAttribute('cy', CY + (R - 18) * Math.sin(a));
+    dot.setAttribute('r', '1.6');
+    dot.setAttribute('fill', 'rgba(240, 192, 64, 0.7)');
+    svg.appendChild(dot);
+}
+
+// Inner decorative ring
+const innerRing = document.createElementNS(ns, 'circle');
+innerRing.setAttribute('cx', CX);
+innerRing.setAttribute('cy', CY);
+innerRing.setAttribute('r', '42');
+innerRing.setAttribute('fill', 'none');
+innerRing.setAttribute('stroke', 'rgba(240, 192, 64, 0.15)');
+innerRing.setAttribute('stroke-width', '0.8');
+innerRing.setAttribute('stroke-dasharray', '2,3');
+svg.appendChild(innerRing);
+
+// Center circle (behind button)
+const centerCircle = document.createElementNS(ns, 'circle');
+centerCircle.setAttribute('cx', CX);
+centerCircle.setAttribute('cy', CY);
+centerCircle.setAttribute('r', '38');
+centerCircle.setAttribute('fill', 'rgba(8, 8, 16, 0.95)');
+centerCircle.setAttribute('stroke', 'rgba(240, 192, 64, 0.4)');
+centerCircle.setAttribute('stroke-width', '1.2');
+svg.appendChild(centerCircle);
+
+// ========== POSTER FETCH ==========
+const posterCache = new Map();
+
+async function getPosterUrl(title) {
+    if (posterCache.has(title)) return posterCache.get(title);
+    try {
+        const res = await fetch(`https://api.tvmaze.com/singlesearch/shows?q=${encodeURIComponent(title)}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && data.image && (data.image.original || data.image.medium)) {
+                const url = data.image.original || data.image.medium;
+                posterCache.set(title, url);
+                return url;
+            }
+        }
+    } catch (e) { /* ignore */ }
+    const colors = ['1a1a2e','16213e','0f3460','1a1a3e','2d2d44'];
+    const bg = colors[title.length % colors.length];
+    const url = `https://placehold.co/500x750/${bg}/f0c040?text=${encodeURIComponent(title)}&font=roboto`;
+    posterCache.set(title, url);
+    return url;
+}
+
+// ========== DETAILS HTML ==========
+function showDetailsHTML(show, posterUrl) {
+    const fields = [
+        ['🎭 ژانر', show.g],
+        ['🌍 کشور', show.c],
+        ['🏆 بهترین بازیگر', show.ba],
+        ['📊 بیننده', show.v]
+    ].filter(([_, v]) => v && v !== '—');
+
+    const infoHTML = fields.length > 0 ? `
+        <div class="info-grid">
+            ${fields.map(([l, v]) => `
+                <div class="info-item">
+                    <div class="lbl">${l}</div>
+                    <div class="val">${v}</div>
+                </div>
+            `).join('')}
+        </div>
+    ` : '';
+
+    const specialHTML = show.sp ? `
+        <div class="special-box show">
+            <span class="ic">✨</span>
+            <span>${show.sp}</span>
+        </div>
+    ` : '';
+
+    return `
+        <div class="poster-box">
+            <span class="rank-tag">#${show.r}</span>
+            <img src="${posterUrl}" alt="${show.t}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="no-img" style="display:none">
+                <span>📺</span>
+                <span>پوستر موجود نیست</span>
+            </div>
+        </div>
+        <div class="show-title">${show.t}</div>
+        <div class="show-year">📅 ${show.y}</div>
+        ${infoHTML}
+        <div class="desc-box">${show.d || ''}</div>
+        ${specialHTML}
+    `;
+}
+
+// ========== RANDOM PICK ==========
+function randIndex() {
+    if (used.size >= shows.length) used.clear();
+    let i;
+    do { i = Math.floor(Math.random() * shows.length); } while (used.has(i));
+    used.add(i);
+    return i;
+}
+
+async function displayWheelResult(show) {
+    resultBody.innerHTML = '<div style="text-align:center;padding:40px;color:#888;font-size:0.85rem">در حال دریافت پوستر...</div>';
+    result.classList.add('show');
+    const posterUrl = await getPosterUrl(show.t);
+    resultBody.innerHTML = showDetailsHTML(show, posterUrl);
+}
+
+spinBtn.addEventListener('click', async () => {
+    if (spinning) return;
+    spinning = true;
+    spinBtn.disabled = true;
+    result.classList.remove('show');
+    loading.classList.add('show');
+
+    const extra = 4 + Math.floor(Math.random() * 4);
+    rotation += extra * 360 + Math.floor(Math.random() * 360);
+    svg.style.transform = `rotate(${rotation}deg)`;
+
+    setTimeout(async () => {
+        try {
+            const idx = randIndex();
+            await displayWheelResult(shows[idx]);
+            setTimeout(() => {
+                result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 120);
+        } catch (e) {
+            resultBody.innerHTML = '<div style="text-align:center;padding:30px;color:#e63946;font-size:0.85rem">خطا در دریافت اطلاعات</div>';
+            result.classList.add('show');
+        } finally {
+            spinning = false;
+            spinBtn.disabled = false;
+            loading.classList.remove('show');
+        }
+    }, 3900);
+});
+
+// ========== TABS ==========
+tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const target = btn.dataset.tab;
+        tabButtons.forEach(b => b.classList.toggle('active', b === btn));
+        tabPanels.forEach(p => p.classList.toggle('active', p.id === 'tab-' + target));
+    });
+});
+
+// ========== LIST ==========
+function renderList(filter = '') {
+    const q = filter.trim().toLowerCase();
+    const filtered = !q ? shows : shows.filter(s =>
+        s.t.toLowerCase().includes(q) || s.y.includes(q)
+    );
+    if (filtered.length === 0) {
+        listContainer.innerHTML = '<div class="empty">😕 نتیجه‌ای یافت نشد</div>';
+        return;
+    }
+    listContainer.innerHTML = filtered.map(s => `
+        <div class="list-item" data-rank="${s.r}">
+            <span class="list-rank">${s.r}</span>
+            <span class="list-title">${s.t}</span>
+            <span class="list-year">${s.y}</span>
+        </div>
+    `).join('');
+}
+
+renderList();
+
+let searchTimer;
+searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => renderList(e.target.value), 120);
+});
+
+// ========== LIST ITEM CLICK ==========
+listContainer.addEventListener('click', async (e) => {
+    const item = e.target.closest('.list-item');
+    if (!item) return;
+    const rank = parseInt(item.dataset.rank, 10);
+    const show = shows.find(s => s.r === rank);
+    if (!show) return;
+
+    modalBody.innerHTML = '<div style="text-align:center;padding:40px;color:#888;font-size:0.85rem">در حال دریافت پوستر...</div>';
+    detailModal.classList.add('show');
+
+    const posterUrl = await getPosterUrl(show.t);
+    modalBody.innerHTML = showDetailsHTML(show, posterUrl);
+});
+
+modalClose.addEventListener('click', () => detailModal.classList.remove('show'));
+detailModal.addEventListener('click', (e) => {
+    if (e.target === detailModal) detailModal.classList.remove('show');
+});
+</script>
+</body>
+</html>
