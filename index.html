@@ -59,7 +59,6 @@
             position: relative;
         }
 
-        /* Soft floating background orbs */
         body::before,
         body::after {
             content: '';
@@ -96,7 +95,6 @@
             50% { transform: translate(20px, -25px); }
         }
 
-        /* ===== Glass utility ===== */
         .glass {
             background: var(--glass-bg);
             backdrop-filter: blur(20px) saturate(160%);
@@ -120,7 +118,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 14px;
+            padding: 12px 14px;
             border-radius: 16px;
             text-decoration: none;
             color: var(--text-main);
@@ -151,6 +149,30 @@
 
         .ig-card:active {
             transform: scale(0.97);
+        }
+
+        /* ===== ✨ هاله‌ی چرخان نور دور عکس پروفایل ===== */
+        .ig-avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .ig-avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                #feda75 0%, #fa7e1e 14%, #d62976 32%,
+                #962fbf 50%, #3b82c4 68%, #7eb3e0 82%,
+                #f5d76e 92%, #feda75 100%);
+            filter: blur(7px);
+            opacity: 0.85;
+            animation: haloSpin 3.5s linear infinite;
+        }
+
+        @keyframes haloSpin {
+            to { transform: rotate(360deg); }
         }
 
         .ig-avatar {
@@ -478,7 +500,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ===== RESULT / DETAIL CARDS with gentle wave ===== */
+        /* ===== RESULT / DETAIL CARDS ===== */
         .result {
             display: none;
             width: 100%;
@@ -644,6 +666,7 @@
             color: var(--text-main);
         }
 
+        /* ✅ کادر توضیحات: سایه‌ی رنگی دورِ کل کادر */
         .desc-box {
             background: rgba(255, 255, 255, 0.55);
             border-radius: 12px;
@@ -651,11 +674,14 @@
             font-size: 0.82rem;
             line-height: 1.9;
             color: var(--text-main);
-            border-right: 3px solid var(--accent);
+            border: 2px solid var(--accent);
             text-align: right;
             position: relative;
             z-index: 2;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 2px 8px rgba(100, 140, 190, 0.08);
+            box-shadow:
+                0 0 0 4px rgba(59, 130, 196, 0.1),
+                0 0 20px rgba(59, 130, 196, 0.22),
+                inset 0 1px 0 rgba(255,255,255,1);
         }
 
         .special-box {
@@ -883,7 +909,23 @@
             margin: 0 auto 16px;
         }
 
+        /* ✅ هاله‌ی چرخان نور دور عکس */
+        .aboutme-avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                #feda75 0%, #fa7e1e 14%, #d62976 32%,
+                #962fbf 50%, #3b82c4 68%, #7eb3e0 82%,
+                #f5d76e 92%, #feda75 100%);
+            filter: blur(13px);
+            opacity: 0.6;
+            animation: haloSpin 4.5s linear infinite;
+        }
+
         .aboutme-avatar-ring {
+            position: relative;
             width: 100%;
             height: 100%;
             border-radius: 50%;
@@ -1241,17 +1283,14 @@
     <!-- Header: Instagram Card -->
     <div class="header-area">
         <a class="ig-card" href="https://instagram.com/h.soligoo" target="_blank" rel="noopener noreferrer">
-            <div class="ig-avatar">
-                <div class="ig-avatar-inner">
-                    <!-- 
-                        ⚠️ توجه: برای نمایش عکس پروفایل خودتون، لینک عکس رو در src زیر جایگزین کنید.
-                        عکسی که فرستادید رو می‌تونید در یک هاست مثل imgur.com آپلود کنید و لینکش رو اینجا بذارید.
-                        فعلاً از یک عکس پیش‌فرض استفاده شده.
-                    -->
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
-                         alt="h.soligoo"
-                         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                    <div class="ig-fallback" style="display:none">H</div>
+            <div class="ig-avatar-wrap">
+                <div class="ig-avatar">
+                    <div class="ig-avatar-inner">
+                        <!-- عکس پروفایل: فایل 1.png که کنار index.html در ریپو هست -->
+                        <img src="1.png" alt="h.soligoo"
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                        <div class="ig-fallback" style="display:none">H</div>
+                    </div>
                 </div>
             </div>
             <div class="ig-info">
@@ -1381,41 +1420,37 @@
                 <div class="aboutme-avatar-wrap">
                     <div class="aboutme-avatar-ring">
                         <div class="aboutme-avatar-inner">
-                            <!-- 
-                                ⚠️ لینک عکس خودتون رو اینجا بذارید. 
-                                می‌تونید عکس رو در imgur.com آپلود کنید و لینکش رو کپی کنید.
-                            -->
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
-                                 alt="h.soligoo"
+                            <!-- عکس: فایل 1.png که کنار index.html در ریپو هست -->
+                            <img src="1.png" alt="h.soligoo"
                                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                             <div class="ig-fallback-large" style="display:none">H</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="aboutme-name">هنرمند و داستان‌سرا</div>
+                <div class="aboutme-name">هنرمند و داستان‌سرا 🎭</div>
                 <div class="aboutme-handle">@h.soligoo</div>
 
                 <div class="aboutme-bio">
                     <p>
-                        سلام به همه‌ی شما هنردوستان عزیز! 🌟
+                        سلام سلام! 😄 خیلی خوش اومدی به دنیای کوچیک من!
                     </p>
                     <p>
-                        من در دنیای بی‌کران هنر نفس می‌کشم؛ جایی که کلمات به <b>شعر</b> تبدیل می‌شوند، 
-                        صداها به <b>داستان</b> جان می‌بخشند و <b>دوبله</b> به شخصیت‌ها روح می‌دهد. 
-                        تمام تلاشم این است که با <b>داستان‌سرایی</b> و روایت‌های شنیدنی، 
-                        لحظه‌های نابی از احساسات و خلاقیت را برایتان بسازم.
+                        من یه آدم ساده‌ام ولی با یه دنیا علاقه‌ی عجیب‌وغریب! 😅 شعر که می‌خونمش منگ می‌شم،
+                        داستان که شروع کنم دیگه تمومم نمی‌شه، دوبله که گوش می‌دم همه‌ی خاطره‌هام یه‌جا زنده می‌شن...
+                        خلاصه هر چی توش «حس» باشه، من همونجام! ✨
                     </p>
                     <p>
-                        این صفحه فقط یک لیست سریال نیست؛ یک دنیای کوچک از هنر و احساسات است. 
-                        اگر شما هم عاشق هنر، شعر، داستان و صدا هستید، خوشحال می‌شوم در این مسیر همراهی‌ام کنید.
+                        این گردونه رو ساختم که دیگه گیر نکنی توی همون سوال همیشگی: «امشب چی ببینم؟» 🤔
+                        پس خیلی راحت: بچرخونش، شانست رو امتحان کن، ببین چی گیرت اومد و بعدش بیا تو پیجم
+                        بهم بگو! 🎬🍿 خیلی هم ذوق می‌کنم ببینمت! 🤍
                     </p>
                 </div>
 
                 <div class="aboutme-highlight">
-                    🎬 <b>حمایت شما، انرژی من است!</b><br>
-                    اگر از محتوای من لذت می‌برید، لطفاً در <b>اینستاگرام</b> فالو کنید و در <b>یوتیوب</b> سابسکرایب کنید. 
-                    حضور شما بهترین انگیزه برای ادامه دادن این مسیر هنری است. ❤️
+                    🎬 <b>یه لطف کوچولو در حقم بکن!</b><br>
+                    اگه از این صفحه خوشت اومد، تو اینستاگرامم فالو کن و تو یوتیوبم سابسکرایب کن.
+                    باورت نمی‌شه چقدر دیدن اسم تو تو لیست فالوورهام بهم انرژی می‌ده! ❤️
                 </div>
 
                 <div class="social-buttons" style="margin-top: 18px;">
@@ -1423,7 +1458,7 @@
                         <span class="btn-icon">📸</span>
                         فالو در اینستاگرام
                     </a>
-                    <a class="social-btn yt-btn" href="https://youtube.com/@h.soligoo" target="_blank" rel="noopener noreferrer">
+                    <a class="social-btn yt-btn" href="https://youtube.com/@haditheh.soltani?si=RtBAFerppohQxpFb" target="_blank" rel="noopener noreferrer">
                         <span class="btn-icon">▶️</span>
                         سابسکرایب در یوتیوب
                     </a>
@@ -1440,6 +1475,7 @@
         </div>
     </div>
 
+<!-- ✅ تا همین‌جا! بعد از این، خط <script> و بقیه‌ی فایل قبلی‌ت باید بمونه -->
 <script>
 // ========== DATA ==========
 // r:rank, t:title, y:year, g:genre, c:country, ba:best actor, v:viewership,
