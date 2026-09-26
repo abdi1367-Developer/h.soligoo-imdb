@@ -12,8 +12,8 @@
             --bg-2: #d6e6f7;
             --bg-3: #f5faff;
             --glass-bg: rgba(255, 255, 255, 0.55);
-            --glass-bg-strong: rgba(255, 255, 255, 0.72);
-            --glass-border: rgba(255, 255, 255, 0.85);
+            --glass-bg-strong: rgba(255, 255, 255, 0.78);
+            --glass-border: rgba(255, 255, 255, 0.9);
             --glass-shadow: rgba(100, 140, 190, 0.22);
             --glass-highlight: rgba(255, 255, 255, 0.95);
             --accent: #3b82c4;
@@ -155,10 +155,10 @@
 
         .ig-avatar {
             flex-shrink: 0;
-            width: 48px;
-            height: 48px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            padding: 2.5px;
+            padding: 3px;
             background: linear-gradient(135deg, #feda75 0%, #fa7e1e 30%, #d62976 60%, #962fbf 100%);
             position: relative;
         }
@@ -184,7 +184,7 @@
         }
 
         .ig-avatar-inner .ig-fallback {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: #fff;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -211,7 +211,7 @@
         }
 
         .ig-username {
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             font-weight: 900;
             direction: ltr;
             text-align: right;
@@ -250,7 +250,7 @@
         .tabs {
             flex-shrink: 0;
             display: flex;
-            gap: 6px;
+            gap: 5px;
             padding: 4px 14px 10px;
             position: relative;
             z-index: 5;
@@ -258,23 +258,24 @@
 
         .tab-btn {
             flex: 1;
-            padding: 10px 6px;
+            padding: 10px 4px;
             border-radius: 12px;
             border: 1px solid var(--glass-border);
             background: var(--glass-bg);
             color: var(--text-sub);
             font-family: inherit;
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.25s ease;
             backdrop-filter: blur(12px) saturate(150%);
             -webkit-backdrop-filter: blur(12px) saturate(150%);
             box-shadow: 0 2px 8px rgba(100,140,190,0.1), inset 0 1px 0 var(--glass-highlight);
+            white-space: nowrap;
         }
 
         .tab-btn.active {
-            background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(210,230,250,0.7));
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(210,230,250,0.8));
             color: var(--accent-deep);
             border-color: rgba(255,255,255,1);
             box-shadow:
@@ -506,7 +507,6 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* Very gentle wave motion */
         @keyframes gentleWave {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             25% { transform: translateY(-3px) rotate(0.25deg); }
@@ -662,8 +662,8 @@
             display: none;
             align-items: flex-start;
             gap: 8px;
-            background: linear-gradient(135deg, rgba(255, 248, 220, 0.85), rgba(255, 240, 200, 0.7));
-            border: 1px solid rgba(230, 180, 34, 0.35);
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.9), rgba(255, 240, 200, 0.8));
+            border: 1px solid rgba(230, 180, 34, 0.4);
             border-radius: 12px;
             padding: 10px 12px;
             font-size: 0.79rem;
@@ -673,7 +673,7 @@
             margin-top: 10px;
             position: relative;
             z-index: 2;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(230, 180, 34, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(230, 180, 34, 0.15);
         }
         .special-box.show { display: flex; }
         .special-box .ic { font-size: 1.05rem; flex-shrink: 0; }
@@ -702,16 +702,14 @@
         /* ===== LIST ===== */
         #tab-list { padding-top: 0; }
 
-        .search-wrap {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            padding: 4px 0 10px;
-            background: linear-gradient(180deg, rgba(234, 242, 251, 0.98) 55%, rgba(234, 242, 251, 0));
+        .filter-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .search-input {
-            width: 100%;
+            flex: 1;
             padding: 11px 16px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.9);
@@ -720,7 +718,7 @@
             -webkit-backdrop-filter: blur(12px);
             color: var(--text-main);
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             outline: none;
             transition: all 0.2s;
             box-shadow: 0 2px 10px rgba(100, 140, 190, 0.12), inset 0 1px 0 rgba(255,255,255,1);
@@ -730,6 +728,38 @@
             border-color: var(--accent-soft);
             box-shadow: 0 4px 20px rgba(59, 130, 196, 0.2), inset 0 1px 0 rgba(255,255,255,1);
             background: rgba(255, 255, 255, 0.9);
+        }
+
+        .genre-select {
+            flex: 0 0 40%;
+            padding: 11px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.8rem;
+            outline: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 10px rgba(100, 140, 190, 0.12), inset 0 1px 0 rgba(255,255,255,1);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a7290' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 12px center;
+            padding-left: 30px;
+        }
+
+        .genre-select:focus {
+            border-color: var(--accent-soft);
+            box-shadow: 0 4px 20px rgba(59, 130, 196, 0.2), inset 0 1px 0 rgba(255,255,255,1);
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .genre-select option {
+            background: #fff;
+            color: #1a2c44;
         }
 
         .list-item {
@@ -818,6 +848,177 @@
             padding: 40px 20px;
             color: var(--text-sub);
             font-size: 0.85rem;
+        }
+
+        /* ===== ABOUT ME ===== */
+        .aboutme-card {
+            border-radius: 22px;
+            padding: 22px 18px;
+            margin-bottom: 14px;
+            background: var(--glass-bg-strong);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(24px) saturate(170%);
+            -webkit-backdrop-filter: blur(24px) saturate(170%);
+            box-shadow: 0 12px 40px var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+            position: relative;
+            overflow: hidden;
+            animation: gentleWave 9s ease-in-out infinite;
+            text-align: center;
+        }
+
+        .aboutme-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.6), transparent);
+            pointer-events: none;
+            border-radius: 22px 22px 0 0;
+        }
+
+        .aboutme-avatar-wrap {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 16px;
+        }
+
+        .aboutme-avatar-ring {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #feda75 0%, #fa7e1e 30%, #d62976 60%, #962fbf 100%);
+            box-shadow: 0 8px 30px rgba(214, 41, 118, 0.35), inset 0 1px 0 rgba(255,255,255,0.8);
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 8px 30px rgba(214, 41, 118, 0.35), inset 0 1px 0 rgba(255,255,255,0.8); }
+            50% { box-shadow: 0 8px 45px rgba(214, 41, 118, 0.6), inset 0 1px 0 rgba(255,255,255,0.8); }
+        }
+
+        .aboutme-avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #fff;
+            background: #e0d0f5;
+            position: relative;
+        }
+
+        .aboutme-avatar-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .aboutme-avatar-inner .ig-fallback-large {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            background: linear-gradient(135deg, #d62976, #962fbf);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .aboutme-name {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--accent-deep);
+            margin-bottom: 4px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .aboutme-handle {
+            font-size: 0.85rem;
+            font-weight: 700;
+            direction: ltr;
+            background: linear-gradient(90deg, #d62976, #962fbf 60%, #3b82c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 14px;
+        }
+
+        .aboutme-bio {
+            font-size: 0.85rem;
+            line-height: 2;
+            color: var(--text-main);
+            text-align: right;
+            margin-bottom: 16px;
+            padding: 0 4px;
+        }
+
+        .aboutme-bio p {
+            margin-bottom: 10px;
+        }
+
+        .aboutme-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 14px;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 900;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255,255,255,0.4);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-btn:active {
+            transform: scale(0.95);
+        }
+
+        .social-btn.ig-btn {
+            background: linear-gradient(135deg, #feda75, #fa7e1e 30%, #d62976 70%, #962fbf);
+            box-shadow: 0 6px 24px rgba(214, 41, 118, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        .social-btn.yt-btn {
+            background: linear-gradient(135deg, #ff0000, #cc0000);
+            box-shadow: 0 6px 24px rgba(255, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+
+        .social-btn .btn-icon {
+            font-size: 1.1rem;
+        }
+
+        .aboutme-highlight {
+            margin-top: 16px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.9), rgba(255, 240, 200, 0.8));
+            border: 1px solid rgba(230, 180, 34, 0.35);
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: #7a5a10;
+            text-align: right;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
         }
 
         /* ===== ABOUT / IMDb ===== */
@@ -1019,16 +1220,19 @@
         }
         .modal-close:active { transform: scale(0.9); }
 
-        @media (max-width: 360px) {
+        @media (max-width: 380px) {
             .wheel-stage { width: min(250px, 76vw); height: min(250px, 76vw); }
             .spin-btn { width: 62px; height: 62px; font-size: 0.65rem; }
             .spin-btn .spin-icon { font-size: 1.15rem; }
             .poster-box { height: 260px; }
             .show-title { font-size: 1.05rem; }
             .app-title { font-size: 0.9rem; }
-            .tab-btn { font-size: 0.72rem; padding: 9px 4px; }
+            .tab-btn { font-size: 0.65rem; padding: 9px 2px; }
             .ig-avatar { width: 42px; height: 42px; }
             .ig-username { font-size: 0.85rem; }
+            .aboutme-avatar-wrap { width: 110px; height: 110px; }
+            .aboutme-name { font-size: 1.1rem; }
+            .social-btn { padding: 10px 16px; font-size: 0.78rem; }
         }
     </style>
 </head>
@@ -1039,7 +1243,12 @@
         <a class="ig-card" href="https://instagram.com/h.soligoo" target="_blank" rel="noopener noreferrer">
             <div class="ig-avatar">
                 <div class="ig-avatar-inner">
-                    <img src="https://unavatar.io/instagram/h.soligoo"
+                    <!-- 
+                        ⚠️ توجه: برای نمایش عکس پروفایل خودتون، لینک عکس رو در src زیر جایگزین کنید.
+                        عکسی که فرستادید رو می‌تونید در یک هاست مثل imgur.com آپلود کنید و لینکش رو اینجا بذارید.
+                        فعلاً از یک عکس پیش‌فرض استفاده شده.
+                    -->
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80"
                          alt="h.soligoo"
                          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                     <div class="ig-fallback" style="display:none">H</div>
@@ -1060,6 +1269,7 @@
         <button class="tab-btn active" data-tab="wheel">🎡 گردونه</button>
         <button class="tab-btn" data-tab="list">📋 لیست</button>
         <button class="tab-btn" data-tab="about">💡 راهنما</button>
+        <button class="tab-btn" data-tab="aboutme">❤️ درباره من</button>
     </nav>
 
     <main class="tab-content">
@@ -1089,8 +1299,11 @@
 
         <!-- LIST TAB -->
         <section id="tab-list" class="tab-panel">
-            <div class="search-wrap">
+            <div class="filter-row">
                 <input type="text" class="search-input" id="searchInput" placeholder="🔍 جستجوی سریال..." autocomplete="off">
+                <select class="genre-select" id="genreSelect">
+                    <option value="">همه ژانرها</option>
+                </select>
             </div>
             <div id="listContainer"></div>
         </section>
@@ -1143,7 +1356,7 @@
                     <h2>چطور از این گردونه استفاده کنم؟</h2>
                     <ul class="tips-list">
                         <li>روی دکمه‌ی <b>«بچرخون»</b> بزن تا یک سریال شانسی از بین ۱۰۰ سریال برتر انتخاب شود.</li>
-                        <li>روی تب <b>«لیست»</b> بزن تا همه‌ی ۱۰۰ سریال را ببینی و با جستجو سریع پیدا کنی.</li>
+                        <li>روی تب <b>«لیست»</b> بزن تا همه‌ی ۱۰۰ سریال را ببینی و با جستجو یا فیلتر ژانر، سریع پیدا کنی.</li>
                         <li>روی هر سریال بزن تا <b>پوستر، امتیاز IMDb، بازیگر، کشور و توضیحات</b> آن را ببینی.</li>
                         <li>هر بار که می‌چرخانی، سریال‌های تکراری نمایش داده نمی‌شوند تا همه را ببینی!</li>
                         <li>اگر همه‌ی ۱۰۰ سریال نمایش داده شدند، لیست به‌طور خودکار ریست می‌شود.</li>
@@ -1158,6 +1371,62 @@
                         بالاترین امتیاز IMDb تاریخ تلویزیون را دارند (بالای <b>۹.۴</b>).
                         اگر هیچ‌کدام را ندیدی، از همین‌ها شروع کن!
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT ME TAB -->
+        <section id="tab-aboutme" class="tab-panel">
+            <div class="aboutme-card">
+                <div class="aboutme-avatar-wrap">
+                    <div class="aboutme-avatar-ring">
+                        <div class="aboutme-avatar-inner">
+                            <!-- 
+                                ⚠️ لینک عکس خودتون رو اینجا بذارید. 
+                                می‌تونید عکس رو در imgur.com آپلود کنید و لینکش رو کپی کنید.
+                            -->
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80"
+                                 alt="h.soligoo"
+                                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                            <div class="ig-fallback-large" style="display:none">H</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aboutme-name">هنرمند و داستان‌سرا</div>
+                <div class="aboutme-handle">@h.soligoo</div>
+
+                <div class="aboutme-bio">
+                    <p>
+                        سلام به همه‌ی شما هنردوستان عزیز! 🌟
+                    </p>
+                    <p>
+                        من در دنیای بی‌کران هنر نفس می‌کشم؛ جایی که کلمات به <b>شعر</b> تبدیل می‌شوند، 
+                        صداها به <b>داستان</b> جان می‌بخشند و <b>دوبله</b> به شخصیت‌ها روح می‌دهد. 
+                        تمام تلاشم این است که با <b>داستان‌سرایی</b> و روایت‌های شنیدنی، 
+                        لحظه‌های نابی از احساسات و خلاقیت را برایتان بسازم.
+                    </p>
+                    <p>
+                        این صفحه فقط یک لیست سریال نیست؛ یک دنیای کوچک از هنر و احساسات است. 
+                        اگر شما هم عاشق هنر، شعر، داستان و صدا هستید، خوشحال می‌شوم در این مسیر همراهی‌ام کنید.
+                    </p>
+                </div>
+
+                <div class="aboutme-highlight">
+                    🎬 <b>حمایت شما، انرژی من است!</b><br>
+                    اگر از محتوای من لذت می‌برید، لطفاً در <b>اینستاگرام</b> فالو کنید و در <b>یوتیوب</b> سابسکرایب کنید. 
+                    حضور شما بهترین انگیزه برای ادامه دادن این مسیر هنری است. ❤️
+                </div>
+
+                <div class="social-buttons" style="margin-top: 18px;">
+                    <a class="social-btn ig-btn" href="https://instagram.com/h.soligoo" target="_blank" rel="noopener noreferrer">
+                        <span class="btn-icon">📸</span>
+                        فالو در اینستاگرام
+                    </a>
+                    <a class="social-btn yt-btn" href="https://youtube.com/@h.soligoo" target="_blank" rel="noopener noreferrer">
+                        <span class="btn-icon">▶️</span>
+                        سابسکرایب در یوتیوب
+                    </a>
                 </div>
             </div>
         </section>
@@ -1475,7 +1744,7 @@ const shows = [
      d:"داستان رابطه‌ی نزدیک بین لورلای و دختر نوجوانش، روری، در شهر کوچک استارز هالو. سریالی گرم درباره‌ی خانواده، عشق و همه‌ی چیزهایی که زندگی را قشنگ می‌کنند."},
     {r:100,t:"Scandal",y:"2012–2018",g:"درام سیاسی",c:"آمریکا",ba:"کری واشینگتن",v:"۸–۱۰ میلیون",imdb:7.7,
      sp:"کری واشینگتن اولین زن سیاه‌پوستی بود که در ۴۰ سال اخیر، نقش اصلی یک درام شبکه‌ای را بازی کرد. سریالی پرهیجان و پر از پیچش.",
-     d:"اولیویا پوپ، یک متخصص بحران، به شخصیت‌های قدرتمند واشنگتن دی‌سی در پنهان کردن رازهایشان کمک می‌کند. سریالی پرهیجان درباره‌ی قدرت، عشق و بهایی که برای وفاداری پرداخت می‌کنی."}
+     d:"اولیویا پوپ، یک متخصص بحران، به شخصیت‌های قدرتمند واشینگتن دی‌سی در پنهان کردن رازهایشان کمک می‌کند. سریالی پرهیجان درباره‌ی قدرت، عشق و بهایی که برای وفاداری پرداخت می‌کنی."}
 ];
 
 // ========== DOM ==========
@@ -1487,6 +1756,7 @@ const loading = document.getElementById('loading');
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabPanels = document.querySelectorAll('.tab-panel');
 const searchInput = document.getElementById('searchInput');
+const genreSelect = document.getElementById('genreSelect');
 const listContainer = document.getElementById('listContainer');
 const detailModal = document.getElementById('detailModal');
 const modalBody = document.getElementById('modalBody');
@@ -1500,7 +1770,6 @@ let spinning = false;
 let used = new Set();
 const ns = 'http://www.w3.org/2000/svg';
 
-// Soft blue-white palette for slices
 const slicePalette = [
     '#dceaf7', '#e8f1fa', '#d0e3f4', '#f0f7fd',
     '#e2eefa', '#c8dff2', '#daeaf7', '#eaf4fc'
@@ -1521,7 +1790,6 @@ for (let i = 0; i < N; i++) {
     svg.appendChild(path);
 }
 
-// Tick marks
 for (let i = 0; i < N; i++) {
     const a = (i / N) * 2 * Math.PI - Math.PI / 2;
     const isMajor = i % 5 === 0;
@@ -1537,7 +1805,6 @@ for (let i = 0; i < N; i++) {
     svg.appendChild(line);
 }
 
-// Gold dots at major ticks
 for (let i = 0; i < N; i += 10) {
     const a = (i / N) * 2 * Math.PI - Math.PI / 2;
     const dot = document.createElementNS(ns, 'circle');
@@ -1548,7 +1815,6 @@ for (let i = 0; i < N; i += 10) {
     svg.appendChild(dot);
 }
 
-// Inner decorative dashed ring
 const innerRing = document.createElementNS(ns, 'circle');
 innerRing.setAttribute('cx', CX);
 innerRing.setAttribute('cy', CY);
@@ -1559,7 +1825,6 @@ innerRing.setAttribute('stroke-width', '0.8');
 innerRing.setAttribute('stroke-dasharray', '3,4');
 svg.appendChild(innerRing);
 
-// Center circle
 const centerCircle = document.createElementNS(ns, 'circle');
 centerCircle.setAttribute('cx', CX);
 centerCircle.setAttribute('cy', CY);
@@ -1568,6 +1833,28 @@ centerCircle.setAttribute('fill', 'rgba(255, 255, 255, 0.95)');
 centerCircle.setAttribute('stroke', 'rgba(30, 90, 150, 0.5)');
 centerCircle.setAttribute('stroke-width', '1.5');
 svg.appendChild(centerCircle);
+
+// ========== GENRE EXTRACTION ==========
+function extractGenres() {
+    const genreSet = new Set();
+    shows.forEach(s => {
+        if (s.g) {
+            s.g.split('،').forEach(g => {
+                const trimmed = g.trim();
+                if (trimmed) genreSet.add(trimmed);
+            });
+        }
+    });
+    return Array.from(genreSet).sort();
+}
+
+const allGenres = extractGenres();
+allGenres.forEach(g => {
+    const opt = document.createElement('option');
+    opt.value = g;
+    opt.textContent = g;
+    genreSelect.appendChild(opt);
+});
 
 // ========== POSTER FETCH ==========
 const posterCache = new Map();
@@ -1699,11 +1986,20 @@ tabButtons.forEach(btn => {
 });
 
 // ========== LIST ==========
-function renderList(filter = '') {
-    const q = filter.trim().toLowerCase();
-    const filtered = !q ? shows : shows.filter(s =>
-        s.t.toLowerCase().includes(q) || s.y.includes(q)
-    );
+function renderList(filterText = '', filterGenre = '') {
+    const q = filterText.trim().toLowerCase();
+    const g = filterGenre.trim();
+
+    const filtered = shows.filter(s => {
+        const matchesText = !q || s.t.toLowerCase().includes(q) || s.y.includes(q);
+        let matchesGenre = true;
+        if (g) {
+            const showGenres = s.g ? s.g.split('،').map(x => x.trim()) : [];
+            matchesGenre = showGenres.includes(g);
+        }
+        return matchesText && matchesGenre;
+    });
+
     if (filtered.length === 0) {
         listContainer.innerHTML = '<div class="empty">😕 نتیجه‌ای یافت نشد</div>';
         return;
@@ -1723,7 +2019,11 @@ renderList();
 let searchTimer;
 searchInput.addEventListener('input', (e) => {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => renderList(e.target.value), 120);
+    searchTimer = setTimeout(() => renderList(e.target.value, genreSelect.value), 120);
+});
+
+genreSelect.addEventListener('change', () => {
+    renderList(searchInput.value, genreSelect.value);
 });
 
 // ========== LIST ITEM CLICK ==========
