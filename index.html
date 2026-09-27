@@ -106,7 +106,7 @@
                 inset 0 1px 0 var(--glass-highlight);
         }
 
-        /* ===== Header / Instagram ===== */
+        /* ===== Header ===== */
         .header-area {
             flex-shrink: 0;
             padding: 10px 14px 4px;
@@ -151,7 +151,6 @@
             transform: scale(0.97);
         }
 
-        /* ===== ✨ هاله‌ی چرخان نور دور عکس پروفایل ===== */
         .ig-avatar-wrap {
             position: relative;
             flex-shrink: 0;
@@ -256,7 +255,6 @@
             opacity: 0.6;
         }
 
-        /* ===== Title ===== */
         .app-title {
             flex-shrink: 0;
             text-align: center;
@@ -268,7 +266,6 @@
             text-shadow: 0 1px 2px rgba(255,255,255,0.8);
         }
 
-        /* ===== Tabs ===== */
         .tabs {
             flex-shrink: 0;
             display: flex;
@@ -308,7 +305,6 @@
 
         .tab-btn:active { transform: scale(0.97); }
 
-        /* ===== Tab content ===== */
         .tab-content {
             flex: 1;
             position: relative;
@@ -519,9 +515,10 @@
                 inset 0 1px 0 var(--glass-highlight);
         }
 
+        /* ⚡ نکته: کل کارت بزرگ دیگه موج نمی‌خوره — فقط انیمیشن ورود داره */
         .result.show {
             display: block;
-            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), gentleWave 7s ease-in-out 0.6s infinite;
+            animation: slideUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         @keyframes slideUp {
@@ -557,6 +554,8 @@
             position: relative;
             border: 1px solid rgba(255,255,255,0.9);
             box-shadow: 0 4px 20px rgba(100, 140, 190, 0.2);
+            /* 🌊 موج آروم */
+            animation: gentleWave 9s ease-in-out infinite;
         }
 
         .poster-box img {
@@ -644,6 +643,7 @@
             z-index: 2;
         }
 
+        /* 🌊 کارت‌های کوچک ژانر/کشور/بازیگر/بیننده با موج آروم */
         .info-item {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.9);
@@ -651,7 +651,12 @@
             padding: 8px 10px;
             text-align: right;
             box-shadow: 0 2px 8px rgba(100, 140, 190, 0.08), inset 0 1px 0 rgba(255,255,255,1);
+            animation: gentleWave 6s ease-in-out infinite;
         }
+        .info-item:nth-child(1) { animation-delay: 0s; }
+        .info-item:nth-child(2) { animation-delay: -1.5s; }
+        .info-item:nth-child(3) { animation-delay: -3s; }
+        .info-item:nth-child(4) { animation-delay: -4.5s; }
 
         .info-item .lbl {
             font-size: 0.63rem;
@@ -666,7 +671,7 @@
             color: var(--text-main);
         }
 
-        /* ✅ کادر توضیحات: سایه‌ی رنگی دورِ کل کادر */
+        /* 🌊 کادر توضیحات: سایه‌ی رنگی دورِ کل کادر + موج آروم */
         .desc-box {
             background: rgba(255, 255, 255, 0.55);
             border-radius: 12px;
@@ -682,8 +687,11 @@
                 0 0 0 4px rgba(59, 130, 196, 0.1),
                 0 0 20px rgba(59, 130, 196, 0.22),
                 inset 0 1px 0 rgba(255,255,255,1);
+            animation: gentleWave 7s ease-in-out infinite;
+            animation-delay: -2s;
         }
 
+        /* 🌊 کادر نکته خاص با موج آروم */
         .special-box {
             display: none;
             align-items: flex-start;
@@ -700,6 +708,8 @@
             position: relative;
             z-index: 2;
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 2px 8px rgba(230, 180, 34, 0.15);
+            animation: gentleWave 8s ease-in-out infinite;
+            animation-delay: -3s;
         }
         .special-box.show { display: flex; }
         .special-box .ic { font-size: 1.05rem; flex-shrink: 0; }
@@ -756,36 +766,45 @@
             background: rgba(255, 255, 255, 0.9);
         }
 
+        /* 🔽 دراپ‌دان ژانر کوچیک‌تر و مرتب‌تر */
         .genre-select {
-            flex: 0 0 40%;
-            padding: 11px 12px;
+            flex: 0 0 34%;
+            padding: 9px 10px;
+            padding-left: 28px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             color: var(--text-main);
             font-family: inherit;
-            font-size: 0.8rem;
+            font-size: 0.72rem;
+            font-weight: 700;
             outline: none;
             transition: all 0.2s;
             box-shadow: 0 2px 10px rgba(100, 140, 190, 0.12), inset 0 1px 0 rgba(255,255,255,1);
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a7290' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%235a7290' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: left 12px center;
-            padding-left: 30px;
+            background-position: left 10px center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .genre-select:focus {
             border-color: var(--accent-soft);
             box-shadow: 0 4px 20px rgba(59, 130, 196, 0.2), inset 0 1px 0 rgba(255,255,255,1);
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
         }
 
+        /* 🔽 گزینه‌های دراپ‌دان کوچیک و مرتب */
         .genre-select option {
             background: #fff;
             color: #1a2c44;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            line-height: 1.4;
         }
 
         .list-item {
@@ -909,7 +928,6 @@
             margin: 0 auto 16px;
         }
 
-        /* ✅ هاله‌ی چرخان نور دور عکس */
         .aboutme-avatar-wrap::before {
             content: '';
             position: absolute;
@@ -1107,6 +1125,11 @@
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 4px 12px rgba(245,197,24,0.35);
         }
 
+        .about-card.dl-card .card-icon {
+            background: linear-gradient(135deg, #a8e6a1, #6ab04c);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 4px 12px rgba(106, 176, 76, 0.35);
+        }
+
         .about-card h2 {
             font-size: 1rem;
             font-weight: 900;
@@ -1198,6 +1221,59 @@
             font-size: 0.75rem;
         }
 
+        /* 🌐 دکمه سایت دانلود */
+        .site-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(168, 230, 161, 0.4), rgba(106, 176, 76, 0.25));
+            border: 1px solid rgba(106, 176, 76, 0.4);
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(106, 176, 76, 0.15), inset 0 1px 0 rgba(255,255,255,0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-link:active {
+            transform: scale(0.97);
+        }
+
+        .site-link .globe {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .site-link .site-info {
+            flex: 1;
+            text-align: right;
+            min-width: 0;
+        }
+
+        .site-link .site-name {
+            font-size: 0.88rem;
+            font-weight: 900;
+            color: #2d6a4f;
+            direction: ltr;
+            text-align: right;
+            margin-bottom: 2px;
+        }
+
+        .site-link .site-desc {
+            font-size: 0.7rem;
+            color: var(--text-sub);
+        }
+
+        .site-link .go-arrow {
+            font-size: 1rem;
+            color: #2d6a4f;
+            flex-shrink: 0;
+        }
+
         /* ===== MODAL ===== */
         .modal {
             position: fixed;
@@ -1234,7 +1310,7 @@
                 0 20px 60px rgba(30, 60, 100, 0.3),
                 inset 0 1px 0 var(--glass-highlight);
             position: relative;
-            animation: slideUp 0.35s ease, gentleWave 8s ease-in-out 0.4s infinite;
+            animation: slideUp 0.35s ease;
             scrollbar-width: none;
             -ms-overflow-style: none;
         }
@@ -1275,6 +1351,7 @@
             .aboutme-avatar-wrap { width: 110px; height: 110px; }
             .aboutme-name { font-size: 1.1rem; }
             .social-btn { padding: 10px 16px; font-size: 0.78rem; }
+            .genre-select { flex: 0 0 38%; font-size: 0.68rem; }
         }
     </style>
 </head>
@@ -1286,7 +1363,6 @@
             <div class="ig-avatar-wrap">
                 <div class="ig-avatar">
                     <div class="ig-avatar-inner">
-                        <!-- عکس پروفایل: فایل 1.png که کنار index.html در ریپو هست -->
                         <img src="1.png" alt="h.soligoo"
                              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                         <div class="ig-fallback" style="display:none">H</div>
@@ -1411,6 +1487,27 @@
                         اگر هیچ‌کدام را ندیدی، از همین‌ها شروع کن!
                     </p>
                 </div>
+
+                <!-- 🌐 کارت جدید: سایت دانلود oskolkhan -->
+                <div class="about-card dl-card">
+                    <div class="card-icon">📥</div>
+                    <h2>دانلود فیلم و سریال</h2>
+                    <p>
+                        دنبال جایی برای <b>دانلود جدیدترین فیلم‌ها و سریال‌های روز دنیا</b> با زیرنویس فارسی می‌گردی؟
+                        یه سایت عالی رو بهت معرفی می‌کنم که آرشیوش کامله و همیشه به‌روزه!
+                    </p>
+                    <p>
+                        از انیمیشن و سریال‌های کره‌ای گرفته تا فیلم‌های هالیوودی و اسکاری، همه رو می‌تونی اونجا پیدا کنی.
+                    </p>
+                    <a class="site-link" href="https://oskolkhan.com/" target="_blank" rel="noopener noreferrer">
+                        <span class="globe">🌐</span>
+                        <div class="site-info">
+                            <div class="site-name">oskolkhan.com</div>
+                            <div class="site-desc">مرجع دانلود فیلم و سریال روز دنیا</div>
+                        </div>
+                        <span class="go-arrow">↗</span>
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -1420,7 +1517,6 @@
                 <div class="aboutme-avatar-wrap">
                     <div class="aboutme-avatar-ring">
                         <div class="aboutme-avatar-inner">
-                            <!-- عکس: فایل 1.png که کنار index.html در ریپو هست -->
                             <img src="1.png" alt="h.soligoo"
                                  onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                             <div class="ig-fallback-large" style="display:none">H</div>
@@ -1475,11 +1571,8 @@
         </div>
     </div>
 
-<!-- ✅ تا همین‌جا! بعد از این، خط <script> و بقیه‌ی فایل قبلی‌ت باید بمونه -->
 <script>
 // ========== DATA ==========
-// r:rank, t:title, y:year, g:genre, c:country, ba:best actor, v:viewership,
-// sp:special, d:description, imdb: rating
 const shows = [
     {r:1,t:"Breaking Bad",y:"2008–2013",g:"جنایی، درام",c:"آمریکا",ba:"برایان کرانستون",v:"۱۰.۳ میلیون (فصل آخر)",imdb:9.5,
      sp:"برنده ۱۶ جایزه امی و رکورددار گینس به‌عنوان «بزرگ‌ترین درام تاریخ». دیالوگ‌ها و شخصیت‌پردازی‌اش مرجع درس‌های فیلمنامه‌نویسی در جهان است.",
@@ -1547,7 +1640,7 @@ const shows = [
     {r:22,t:"Lost",y:"2004–2010",g:"علمی-تخیلی، درام",c:"آمریکا",ba:"متیو فاکس",v:"۱۰–۲۰ میلیون",imdb:8.3,
      sp:"پدیده‌ی فرهنگی دهه‌ی ۲۰۰۰. معماهای پیچیده و فلاش‌بک‌های غیرخطی آن، تلویزیون را برای همیشه تغییر داد.",
      d:"بازماندگان یک سقوط هواپیما در جزیره‌ای مرموز گرفتار می‌شوند که قوانینش با هیچ منطقی جور در نمی‌آید. هر قسمت یک راز جدید باز می‌کند و هر پاسخ، ده سؤال تازه به وجود می‌آورد. سریالی که یک نسل را معتاد خودش کرد."},
-    {r:23,t:"The Comeback",y:"2005–2026",g:"کمدی",c:"آمریکا",ba:"لیزا کادرو",v:"۰.۵–۱ میلیون",imdb:7.6,
+    {r:23,t:"The Comeback",y:"2005–2014",g:"کمدی",c:"آمریکا",ba:"لیزا کادرو",v:"۰.۵–۱ میلیون",imdb:7.6,
      sp:"لیزا کادرو (فیبی از فرندز) در نقشی کاملاً متفاوت. کمدی‌ای آزاردهنده درباره‌ی خودشیفتگی هالیوود و تلاش‌های ناشیانه برای برگشتن به اوج.",
      d:"والری چریش، ستاره‌ی سابق تلویزیون، اجازه می‌دهد یک گروه فیلمبرداری همه‌ی لحظات زندگی‌اش را ضبط کند تا با یک ریلیتی‌شو به شهرت برگردد. کمدی‌ای که گاهی آنقدر خنده‌دار است که دردناک می‌شود."},
     {r:24,t:"Deadwood",y:"2004–2006",g:"وسترن",c:"آمریکا",ba:"یان مک‌شین",v:"۲–۳ میلیون",imdb:8.6,
